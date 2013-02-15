@@ -10,7 +10,7 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 
-#include "CocoaAsyncSocket/GCD/GCDAsyncUdpSocket.h"
+#include "GCDAsyncUdpSocket.h"
 #include "CocoaArtnet.h"
 
 @implementation CocoaArtnetTests
