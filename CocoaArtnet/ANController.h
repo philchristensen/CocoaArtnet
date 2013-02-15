@@ -1,5 +1,5 @@
 //
-//  CocoaArtnet.h
+//  ANController.h
 //  CocoaArtnet
 //
 //  Created by Phil Christensen on 2/14/13.
@@ -8,10 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ANController.h"
-#import "ANPacket.h"
-#import "ANDmxPacket.h"
-
-@interface CocoaArtnet : NSObject
+@interface ANController : NSObject
 
 @end

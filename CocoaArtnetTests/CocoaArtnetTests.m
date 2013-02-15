@@ -8,6 +8,11 @@
 
 #import "CocoaArtnetTests.h"
 
+#include <CoreFoundation/CoreFoundation.h>
+
+#include "CocoaAsyncSocket/GCD/GCDAsyncUdpSocket.h"
+#include "CocoaArtnet.h"
+
 @implementation CocoaArtnetTests
 
 - (void)setUp
@@ -26,6 +31,14 @@
 
 - (void)testExample
 {
+    GCDAsyncUdpSocket* socket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    
+//    NSString* source = @"192.168.0.88";
+//    NSMutableArray* frame = [NSMutableArray arrayWithCapacity:512];
+//    
+//    ANDmxPacket* packet = [[ANDmxPacket alloc] initWithSource:source andFrame:frame];
+//    NSData* data = [packet encode];
+    
     STFail(@"Unit tests are not implemented yet in CocoaArtnetTests");
 }
 
