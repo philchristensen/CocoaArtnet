@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A5683B016CDAE0500970FC3 /* ANDmxPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5683AF16CDAE0500970FC3 /* ANDmxPacket.m */; };
 		4AC26FE516CDA89900648C5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC26FE416CDA89900648C5F /* Foundation.framework */; };
 		4AC26FEA16CDA89900648C5F /* CocoaArtnet.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AC26FE916CDA89900648C5F /* CocoaArtnet.h */; };
 		4AC26FEC16CDA89900648C5F /* CocoaArtnet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC26FEB16CDA89900648C5F /* CocoaArtnet.m */; };
@@ -16,6 +17,7 @@
 		4AC26FFA16CDA89900648C5F /* libCocoaArtnet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC26FE116CDA89900648C5F /* libCocoaArtnet.a */; };
 		4AC2700016CDA89900648C5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4AC26FFE16CDA89900648C5F /* InfoPlist.strings */; };
 		4AC2700316CDA89900648C5F /* CocoaArtnetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC2700216CDA89900648C5F /* CocoaArtnetTests.m */; };
+		4AC2700E16CDA8F100648C5F /* ANPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC2700D16CDA8F100648C5F /* ANPacket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A5683AE16CDAE0500970FC3 /* ANDmxPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDmxPacket.h; sourceTree = "<group>"; };
+		4A5683AF16CDAE0500970FC3 /* ANDmxPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDmxPacket.m; sourceTree = "<group>"; };
 		4AC26FE116CDA89900648C5F /* libCocoaArtnet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaArtnet.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC26FE416CDA89900648C5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4AC26FE816CDA89900648C5F /* CocoaArtnet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaArtnet-Prefix.pch"; sourceTree = "<group>"; };
@@ -54,6 +58,8 @@
 		4AC26FFF16CDA89900648C5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4AC2700116CDA89900648C5F /* CocoaArtnetTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaArtnetTests.h; sourceTree = "<group>"; };
 		4AC2700216CDA89900648C5F /* CocoaArtnetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaArtnetTests.m; sourceTree = "<group>"; };
+		4AC2700C16CDA8F100648C5F /* ANPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPacket.h; sourceTree = "<group>"; };
+		4AC2700D16CDA8F100648C5F /* ANPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPacket.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,10 @@
 				4AC26FE916CDA89900648C5F /* CocoaArtnet.h */,
 				4AC26FEB16CDA89900648C5F /* CocoaArtnet.m */,
 				4AC26FE716CDA89900648C5F /* Supporting Files */,
+				4A5683AE16CDAE0500970FC3 /* ANDmxPacket.h */,
+				4A5683AF16CDAE0500970FC3 /* ANDmxPacket.m */,
+				4AC2700C16CDA8F100648C5F /* ANPacket.h */,
+				4AC2700D16CDA8F100648C5F /* ANPacket.m */,
 			);
 			path = CocoaArtnet;
 			sourceTree = "<group>";
@@ -244,6 +254,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AC26FEC16CDA89900648C5F /* CocoaArtnet.m in Sources */,
+				4AC2700E16CDA8F100648C5F /* ANPacket.m in Sources */,
+				4A5683B016CDAE0500970FC3 /* ANDmxPacket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +415,7 @@
 				4AC2700816CDA89900648C5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4AC2700916CDA89900648C5F /* Build configuration list for PBXNativeTarget "CocoaArtnetTests" */ = {
 			isa = XCConfigurationList;
@@ -411,6 +424,7 @@
 				4AC2700B16CDA89900648C5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
