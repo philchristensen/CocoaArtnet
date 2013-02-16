@@ -26,7 +26,7 @@
 -(NSData*) encode {
     NSMutableData* data = [NSMutableData dataWithLength:530];
 
-    const char* prefix = "Art-Net\00\x00\x20\x00\x0e\x02\x00";
+    char prefix[] = "Art-Net\00\x00\x20\x00\x0e\x02\x00";
     NSRange prefixRange = {.location = 0, .length = 18};
     [data replaceBytesInRange:prefixRange withBytes:prefix];
     
