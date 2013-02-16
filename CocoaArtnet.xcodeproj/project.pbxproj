@@ -237,7 +237,6 @@
 		4AC26FD816CDA89900648C5F = {
 			isa = PBXGroup;
 			children = (
-				4A99048C16CF275600EA49BB /* CoreGraphics.framework */,
 				4AACDCCD16CDE07C0091968F /* CocoaAsyncSocket */,
 				4AC26FE616CDA89900648C5F /* CocoaArtnet */,
 				4AC26FFB16CDA89900648C5F /* CocoaArtnetTests */,
@@ -258,6 +257,7 @@
 		4AC26FE316CDA89900648C5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A99048C16CF275600EA49BB /* CoreGraphics.framework */,
 				4A99048916CF269600EA49BB /* AVFoundation.framework */,
 				4A99048516CF24CB00EA49BB /* UIKit.framework */,
 				4A99048216CF245700EA49BB /* Security.framework */,
