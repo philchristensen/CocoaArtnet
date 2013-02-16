@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		4A5683B016CDAE0500970FC3 /* ANDmxPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5683AF16CDAE0500970FC3 /* ANDmxPacket.m */; };
+		4A99048016CF240A00EA49BB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99047F16CF240A00EA49BB /* CFNetwork.framework */; };
+		4A99048116CF241400EA49BB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99047F16CF240A00EA49BB /* CFNetwork.framework */; };
+		4A99048316CF245700EA49BB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048216CF245700EA49BB /* Security.framework */; };
+		4A99048416CF246100EA49BB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048216CF245700EA49BB /* Security.framework */; };
+		4A99048616CF24CB00EA49BB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048516CF24CB00EA49BB /* UIKit.framework */; };
+		4A99048716CF24D600EA49BB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048516CF24CB00EA49BB /* UIKit.framework */; };
+		4A99048816CF268100EA49BB /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0116CDE07D0091968F /* DDTTYLogger.m */; };
+		4A99048D16CF275700EA49BB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048C16CF275600EA49BB /* CoreGraphics.framework */; };
+		4A99048E16CF276100EA49BB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048C16CF275600EA49BB /* CoreGraphics.framework */; };
 		4AACDE0816CDE07D0091968F /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4AACDCCE16CDE07C0091968F /* .gitignore */; };
 		4AACDE0916CDE07D0091968F /* CocoaAsyncSocket.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 4AACDCCF16CDE07C0091968F /* CocoaAsyncSocket.podspec */; };
 		4AACDE0A16CDE07D0091968F /* Documentation.html in Resources */ = {isa = PBXBuildFile; fileRef = 4AACDCD116CDE07C0091968F /* Documentation.html */; };
@@ -30,7 +39,6 @@
 		4AACDEB116CDE07D0091968F /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFF16CDE07D0091968F /* DDLog.m */; };
 		4AACDEB216CDE07D0091968F /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFF16CDE07D0091968F /* DDLog.m */; };
 		4AACDEB316CDE07D0091968F /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0116CDE07D0091968F /* DDTTYLogger.m */; };
-		4AACDEB416CDE07D0091968F /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0116CDE07D0091968F /* DDTTYLogger.m */; };
 		4AACDEB516CDE07D0091968F /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0416CDE07D0091968F /* ContextFilterLogFormatter.m */; };
 		4AACDEB616CDE07D0091968F /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0416CDE07D0091968F /* ContextFilterLogFormatter.m */; };
 		4AACDEB716CDE07D0091968F /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0616CDE07D0091968F /* DispatchQueueLogFormatter.m */; };
@@ -40,7 +48,6 @@
 		4AC26FEA16CDA89900648C5F /* CocoaArtnet.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AC26FE916CDA89900648C5F /* CocoaArtnet.h */; };
 		4AC26FEC16CDA89900648C5F /* CocoaArtnet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC26FEB16CDA89900648C5F /* CocoaArtnet.m */; };
 		4AC26FF416CDA89900648C5F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC26FF316CDA89900648C5F /* SenTestingKit.framework */; };
-		4AC26FF616CDA89900648C5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC26FF516CDA89900648C5F /* UIKit.framework */; };
 		4AC26FF716CDA89900648C5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC26FE416CDA89900648C5F /* Foundation.framework */; };
 		4AC26FFA16CDA89900648C5F /* libCocoaArtnet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC26FE116CDA89900648C5F /* libCocoaArtnet.a */; };
 		4AC2700016CDA89900648C5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4AC26FFE16CDA89900648C5F /* InfoPlist.strings */; };
@@ -74,6 +81,11 @@
 /* Begin PBXFileReference section */
 		4A5683AE16CDAE0500970FC3 /* ANDmxPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDmxPacket.h; sourceTree = "<group>"; };
 		4A5683AF16CDAE0500970FC3 /* ANDmxPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDmxPacket.m; sourceTree = "<group>"; };
+		4A99047F16CF240A00EA49BB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		4A99048216CF245700EA49BB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4A99048516CF24CB00EA49BB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4A99048916CF269600EA49BB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4A99048C16CF275600EA49BB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4AACDCCE16CDE07C0091968F /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		4AACDCCF16CDE07C0091968F /* CocoaAsyncSocket.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CocoaAsyncSocket.podspec; sourceTree = "<group>"; };
 		4AACDCD116CDE07C0091968F /* Documentation.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Documentation.html; sourceTree = "<group>"; };
@@ -109,7 +121,6 @@
 		4AC26FEB16CDA89900648C5F /* CocoaArtnet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaArtnet.m; sourceTree = "<group>"; };
 		4AC26FF216CDA89900648C5F /* CocoaArtnetTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaArtnetTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC26FF316CDA89900648C5F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		4AC26FF516CDA89900648C5F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		4AC26FFD16CDA89900648C5F /* CocoaArtnetTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CocoaArtnetTests-Info.plist"; sourceTree = "<group>"; };
 		4AC26FFF16CDA89900648C5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4AC2700116CDA89900648C5F /* CocoaArtnetTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaArtnetTests.h; sourceTree = "<group>"; };
@@ -123,6 +134,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A99048E16CF276100EA49BB /* CoreGraphics.framework in Frameworks */,
+				4A99048616CF24CB00EA49BB /* UIKit.framework in Frameworks */,
+				4A99048416CF246100EA49BB /* Security.framework in Frameworks */,
+				4A99048016CF240A00EA49BB /* CFNetwork.framework in Frameworks */,
 				4AC26FE516CDA89900648C5F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,8 +146,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A99048D16CF275700EA49BB /* CoreGraphics.framework in Frameworks */,
+				4A99048716CF24D600EA49BB /* UIKit.framework in Frameworks */,
+				4A99048316CF245700EA49BB /* Security.framework in Frameworks */,
+				4A99048116CF241400EA49BB /* CFNetwork.framework in Frameworks */,
 				4AC26FF416CDA89900648C5F /* SenTestingKit.framework in Frameworks */,
-				4AC26FF616CDA89900648C5F /* UIKit.framework in Frameworks */,
 				4AC26FF716CDA89900648C5F /* Foundation.framework in Frameworks */,
 				4AC26FFA16CDA89900648C5F /* libCocoaArtnet.a in Frameworks */,
 			);
@@ -219,6 +237,7 @@
 		4AC26FD816CDA89900648C5F = {
 			isa = PBXGroup;
 			children = (
+				4A99048C16CF275600EA49BB /* CoreGraphics.framework */,
 				4AACDCCD16CDE07C0091968F /* CocoaAsyncSocket */,
 				4AC26FE616CDA89900648C5F /* CocoaArtnet */,
 				4AC26FFB16CDA89900648C5F /* CocoaArtnetTests */,
@@ -239,9 +258,12 @@
 		4AC26FE316CDA89900648C5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A99048916CF269600EA49BB /* AVFoundation.framework */,
+				4A99048516CF24CB00EA49BB /* UIKit.framework */,
+				4A99048216CF245700EA49BB /* Security.framework */,
+				4A99047F16CF240A00EA49BB /* CFNetwork.framework */,
 				4AC26FE416CDA89900648C5F /* Foundation.framework */,
 				4AC26FF316CDA89900648C5F /* SenTestingKit.framework */,
-				4AC26FF516CDA89900648C5F /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -422,7 +444,7 @@
 				4AACDEAE16CDE07D0091968F /* DDASLLogger.m in Sources */,
 				4AACDEB016CDE07D0091968F /* DDFileLogger.m in Sources */,
 				4AACDEB216CDE07D0091968F /* DDLog.m in Sources */,
-				4AACDEB416CDE07D0091968F /* DDTTYLogger.m in Sources */,
+				4A99048816CF268100EA49BB /* DDTTYLogger.m in Sources */,
 				4AACDEB616CDE07D0091968F /* ContextFilterLogFormatter.m in Sources */,
 				4AACDEB816CDE07D0091968F /* DispatchQueueLogFormatter.m in Sources */,
 			);
