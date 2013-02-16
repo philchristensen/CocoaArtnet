@@ -31,7 +31,7 @@
 
 - (void)testExample
 {
-    NSString* dest = @"192.168.0.88";
+    NSString* dest = @"255.255.255.255"; //@"192.168.0.88";
     NSMutableArray* frame = [NSMutableArray arrayWithCapacity:512];
     for(int i = 0; i < 512; i++){
         [frame insertObject:[NSNumber numberWithInt:255] atIndex:i];
@@ -41,12 +41,11 @@
     NSData* data = [packet encode];
     
     GCDAsyncUdpSocket* socket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-    //[socket sendData:data toHost:dest port:6454 withTimeout:-1 tag:1000];
     
     [socket bindToPort:6454 error:nil ];
     [socket enableBroadcast:YES error:nil];
     
-    [socket sendData:data toHost:@"255.255.255.255" port:6454 withTimeout:-1 tag:0];
+    [socket sendData:data toHost:dest port:6454 withTimeout:-1 tag:0];
 }
 
 @end

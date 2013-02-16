@@ -24,18 +24,20 @@
 }
 
 -(NSData*) encode {
-    NSMutableData* data = [NSMutableData dataWithLength:530];
+    NSMutableData* data = [[NSMutableData alloc] initWithCapacity:530];
 
     char prefix[] = "Art-Net\00\x00\x20\x00\x0e\x02\x00";
-    NSRange prefixRange = {.location = 0, .length = 18};
-    [data replaceBytesInRange:prefixRange withBytes:prefix];
+    [data appendBytes:prefix length:18];
     
     char channels[512];
     for (int i = 0; i < 512; ++i) {
         channels[i] = [[frame objectAtIndex:i] charValue];
     }
-    NSRange channelsRange = {.location = 18, .length = 512};
-    [data replaceBytesInRange:channelsRange withBytes:channels];
+    [data appendBytes:channels length:512];
+    
+//    NSUInteger len = [data length];
+//    Byte *byteData = (Byte*)malloc(len);
+//    memcpy(byteData, [data bytes], len);
     
     return data;
 }
