@@ -14,7 +14,7 @@
 		4A99048416CF246100EA49BB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048216CF245700EA49BB /* Security.framework */; };
 		4A99048616CF24CB00EA49BB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048516CF24CB00EA49BB /* UIKit.framework */; };
 		4A99048716CF24D600EA49BB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048516CF24CB00EA49BB /* UIKit.framework */; };
-		4A99048816CF268100EA49BB /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0116CDE07D0091968F /* DDTTYLogger.m */; };
+		4A99048816CF268100EA49BB /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0116CDE07D0091968F /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
 		4A99048D16CF275700EA49BB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048C16CF275600EA49BB /* CoreGraphics.framework */; };
 		4A99048E16CF276100EA49BB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048C16CF275600EA49BB /* CoreGraphics.framework */; };
 		4AACDE0816CDE07D0091968F /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4AACDCCE16CDE07C0091968F /* .gitignore */; };
@@ -29,16 +29,15 @@
 		4AACDE8516CDE07D0091968F /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDB416CDE07D0091968F /* AsyncSocket.m */; };
 		4AACDE8616CDE07D0091968F /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDB616CDE07D0091968F /* AsyncUdpSocket.m */; };
 		4AACDE8716CDE07D0091968F /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDB616CDE07D0091968F /* AsyncUdpSocket.m */; };
-		4AACDE8816CDE07D0091968F /* Documentation.html in Resources */ = {isa = PBXBuildFile; fileRef = 4AACDDB716CDE07D0091968F /* Documentation.html */; };
-		4AACDEAB16CDE07D0091968F /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDF916CDE07D0091968F /* DDAbstractDatabaseLogger.m */; };
-		4AACDEAC16CDE07D0091968F /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDF916CDE07D0091968F /* DDAbstractDatabaseLogger.m */; };
+		4AACDEAB16CDE07D0091968F /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDF916CDE07D0091968F /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
+		4AACDEAC16CDE07D0091968F /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDF916CDE07D0091968F /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
 		4AACDEAD16CDE07D0091968F /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFB16CDE07D0091968F /* DDASLLogger.m */; };
 		4AACDEAE16CDE07D0091968F /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFB16CDE07D0091968F /* DDASLLogger.m */; };
-		4AACDEAF16CDE07D0091968F /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFD16CDE07D0091968F /* DDFileLogger.m */; };
-		4AACDEB016CDE07D0091968F /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFD16CDE07D0091968F /* DDFileLogger.m */; };
-		4AACDEB116CDE07D0091968F /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFF16CDE07D0091968F /* DDLog.m */; };
-		4AACDEB216CDE07D0091968F /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFF16CDE07D0091968F /* DDLog.m */; };
-		4AACDEB316CDE07D0091968F /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0116CDE07D0091968F /* DDTTYLogger.m */; };
+		4AACDEAF16CDE07D0091968F /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFD16CDE07D0091968F /* DDFileLogger.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
+		4AACDEB016CDE07D0091968F /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFD16CDE07D0091968F /* DDFileLogger.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
+		4AACDEB116CDE07D0091968F /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFF16CDE07D0091968F /* DDLog.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
+		4AACDEB216CDE07D0091968F /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDDFF16CDE07D0091968F /* DDLog.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
+		4AACDEB316CDE07D0091968F /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0116CDE07D0091968F /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
 		4AACDEB516CDE07D0091968F /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0416CDE07D0091968F /* ContextFilterLogFormatter.m */; };
 		4AACDEB616CDE07D0091968F /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0416CDE07D0091968F /* ContextFilterLogFormatter.m */; };
 		4AACDEB716CDE07D0091968F /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0616CDE07D0091968F /* DispatchQueueLogFormatter.m */; };
@@ -237,9 +236,9 @@
 		4AC26FD816CDA89900648C5F = {
 			isa = PBXGroup;
 			children = (
-				4AACDCCD16CDE07C0091968F /* CocoaAsyncSocket */,
 				4AC26FE616CDA89900648C5F /* CocoaArtnet */,
 				4AC26FFB16CDA89900648C5F /* CocoaArtnetTests */,
+				4AACDCCD16CDE07C0091968F /* CocoaAsyncSocket */,
 				4AC26FE316CDA89900648C5F /* Frameworks */,
 				4AC26FE216CDA89900648C5F /* Products */,
 			);
@@ -386,7 +385,6 @@
 				4AACDE0916CDE07D0091968F /* CocoaAsyncSocket.podspec in Resources */,
 				4AACDE0A16CDE07D0091968F /* Documentation.html in Resources */,
 				4AACDE8316CDE07D0091968F /* README.markdown in Resources */,
-				4AACDE8816CDE07D0091968F /* Documentation.html in Resources */,
 				4AACDEB916CDE07D0091968F /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

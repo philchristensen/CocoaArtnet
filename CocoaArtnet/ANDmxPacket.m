@@ -26,7 +26,7 @@
 -(NSData*) encode {
     NSMutableData* data = [[NSMutableData alloc] initWithCapacity:530];
 
-    char prefix[] = "Art-Net\00\x00\x20\x00\x0e\x02\x00";
+    char prefix[] = "Art-Net\0\x00\x20\x00\x0e\x02\x00";
     [data appendBytes:prefix length:18];
     
     char channels[512];
