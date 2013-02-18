@@ -12,6 +12,11 @@
 #import "ANPacket.h"
 #import "ANDmxPacket.h"
 
+FOUNDATION_EXPORT NSString *const AN_PACKET_HEADER;
+FOUNDATION_EXPORT NSString *const AN_OPCODE_DMX;
+FOUNDATION_EXPORT NSString *const AN_PROTO_VERSION;
+FOUNDATION_EXPORT NSString *const AN_LEN512;
+
 @interface CocoaArtnet : NSObject
 
 @end

@@ -12,7 +12,7 @@
     NSArray* frame;
 }
 
--(ANDmxPacket*) initWithSource: (NSString*) s andFrame: (NSArray*) f;
+-(ANDmxPacket*) initWithFrame: (NSArray*) f;
 
 -(NSData*) encode;
 

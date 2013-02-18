@@ -10,16 +10,20 @@
 
 @implementation ANPacket
 
--(ANPacket*) initWithSource: (NSString*) s physical: (int) p universe: (int) u {
+-(ANPacket*) initWithUniverse: (uint8_t) u physical: (uint8_t) p {
     self = [super init];
-    [self setSource:s physical:p universe:u];
+    [self setUniverse:u physical:p];
+    [self setSequence:0];
     return self;
 }
 
--(void) setSource:(NSString*) s physical: (int) p universe: (int) u {
-    source = s;
+-(void) setUniverse: (uint8_t) u physical: (uint8_t) p {
     physical = p;
     universe = u;
+}
+
+-(void) setSequence:(uint16_t) s {
+    sequence = s;
 }
 
 

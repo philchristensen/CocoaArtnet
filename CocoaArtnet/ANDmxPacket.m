@@ -6,19 +6,22 @@
 //  Copyright (c) 2013 Phil Christensen. All rights reserved.
 //
 
+#include <inttypes.h>
+
+#import "CocoaArtnet.h"
 #import "ANDmxPacket.h"
 
 @implementation ANDmxPacket
 
--(ANPacket*) initWithSource: (NSString*) s andFrame: (NSArray*) f {
-    self = [super initWithSource:s physical:0 universe:0];
-
+-(ANPacket*) initWithFrame: (NSArray*) f {
+    self = [super initWithUniverse:0 physical:0];
     if([f count] != 512){
         @throw [NSException
                 exceptionWithName:@"InvalidDMXException"
                 reason:@"DMX frames must have 512 values."
                 userInfo:nil];
     }
+    opcode = @"\x00P";
     frame = f;
     return self;
 }
@@ -28,6 +31,17 @@
 
     char prefix[] = "Art-Net\x00\x00P\x00\x0e\x00\x00\x00\x00\x02\x00";
     [data appendBytes:prefix length:18];
+    
+//    [data appendBytes:[AN_PACKET_HEADER UTF8String] length:[AN_PACKET_HEADER length]];
+//    [data appendBytes:[opcode UTF8String] length:[opcode length]];
+//    [data appendBytes:[AN_PROTO_VERSION UTF8String] length:[AN_PROTO_VERSION length]];
+//    uint8_t s[] = {0, 0}; //sequence & 0x00FF, (sequence & 0xFF00) >> 8};
+//    [data appendBytes:s length:2];
+//    uint8_t p[] = {physical};
+//    [data appendBytes:p length:1];
+//    uint8_t u[] = {universe};
+//    [data appendBytes:u length:1];
+//    [data appendBytes:[AN_LEN512 UTF8String] length:[AN_PACKET_HEADER length]];
     
     char channels[512];
     for (int i = 0; i < 512; ++i) {

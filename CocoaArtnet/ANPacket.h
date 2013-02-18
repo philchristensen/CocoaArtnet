@@ -6,16 +6,19 @@
 //  Copyright (c) 2013 Phil Christensen. All rights reserved.
 //
 
+#include <inttypes.h>
+
 #import <Foundation/Foundation.h>
 
 @interface ANPacket : NSObject {
-    int opcode;
-    int sequence;
-    int physical;
-    int universe;
-    NSString* source;
+    NSString* opcode;
+    uint16_t sequence;
+    uint8_t physical;
+    uint8_t universe;
 }
 
--(ANPacket*) initWithSource: (NSString*) s physical: (int) p universe: (int) u;
+-(ANPacket*) initWithUniverse: (uint8_t) u physical: (uint8_t) p;
+
+-(void) setSequence:(uint16_t) s;
 
 @end
