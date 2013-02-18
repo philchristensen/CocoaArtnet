@@ -31,22 +31,20 @@
 
 - (void)testExample
 {
-    NSString* dest = @"255.255.255.255"; //@"192.168.0.88";
     NSMutableArray* frame = [NSMutableArray arrayWithCapacity:512];
     for(int i = 0; i < 512; i++){
-        [frame insertObject:[NSNumber numberWithInt:127] atIndex:i];
+        [frame insertObject:[NSNumber numberWithInt:255] atIndex:i];
     }
     
     ANDmxPacket* packet = [[ANDmxPacket alloc] initWithFrame:frame];
     NSData* data = [packet encode];
-    
-    [data writeToFile:@"/Users/phil/Desktop/halfup-c2.dmx" atomically:YES];
     
     GCDAsyncUdpSocket* socket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
     
     [socket bindToPort:6454 error:nil ];
     [socket enableBroadcast:YES error:nil];
     
+    NSString* dest = @"255.255.255.255"; //@"192.168.0.88";
     [socket sendData:data toHost:dest port:6454 withTimeout:-1 tag:0];
 }
 

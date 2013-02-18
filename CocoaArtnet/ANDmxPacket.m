@@ -29,17 +29,13 @@
 -(NSData*) encode {
     NSMutableData* data = [[NSMutableData alloc] initWithCapacity:530];
 
-//    char prefix[] = "Art-Net\x00\x00P\x00\x0e\x00\x00\x00\x00\x02\x00";
-//    [data appendBytes:prefix length:18];    
+    // char prefix[] = "Art-Net\x00\x00P\x00\x0e\x00\x00\x00\x00\x02\x00";
+    // [data appendBytes:prefix length:18];
     [data appendBytes:[AN_PACKET_HEADER UTF8String] length:[AN_PACKET_HEADER length]];
     [data appendBytes:[opcode UTF8String] length:[opcode length]];
     [data appendBytes:[AN_PROTO_VERSION UTF8String] length:[AN_PROTO_VERSION length]];
-    uint8_t s[] = {sequence & 0x00FF, (sequence & 0xFF00) >> 8};
-    [data appendBytes:s length:2];
-    uint8_t p[] = {physical};
-    [data appendBytes:p length:1];
-    uint8_t u[] = {universe};
-    [data appendBytes:u length:1];
+    uint8_t s[] = {sequence & 0x00FF, (sequence & 0xFF00) >> 8, physical, universe};
+    [data appendBytes:s length:4];
     [data appendBytes:[AN_LEN512 UTF8String] length:[AN_LEN512 length]];
     
     char channels[512];
