@@ -11,10 +11,12 @@
 
 #import "CocoaArtnet.h"
 
-NSString *const AN_PACKET_HEADER = @"Art-Net\x00";
-NSString *const AN_PROTO_VERSION = @"\x00\x0e";
-NSString *const AN_OPCODE_DMX = @"\x00P";
-NSString *const AN_LEN512 = @"\x02\x00";
+int const AN_PORT = 6454;
+
+NSString* const AN_PACKET_HEADER = @"Art-Net\x00";
+NSString* const AN_PROTO_VERSION = @"\x00\x0e";
+NSString* const AN_OPCODE_DMX = @"\x00P";
+NSString* const AN_LEN512 = @"\x02\x00";
 
 @implementation CocoaArtnet
 

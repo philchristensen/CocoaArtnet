@@ -13,7 +13,6 @@
 }
 
 -(ANDmxPacket*) initWithFrame: (NSArray*) f;
-
 -(NSData*) encode;
 
 @end

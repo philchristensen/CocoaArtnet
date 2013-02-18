@@ -186,11 +186,11 @@
 		4AACDDB216CDE07D0091968F /* RunLoop */ = {
 			isa = PBXGroup;
 			children = (
+				4AACDDB716CDE07D0091968F /* Documentation.html */,
 				4AACDDB316CDE07D0091968F /* AsyncSocket.h */,
 				4AACDDB416CDE07D0091968F /* AsyncSocket.m */,
 				4AACDDB516CDE07D0091968F /* AsyncUdpSocket.h */,
 				4AACDDB616CDE07D0091968F /* AsyncUdpSocket.m */,
-				4AACDDB716CDE07D0091968F /* Documentation.html */,
 			);
 			path = RunLoop;
 			sourceTree = "<group>";

@@ -15,25 +15,18 @@
 
 @implementation CocoaArtnetTests
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
-    
-    // Set-up code here.
 }
 
-- (void)tearDown
-{
-    // Tear-down code here.
-    
+- (void)tearDown {
     [super tearDown];
 }
 
-- (void)testExample
-{
+- (void)testExample {
     NSMutableArray* frame = [NSMutableArray arrayWithCapacity:512];
     for(int i = 0; i < 512; i++){
-        [frame insertObject:[NSNumber numberWithInt:255] atIndex:i];
+        [frame insertObject:[NSNumber numberWithInt:0] atIndex:i];
     }
     
     ANDmxPacket* packet = [[ANDmxPacket alloc] initWithFrame:frame];
@@ -45,7 +38,7 @@
     [socket enableBroadcast:YES error:nil];
     
     NSString* dest = @"255.255.255.255"; //@"192.168.0.88";
-    [socket sendData:data toHost:dest port:6454 withTimeout:-1 tag:0];
+    [socket sendData:data toHost:dest port:AN_PORT withTimeout:-1 tag:0];
 }
 
 @end

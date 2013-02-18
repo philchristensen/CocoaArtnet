@@ -18,7 +18,7 @@
 }
 
 -(ANPacket*) initWithUniverse: (uint8_t) u physical: (uint8_t) p;
-
+-(void) setUniverse: (uint8_t) u physical: (uint8_t) p;
 -(void) setSequence:(uint16_t) s;
 
 @end
