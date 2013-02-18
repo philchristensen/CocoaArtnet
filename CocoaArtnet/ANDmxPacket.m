@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Phil Christensen. All rights reserved.
 //
 
-#include <inttypes.h>
+#import <inttypes.h>
 
 #import "CocoaArtnet.h"
 #import "ANDmxPacket.h"

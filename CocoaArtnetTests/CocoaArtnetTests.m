@@ -8,10 +8,10 @@
 
 #import "CocoaArtnetTests.h"
 
-#include <CoreFoundation/CoreFoundation.h>
+#import <CoreFoundation/CoreFoundation.h>
 
-#include "GCDAsyncUdpSocket.h"
-#include "CocoaArtnet.h"
+#import "GCDAsyncUdpSocket.h"
+#import "CocoaArtnet.h"
 
 @implementation CocoaArtnetTests
 
