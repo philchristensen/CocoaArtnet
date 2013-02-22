@@ -47,7 +47,38 @@
     };
 }
 
+-(void) start {
+    running = YES;
+    NSThread* myThread = [[NSThread alloc] initWithTarget:self
+                                                 selector:@selector(run:)
+                                                   object:nil];
+    [myThread start];
+}
+
+-(void) run: (id) arg {
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    while(running){
+        NSTimeInterval drift = now - [[NSDate date] timeIntervalSince1970];
+        [self iterate];
+        [self sendFrame:latestFrame];
+        
+        NSTimeInterval elapsed = [[NSDate date] timeIntervalSince1970] - now;
+        NSTimeInterval excess = (1.0 / framesPerSecond) - elapsed;
+        if(excess > 0){
+            if(running){
+                [NSThread sleepForTimeInterval:(excess - drift)];
+            }
+        }
+        else{
+            NSLog(@"Frame rate loss; generators took too long");
+        }
+        now = [[NSDate date] timeIntervalSince1970];
+    }
+}
+
 -(void) iterate {
+    
+    
     secondFrameClock = secondFrameClock < framesPerSecond - 1 ? secondFrameClock + 1 : 0;
     beatFrameClock = beatFrameClock < framesPerBeat - 1 ? beatFrameClock + 1 : 0;
     if(beatFrameClock < framesPerBeat - 1){
@@ -55,17 +86,18 @@
     }
     else{
         beatFrameClock = 0;
-        beatClock = beatClock < barLength -1 ? beatClock + 1 : 0;
+        beatClock = beatClock < barLength - 1 ? beatClock + 1 : 0;
     }
 }
 
--(void) addGenerator: (SEL) name onTarget: (id) target {
-
+// NSSelectorFromString(@"methodName");
+-(void) addGenerator: (NSString*) selector onTarget: (id) target {
+    // [target performSelector:NSSelectorFromString(@"methodName")];
+    [generators addObject:@[target, selector]];
 }
 
 -(void) sendFrame: (NSArray*) frame {
 
 }
-
 
 @end

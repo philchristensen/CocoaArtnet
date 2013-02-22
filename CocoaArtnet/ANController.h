@@ -16,11 +16,12 @@
     float framesPerBeat;
     
     NSArray* latestFrame;
-    NSArray* generators;
+    NSMutableArray* generators;
     
     int beatClock;
     int secondFrameClock;
     int beatFrameClock;
+    BOOL running;
     
 }
 
@@ -30,7 +31,7 @@
 
 -(NSDictionary*) getClock;
 -(void) iterate;
--(void) addGenerator: (SEL) name onTarget: (id) target;
+-(void) addGenerator: (NSString*) selector onTarget: (id) target;
 -(void) sendFrame: (NSArray*) frame;
 
 @end
