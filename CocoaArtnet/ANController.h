@@ -28,8 +28,11 @@
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps;
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats;
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm;
+-(void) setupWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps;
 
 -(NSDictionary*) getClock;
+-(void) start;
+-(void) run;
 -(void) iterate;
 -(void) addGenerator: (NSString*) selector onTarget: (id) target;
 -(void) sendFrame: (NSArray*) frame;
