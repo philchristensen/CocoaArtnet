@@ -18,18 +18,21 @@
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps {
     [self setupWithAddress:address andBPM:bpm andBarLength:beats andFPS:fps];
     latestFrame = nil;
+    generators = [[NSMutableArray alloc] init];
     return self;
 }
 
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats {
     [self setupWithAddress:address andBPM:bpm andBarLength:beats andFPS:40.0];
     latestFrame = nil;
+    generators = [[NSMutableArray alloc] init];
     return self;
 }
 
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm {
     [self setupWithAddress:address andBPM:bpm andBarLength:4 andFPS:40.0];
     latestFrame = nil;
+    generators = [[NSMutableArray alloc] init];
     return self;
 }
 
@@ -39,6 +42,14 @@
     barLength = beats;
     framesPerSecond = fps;
     framesPerBeat = (fps * 60) / bpm;
+}
+
+-(NSMutableArray*) createFrame {
+    NSMutableArray* frame = [[NSMutableArray alloc] initWithCapacity:512];
+    for(int i = 0; i < 512; i++){
+        frame[i] = @-1;
+    }
+    return frame;
 }
 
 -(NSDictionary*) getClock{
@@ -55,7 +66,6 @@
 }
 
 -(void) start {
-    running = YES;
     NSThread* myThread = [[NSThread alloc] initWithTarget:self
                                                  selector:@selector(run:)
                                                    object:nil];
@@ -63,6 +73,7 @@
 }
 
 -(void) run: (id) arg {
+    running = YES;
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     while(running){
         NSTimeInterval drift = now - [[NSDate date] timeIntervalSince1970];
@@ -84,24 +95,19 @@
 }
 
 -(void) iterate {
-    NSMutableArray* mergedFrame = [[NSMutableArray alloc] initWithCapacity:512];
+    NSMutableArray* mergedFrame = [self createFrame];
     for(NSArray* pair in generators){
         @try{
             NSMutableArray* layerFrame = [pair[0] performSelector:NSSelectorFromString(pair[1])];
-            if(mergedFrame[511] != nil){
-                for(int i = 0; i < 512; i++){
-                    int value = -1;
-                    if(layerFrame[i] != nil){
-                        value = [layerFrame[i] intValue];
-                    }
-                    else{
-                        value = [mergedFrame[i] intValue];
-                    }
-                    mergedFrame[i] = (value == -1 ? nil : @(value));
+            for(int i = 0; i < 512; i++){
+                int value = -1;
+                if([layerFrame[i] isEqual:@-1]){
+                    value = [mergedFrame[i] intValue];
                 }
-            }
-            else{
-                mergedFrame = layerFrame;
+                else{
+                    value = [layerFrame[i] intValue];
+                }
+                mergedFrame[i] = @(value);
             }
         }
         @catch(NSException *e){
@@ -121,7 +127,6 @@
     }
 }
 
-// NSSelectorFromString(@"methodName");
 -(void) addGenerator: (NSString*) selector onTarget: (id) target {
     [generators addObject:@[target, selector]];
 }

@@ -40,7 +40,13 @@
     
     char channels[512];
     for (int i = 0; i < 512; ++i) {
-        channels[i] = [[frame objectAtIndex:i] charValue];
+        NSNumber* value = [frame objectAtIndex:i];
+        if([value intValue] == -1){
+            channels[i] = '\x00';
+        }
+        else{
+            channels[i] = [value charValue];
+        }
     }
     [data appendBytes:channels length:512];
     

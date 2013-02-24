@@ -8,6 +8,10 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface CocoaArtnetTests : SenTestCase
+#import "CocoaArtnet.h"
 
+@interface CocoaArtnetTests : SenTestCase {
+    ANController* ctl;
+}
+- (NSMutableArray*) red;
 @end

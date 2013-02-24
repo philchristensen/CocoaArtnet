@@ -15,7 +15,7 @@
     float framesPerSecond;
     float framesPerBeat;
     
-    NSArray* latestFrame;
+    NSMutableArray* latestFrame;
     NSMutableArray* generators;
     
     int beatClock;
@@ -30,9 +30,10 @@
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm;
 -(void) setupWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps;
 
+-(NSMutableArray*) createFrame;
 -(NSDictionary*) getClock;
 -(void) start;
--(void) run;
+-(void) run:arg;
 -(void) iterate;
 -(void) addGenerator: (NSString*) selector onTarget: (id) target;
 -(void) sendFrame: (NSArray*) frame;

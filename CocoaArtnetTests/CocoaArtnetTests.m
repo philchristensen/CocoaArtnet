@@ -23,17 +23,20 @@
 }
 
 - (void)testExample {
-    ANController* ctl = [[ANController alloc] initWithAddress:@"255.255.255.255" andBPM:120.0];
+    ctl = [[ANController alloc] initWithAddress:@"255.255.255.255" andBPM:120.0];
     [ctl addGenerator:@"red" onTarget:self];
-    [ctl start];
+    // this works
+    [ctl run:nil];
+//    // this doesn't
+//    [ctl start];
 }
 
-- (NSArray*) red {
-    NSMutableArray* frame = [[NSMutableArray alloc] initWithCapacity:512];
-    frame[420] = @255;
-    frame[421] = @255;
-    frame[422] = @255;
-    frame[426] = @255;
+- (NSMutableArray*) red {
+    NSMutableArray* frame = [ctl createFrame];
+    frame[419] = @255;
+    frame[420] = @0;
+    frame[421] = @0;
+    frame[425] = @255;
     return frame;
 }
 
