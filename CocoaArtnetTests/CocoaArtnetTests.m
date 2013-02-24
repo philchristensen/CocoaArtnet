@@ -9,6 +9,7 @@
 #import "CocoaArtnetTests.h"
 
 #import <CoreFoundation/CoreFoundation.h>
+#import <stdlib.h>
 
 #import "CocoaArtnet.h"
 
@@ -16,28 +17,42 @@
 
 - (void)setUp {
     [super setUp];
+    ctl = [[ANController alloc] initWithAddress:@"255.255.255.255" andBPM:120.0];
 }
 
 - (void)tearDown {
     [super tearDown];
+    [ctl stop];
+    [ctl wait];
+    ctl = nil;
 }
 
 - (void)testExample {
-    ctl = [[ANController alloc] initWithAddress:@"255.255.255.255" andBPM:120.0];
     [ctl addGenerator:@"red" onTarget:self];
-//    // this works
-//    [ctl run:nil];
-    // this doesn't
+    [ctl addGenerator:@"randomWhite" onTarget:self];
     [ctl start];
-    [ctl wait];
 }
 
 - (NSMutableArray*) red {
     NSMutableArray* frame = [ctl createFrame];
-    frame[419] = @255;
-    frame[420] = @0;
-    frame[421] = @0;
-    frame[425] = @255;
+    NSArray* addresses = @[@419, @426, @433, @440];
+    for(id num in addresses){
+        frame[[num intValue]] = @255;
+        frame[[num intValue] + 1] = @0;
+        frame[[num intValue] + 2] = @0;
+        frame[[num intValue] + 6] = @255;
+    }
+    return frame;
+}
+
+- (NSMutableArray*) randomWhite {
+    NSMutableArray* frame = [ctl createFrame];
+    NSArray* addresses = @[@419, @426, @433, @440];
+    int num = [addresses[arc4random_uniform(4)] intValue];
+    frame[num] = @255;
+    frame[num + 1] = @255;
+    frame[num + 2] = @255;
+    frame[num + 6] = @255;
     return frame;
 }
 

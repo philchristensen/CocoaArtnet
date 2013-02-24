@@ -36,6 +36,7 @@
 -(void) start;
 -(void) run:arg;
 -(void) wait;
+-(void) stop;
 -(void) iterate;
 -(void) addGenerator: (NSString*) selector onTarget: (id) target;
 -(void) sendFrame: (NSArray*) frame;

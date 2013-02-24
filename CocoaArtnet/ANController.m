@@ -67,9 +67,13 @@
 
 -(void) start {
     thread = [[NSThread alloc] initWithTarget:self
-                                                 selector:@selector(run:)
-                                                   object:nil];
+                                     selector:@selector(run:)
+                                       object:nil];
     [thread start];
+}
+
+-(void) stop {
+    running = NO;
 }
 
 -(void) run: (id) arg {

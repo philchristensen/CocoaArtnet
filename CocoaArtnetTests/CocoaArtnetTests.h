@@ -13,5 +13,5 @@
 @interface CocoaArtnetTests : SenTestCase {
     ANController* ctl;
 }
-- (NSMutableArray*) red;
+
 @end
