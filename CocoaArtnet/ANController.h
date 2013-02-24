@@ -17,6 +17,7 @@
     
     NSMutableArray* latestFrame;
     NSMutableArray* generators;
+    NSThread* thread;
     
     int beatClock;
     int secondFrameClock;
@@ -34,6 +35,7 @@
 -(NSDictionary*) getClock;
 -(void) start;
 -(void) run:arg;
+-(void) wait;
 -(void) iterate;
 -(void) addGenerator: (NSString*) selector onTarget: (id) target;
 -(void) sendFrame: (NSArray*) frame;

@@ -6,16 +6,14 @@
 //  Copyright (c) 2013 Phil Christensen. All rights reserved.
 //
 
-#import "ANController.h"
-
 #import "CocoaArtnet.h"
-#import "ANDmxPacket.h"
 
 #import "GCDAsyncUdpSocket.h"
 
 @implementation ANController
 
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps {
+    self = [super init];
     [self setupWithAddress:address andBPM:bpm andBarLength:beats andFPS:fps];
     latestFrame = nil;
     generators = [[NSMutableArray alloc] init];
@@ -23,6 +21,7 @@
 }
 
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats {
+    self = [super init];
     [self setupWithAddress:address andBPM:bpm andBarLength:beats andFPS:40.0];
     latestFrame = nil;
     generators = [[NSMutableArray alloc] init];
@@ -30,6 +29,7 @@
 }
 
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm {
+    self = [super init];
     [self setupWithAddress:address andBPM:bpm andBarLength:4 andFPS:40.0];
     latestFrame = nil;
     generators = [[NSMutableArray alloc] init];
@@ -66,10 +66,10 @@
 }
 
 -(void) start {
-    NSThread* myThread = [[NSThread alloc] initWithTarget:self
+    thread = [[NSThread alloc] initWithTarget:self
                                                  selector:@selector(run:)
                                                    object:nil];
-    [myThread start];
+    [thread start];
 }
 
 -(void) run: (id) arg {
@@ -94,6 +94,12 @@
     }
 }
 
+-(void) wait {
+    while ([thread isFinished] == NO) {
+        usleep(1000);
+    }
+}
+
 -(void) iterate {
     NSMutableArray* mergedFrame = [self createFrame];
     for(NSArray* pair in generators){
@@ -101,7 +107,8 @@
             NSMutableArray* layerFrame = [pair[0] performSelector:NSSelectorFromString(pair[1])];
             for(int i = 0; i < 512; i++){
                 int value = -1;
-                if([layerFrame[i] isEqual:@-1]){
+                int layerValue = [layerFrame[i] intValue];
+                if(layerValue == -1){
                     value = [mergedFrame[i] intValue];
                 }
                 else{

@@ -9,7 +9,6 @@
 #import <inttypes.h>
 
 #import "CocoaArtnet.h"
-#import "ANDmxPacket.h"
 
 @implementation ANDmxPacket
 

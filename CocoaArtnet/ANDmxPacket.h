@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Phil Christensen. All rights reserved.
 //
 
-#import "ANPacket.h"
+#import "CocoaArtnet.h"
 
 @interface ANDmxPacket : ANPacket{
     NSArray* frame;

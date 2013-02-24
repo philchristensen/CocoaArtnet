@@ -25,10 +25,11 @@
 - (void)testExample {
     ctl = [[ANController alloc] initWithAddress:@"255.255.255.255" andBPM:120.0];
     [ctl addGenerator:@"red" onTarget:self];
-    // this works
-    [ctl run:nil];
-//    // this doesn't
-//    [ctl start];
+//    // this works
+//    [ctl run:nil];
+    // this doesn't
+    [ctl start];
+    [ctl wait];
 }
 
 - (NSMutableArray*) red {
