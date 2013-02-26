@@ -1,3 +1,6 @@
 [submodule "CocoaAsyncSocket"]
 	path = CocoaAsyncSocket
 	url = git://github.com/robbiehanson/CocoaAsyncSocket.git
+[submodule "YACYAML"]
+	path = YACYAML
+	url = git://github.com/th-in-gs/YACYAML.git

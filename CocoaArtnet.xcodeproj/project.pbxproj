@@ -54,6 +54,12 @@
 		4AC2700016CDA89900648C5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4AC26FFE16CDA89900648C5F /* InfoPlist.strings */; };
 		4AC2700316CDA89900648C5F /* CocoaArtnetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC2700216CDA89900648C5F /* CocoaArtnetTests.m */; };
 		4AC2700E16CDA8F100648C5F /* ANPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC2700D16CDA8F100648C5F /* ANPacket.m */; };
+		4AE4371416DC47F1003B792D /* ANFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE4371316DC47F1003B792D /* ANFixture.m */; };
+		4AE4381E16DC4DD0003B792D /* libYACYAML.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE4381716DC4D9E003B792D /* libYACYAML.a */; };
+		4AE4382016DC4DEA003B792D /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE4381F16DC4DEA003B792D /* libresolv.dylib */; };
+		4AE4382F16DC547F003B792D /* megabar-rgb-50.py in Resources */ = {isa = PBXBuildFile; fileRef = 4AE4382C16DC547F003B792D /* megabar-rgb-50.py */; };
+		4AE4383016DC547F003B792D /* slimpar-64.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 4AE4382E16DC547F003B792D /* slimpar-64.yaml */; };
+		4AE4383116DC5AD2003B792D /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE4381F16DC4DEA003B792D /* libresolv.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +69,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4AC26FE016CDA89900648C5F;
 			remoteInfo = CocoaArtnet;
+		};
+		4AE4381616DC4D9E003B792D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7DDC030E156541F8001832F5;
+			remoteInfo = YACYAML;
+		};
+		4AE4381816DC4D9E003B792D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7DDC031E156541F8001832F5;
+			remoteInfo = YACYAMLTests;
+		};
+		4AE4381A16DC4D9E003B792D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7DE3E3AC15654430006663D2;
+			remoteInfo = libYAML;
+		};
+		4AE4381C16DC4DBE003B792D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DDC030D156541F8001832F5;
+			remoteInfo = YACYAML;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -130,6 +164,12 @@
 		4AC2700216CDA89900648C5F /* CocoaArtnetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaArtnetTests.m; sourceTree = "<group>"; };
 		4AC2700C16CDA8F100648C5F /* ANPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPacket.h; sourceTree = "<group>"; };
 		4AC2700D16CDA8F100648C5F /* ANPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPacket.m; sourceTree = "<group>"; };
+		4AE4371216DC47F1003B792D /* ANFixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFixture.h; sourceTree = "<group>"; };
+		4AE4371316DC47F1003B792D /* ANFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFixture.m; sourceTree = "<group>"; };
+		4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = YACYAML.xcodeproj; path = YACYAML/YACYAML.xcodeproj; sourceTree = "<group>"; };
+		4AE4381F16DC4DEA003B792D /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		4AE4382C16DC547F003B792D /* megabar-rgb-50.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = "megabar-rgb-50.py"; sourceTree = "<group>"; };
+		4AE4382E16DC547F003B792D /* slimpar-64.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "slimpar-64.yaml"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +182,8 @@
 				4A99048416CF246100EA49BB /* Security.framework in Frameworks */,
 				4A99048016CF240A00EA49BB /* CFNetwork.framework in Frameworks */,
 				4AC26FE516CDA89900648C5F /* Foundation.framework in Frameworks */,
+				4AE4382016DC4DEA003B792D /* libresolv.dylib in Frameworks */,
+				4AE4381E16DC4DD0003B792D /* libYACYAML.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,13 +191,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AE4383116DC5AD2003B792D /* libresolv.dylib in Frameworks */,
+				4AC26FFA16CDA89900648C5F /* libCocoaArtnet.a in Frameworks */,
 				4A99048D16CF275700EA49BB /* CoreGraphics.framework in Frameworks */,
 				4A99048716CF24D600EA49BB /* UIKit.framework in Frameworks */,
 				4A99048316CF245700EA49BB /* Security.framework in Frameworks */,
 				4A99048116CF241400EA49BB /* CFNetwork.framework in Frameworks */,
 				4AC26FF416CDA89900648C5F /* SenTestingKit.framework in Frameworks */,
 				4AC26FF716CDA89900648C5F /* Foundation.framework in Frameworks */,
-				4AC26FFA16CDA89900648C5F /* libCocoaArtnet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,9 +283,12 @@
 		4AC26FD816CDA89900648C5F = {
 			isa = PBXGroup;
 			children = (
+				4AE4381F16DC4DEA003B792D /* libresolv.dylib */,
 				4AC26FE616CDA89900648C5F /* CocoaArtnet */,
 				4AC26FFB16CDA89900648C5F /* CocoaArtnetTests */,
+				4AE4382A16DC547F003B792D /* FixtureDefinitions */,
 				4AACDCCD16CDE07C0091968F /* CocoaAsyncSocket */,
+				4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */,
 				4AC26FE316CDA89900648C5F /* Frameworks */,
 				4AC26FE216CDA89900648C5F /* Products */,
 			);
@@ -277,6 +323,8 @@
 				4AC26FE716CDA89900648C5F /* Supporting Files */,
 				4AC26FE916CDA89900648C5F /* CocoaArtnet.h */,
 				4AC26FEB16CDA89900648C5F /* CocoaArtnet.m */,
+				4AE4371216DC47F1003B792D /* ANFixture.h */,
+				4AE4371316DC47F1003B792D /* ANFixture.m */,
 				4A8729B416D6FC7C00750B6C /* ANController.h */,
 				4A8729B516D6FC7C00750B6C /* ANController.m */,
 				4A5683AE16CDAE0500970FC3 /* ANDmxPacket.h */,
@@ -314,6 +362,41 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		4AE4381116DC4D9E003B792D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4AE4381716DC4D9E003B792D /* libYACYAML.a */,
+				4AE4381916DC4D9E003B792D /* YACYAMLTests.octest */,
+				4AE4381B16DC4D9E003B792D /* libYAML.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4AE4382A16DC547F003B792D /* FixtureDefinitions */ = {
+			isa = PBXGroup;
+			children = (
+				4AE4382B16DC547F003B792D /* american-dj */,
+				4AE4382D16DC547F003B792D /* chauvet */,
+			);
+			path = FixtureDefinitions;
+			sourceTree = "<group>";
+		};
+		4AE4382B16DC547F003B792D /* american-dj */ = {
+			isa = PBXGroup;
+			children = (
+				4AE4382C16DC547F003B792D /* megabar-rgb-50.py */,
+			);
+			path = "american-dj";
+			sourceTree = "<group>";
+		};
+		4AE4382D16DC547F003B792D /* chauvet */ = {
+			isa = PBXGroup;
+			children = (
+				4AE4382E16DC547F003B792D /* slimpar-64.yaml */,
+			);
+			path = chauvet;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -328,6 +411,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4AE4381D16DC4DBE003B792D /* PBXTargetDependency */,
 			);
 			name = CocoaArtnet;
 			productName = CocoaArtnet;
@@ -373,6 +457,12 @@
 			mainGroup = 4AC26FD816CDA89900648C5F;
 			productRefGroup = 4AC26FE216CDA89900648C5F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4AE4381116DC4D9E003B792D /* Products */;
+					ProjectRef = 4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4AC26FE016CDA89900648C5F /* CocoaArtnet */,
@@ -380,6 +470,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4AE4381716DC4D9E003B792D /* libYACYAML.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libYACYAML.a;
+			remoteRef = 4AE4381616DC4D9E003B792D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4AE4381916DC4D9E003B792D /* YACYAMLTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = YACYAMLTests.octest;
+			remoteRef = 4AE4381816DC4D9E003B792D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4AE4381B16DC4D9E003B792D /* libYAML.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libYAML.a;
+			remoteRef = 4AE4381A16DC4D9E003B792D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4AC26FEF16CDA89900648C5F /* Resources */ = {
@@ -392,6 +506,8 @@
 				4AACDE0A16CDE07D0091968F /* Documentation.html in Resources */,
 				4AACDE8316CDE07D0091968F /* README.markdown in Resources */,
 				4AACDEB916CDE07D0091968F /* README.txt in Resources */,
+				4AE4382F16DC547F003B792D /* megabar-rgb-50.py in Resources */,
+				4AE4383016DC547F003B792D /* slimpar-64.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +549,7 @@
 				4AACDEB516CDE07D0091968F /* ContextFilterLogFormatter.m in Sources */,
 				4AACDEB716CDE07D0091968F /* DispatchQueueLogFormatter.m in Sources */,
 				4A8729B616D6FC7C00750B6C /* ANController.m in Sources */,
+				4AE4371416DC47F1003B792D /* ANFixture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +580,11 @@
 			isa = PBXTargetDependency;
 			target = 4AC26FE016CDA89900648C5F /* CocoaArtnet */;
 			targetProxy = 4AC26FF816CDA89900648C5F /* PBXContainerItemProxy */;
+		};
+		4AE4381D16DC4DBE003B792D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = YACYAML;
+			targetProxy = 4AE4381C16DC4DBE003B792D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -537,7 +659,14 @@
 				DSTROOT = /tmp/CocoaArtnet.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CocoaArtnet/CocoaArtnet-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
+				HEADER_SEARCH_PATHS = (
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -549,7 +678,14 @@
 				DSTROOT = /tmp/CocoaArtnet.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CocoaArtnet/CocoaArtnet-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
+				HEADER_SEARCH_PATHS = (
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -564,7 +700,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CocoaArtnet/CocoaArtnet-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
+				);
 				INFOPLIST_FILE = "CocoaArtnetTests/CocoaArtnetTests-Info.plist";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -579,7 +720,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CocoaArtnet/CocoaArtnet-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
+				);
 				INFOPLIST_FILE = "CocoaArtnetTests/CocoaArtnetTests-Info.plist";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};

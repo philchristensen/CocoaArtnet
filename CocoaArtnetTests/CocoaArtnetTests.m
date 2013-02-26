@@ -28,9 +28,11 @@
 }
 
 - (void)testExample {
-    [ctl addGenerator:@"red" onTarget:self];
-    [ctl addGenerator:@"randomWhite" onTarget:self];
-    [ctl start];
+//    [ctl addGenerator:@"red" onTarget:self];
+//    [ctl addGenerator:@"randomWhite" onTarget:self];
+//    [ctl start];
+    NSString* path = @"/Users/phil/Workspace/CocoaArtnet/FixtureDefinitions/chauvet/slimpar-64.yaml";
+    ANFixture* fixture = [ANFixture createWithAddress:420 andFixturePath:path];
 }
 
 - (NSMutableArray*) red {
