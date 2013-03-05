@@ -7,16 +7,60 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <inttypes.h>
 
-@interface ANFixture : NSObject{
-    int address;
-    NSMutableDictionary* controls;
-}
+@interface ANFixture : NSObject
+    @property int address;
+    @property NSMutableDictionary* controls;
 
--(ANFixture*) initWithAddress: (int) anAddress;
+    -(ANFixture*) initWithAddress: (int) anAddress;
+    +(ANFixture*) createWithAddress: (int) anAddress andFixturePath: (NSString*) aPath;
+    -(void) loadFixtureDefinition: (NSString*) aPath;
+@end
 
-+(ANFixture*) createWithAddress: (int) anAddress andFixturePath: (NSString*) aPath;
+@interface RGBControl : NSObject
+    @property int r_value;
+    @property int g_value;
+    @property int b_value;
+    @property int r_offset;
+    @property int g_offset;
+    @property int b_offset;
 
--(void) loadFixtureDefinition: (NSString*) aPath;
+    -(void) configureWith: (NSDictionary*) fixturedef;
+    -(NSArray*) getState;
+    -(void) setColor:(NSString*) hexcolor;
+    -(NSString*) getColor;
+@end
 
+@interface StrobeControl : NSObject
+    @property int offset;
+    @property int value;
+
+    -(void) configureWith: (NSDictionary*) fixturedef;
+    -(NSArray*) getState;
+    -(void) setStrobe:(int) level;
+    -(int) getStrobe;
+@end
+
+@interface IntensityControl : NSObject
+    @property int offset;
+    @property int offset_fine;
+    @property int value;
+
+    -(void) configureWith: (NSDictionary*) fixturedef;
+    -(NSArray*) getState;
+    -(void) setIntensity:(int) level;
+    -(int) getIntensity;
+@end
+
+@interface ProgramControl : NSObject
+    @property int offset;
+    @property int speedOffset;
+    @property int value;
+    @property int speedValue;
+    @property NSString* currentMacro;
+    @property NSMutableDictionary* macros;
+
+    -(void) configureWith: (NSDictionary*) fixturedef;
+    -(NSArray*) getState;
 @end

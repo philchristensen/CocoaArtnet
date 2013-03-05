@@ -283,7 +283,6 @@
 		4AC26FD816CDA89900648C5F = {
 			isa = PBXGroup;
 			children = (
-				4AE4381F16DC4DEA003B792D /* libresolv.dylib */,
 				4AC26FE616CDA89900648C5F /* CocoaArtnet */,
 				4AC26FFB16CDA89900648C5F /* CocoaArtnetTests */,
 				4AE4382A16DC547F003B792D /* FixtureDefinitions */,
@@ -306,6 +305,7 @@
 		4AC26FE316CDA89900648C5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4AE4381F16DC4DEA003B792D /* libresolv.dylib */,
 				4A99048C16CF275600EA49BB /* CoreGraphics.framework */,
 				4A99048916CF269600EA49BB /* AVFoundation.framework */,
 				4A99048516CF24CB00EA49BB /* UIKit.framework */,

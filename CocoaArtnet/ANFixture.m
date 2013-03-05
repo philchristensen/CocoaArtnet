@@ -11,9 +11,12 @@
 
 @implementation ANFixture
 
+@synthesize address;
+@synthesize controls;
+
 -(ANFixture*) initWithAddress: (int) anAddress {
     self = [super init];
-    address = anAddress;
+    self.address = anAddress;
     return self;
 }
 
