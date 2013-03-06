@@ -26,7 +26,7 @@
     @property int g_offset;
     @property int b_offset;
 
-    -(void) configureWith: (NSDictionary*) fixturedef;
+    -(RGBControl*) initWith: (NSDictionary*) fixturedef;
     -(NSArray*) getState;
     -(void) setColor:(NSString*) hexcolor;
     -(NSString*) getColor;
@@ -36,7 +36,7 @@
     @property int offset;
     @property int value;
 
-    -(void) configureWith: (NSDictionary*) fixturedef;
+    -(StrobeControl*) initWith: (NSDictionary*) fixturedef;
     -(NSArray*) getState;
     -(void) setStrobe:(int) level;
     -(int) getStrobe;
@@ -47,7 +47,7 @@
     @property int offset_fine;
     @property int value;
 
-    -(void) configureWith: (NSDictionary*) fixturedef;
+    -(IntensityControl*) initWith: (NSDictionary*) fixturedef;
     -(NSArray*) getState;
     -(void) setIntensity:(int) level;
     -(int) getIntensity;
@@ -61,6 +61,6 @@
     @property NSString* currentMacro;
     @property NSMutableDictionary* macros;
 
-    -(void) configureWith: (NSDictionary*) fixturedef;
+    -(ProgramControl*) initWith: (NSDictionary*) fixturedef;
     -(NSArray*) getState;
 @end
