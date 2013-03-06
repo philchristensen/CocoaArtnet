@@ -27,10 +27,13 @@
 
 -(void) loadFixtureDefinition: (NSString*) fixturePath {
     
-    NSString* fixturedef = [[NSString alloc] initWithContentsOfFile:fixturePath
-                                                           encoding:NSUTF8StringEncoding
-                                                              error:nil];
-    NSDictionary* result = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:fixturedef];
+    NSString* yaml = [[NSString alloc] initWithContentsOfFile:fixturePath
+                                                     encoding:NSUTF8StringEncoding
+                                                        error:nil];
+    NSDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
+    [controls setValue: [[RGBControl alloc] initWith: fixturedef] forKey:@"rgb"];
+    [controls setValue: [[StrobeControl alloc] initWith: fixturedef] forKey:@"strobe"];
+    [controls setValue: [[IntensityControl alloc] initWith: fixturedef] forKey:@"intensity"];
 }
 
 @end
