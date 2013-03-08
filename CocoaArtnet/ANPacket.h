@@ -10,15 +10,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ANPacket : NSObject {
-    NSString* opcode;
-    uint16_t sequence;
-    uint8_t physical;
-    uint8_t universe;
-}
+@interface ANPacket : NSObject
+    @property NSString* opcode;
+    @property uint16_t sequence;
+    @property uint8_t physical;
+    @property uint8_t universe;
 
--(ANPacket*) initWithUniverse: (uint8_t) u physical: (uint8_t) p;
--(void) setUniverse: (uint8_t) u physical: (uint8_t) p;
--(void) setSequence:(uint16_t) s;
-
+    -(ANPacket*) initWithUniverse: (uint8_t) u physical: (uint8_t) p;
 @end

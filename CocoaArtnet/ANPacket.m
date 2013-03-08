@@ -12,19 +12,10 @@
 
 -(ANPacket*) initWithUniverse: (uint8_t) u physical: (uint8_t) p {
     self = [super init];
-    [self setUniverse:u physical:p];
-    [self setSequence:0];
+    self.physical = p;
+    self.universe = u;
+    self.sequence = 0;
     return self;
 }
-
--(void) setUniverse: (uint8_t) u physical: (uint8_t) p {
-    physical = p;
-    universe = u;
-}
-
--(void) setSequence:(uint16_t) s {
-    sequence = s;
-}
-
 
 @end

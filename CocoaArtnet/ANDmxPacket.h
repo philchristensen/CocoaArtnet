@@ -8,11 +8,9 @@
 
 #import "CocoaArtnet.h"
 
-@interface ANDmxPacket : ANPacket{
-    NSArray* frame;
-}
+@interface ANDmxPacket : ANPacket
+    @property NSArray* frame;
 
--(ANDmxPacket*) initWithFrame: (NSArray*) f;
--(NSData*) encode;
-
+    -(ANDmxPacket*) initWithFrame: (NSArray*) aFrame;
+    -(NSData*) encode;
 @end

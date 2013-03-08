@@ -283,11 +283,11 @@
 		4AC26FD816CDA89900648C5F = {
 			isa = PBXGroup;
 			children = (
+				4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */,
 				4AC26FE616CDA89900648C5F /* CocoaArtnet */,
 				4AC26FFB16CDA89900648C5F /* CocoaArtnetTests */,
 				4AE4382A16DC547F003B792D /* FixtureDefinitions */,
 				4AACDCCD16CDE07C0091968F /* CocoaAsyncSocket */,
-				4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */,
 				4AC26FE316CDA89900648C5F /* Frameworks */,
 				4AC26FE216CDA89900648C5F /* Products */,
 			);

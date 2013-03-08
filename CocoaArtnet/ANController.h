@@ -8,37 +8,33 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ANController : NSObject {
-    NSString* interfaceAddress;
-    float beatsPerMinute;
-    int barLength;
-    float framesPerSecond;
-    float framesPerBeat;
-    
-    NSMutableArray* latestFrame;
-    NSMutableArray* generators;
-    NSThread* thread;
-    
-    int beatClock;
-    int secondFrameClock;
-    int beatFrameClock;
-    BOOL running;
-    
-}
+@interface ANController : NSObject
+	@property NSString* interfaceAddress;
+	@property float beatsPerMinute;
+	@property int barLength;
+	@property float framesPerSecond;
+	@property float framesPerBeat;
 
--(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps;
--(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats;
--(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm;
--(void) setupWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps;
+	@property NSMutableArray* latestFrame;
+	@property NSMutableArray* generators;
+	@property NSThread* thread;
 
--(NSMutableArray*) createFrame;
--(NSDictionary*) getClock;
--(void) start;
--(void) run:arg;
--(void) wait;
--(void) stop;
--(void) iterate;
--(void) addGenerator: (NSString*) selector onTarget: (id) target;
--(void) sendFrame: (NSArray*) frame;
+	@property int beatClock;
+	@property int secondFrameClock;
+	@property int beatFrameClock;
+	@property BOOL running;
 
+	-(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps;
+	-(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats;
+	-(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm;
+
+	-(NSMutableArray*) createFrame;
+	-(NSDictionary*) getClock;
+	-(void) start;
+	-(void) run:arg;
+	-(void) wait;
+	-(void) stop;
+	-(void) iterate;
+	-(void) addGenerator: (NSString*) selector onTarget: (id) target;
+	-(void) sendFrame: (NSArray*) frame;
 @end
