@@ -11,6 +11,7 @@
 #import "CocoaArtnet.h"
 
 @implementation ANDmxPacket
+@synthesize frame;
 
 -(ANPacket*) initWithFrame: (NSArray*) aFrame {
     self = [super initWithUniverse:0 physical:0];

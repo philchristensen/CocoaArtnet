@@ -10,6 +10,11 @@
 
 @implementation ANPacket
 
+@synthesize opcode;
+@synthesize physical;
+@synthesize universe;
+@synthesize sequence;
+
 -(ANPacket*) initWithUniverse: (uint8_t) u physical: (uint8_t) p {
     self = [super init];
     self.physical = p;

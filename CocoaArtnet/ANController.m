@@ -11,6 +11,18 @@
 #import "GCDAsyncUdpSocket.h"
 
 @implementation ANController
+@synthesize interfaceAddress;
+@synthesize beatsPerMinute;
+@synthesize barLength;
+@synthesize framesPerSecond;
+@synthesize framesPerBeat;
+@synthesize latestFrame;
+@synthesize generators;
+@synthesize thread;
+@synthesize beatClock;
+@synthesize secondFrameClock;
+@synthesize beatFrameClock;
+@synthesize running;
 
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps {
     self = [super init];
