@@ -141,22 +141,32 @@
 @synthesize speedOffset;
 @synthesize value;
 @synthesize speedValue;
-@synthesize currentMacro;
+@synthesize macroType;
 @synthesize macros;
 
 -(ProgramControl*) initWith: (NSDictionary*) fixturedef andChannel: (NSDictionary*) channel {
 	self = [super init];
 
-    //self.program_offset = channel['offset']
     self.offset = [channel[@"offset"] integerValue];
-    //self.macro_type = channel['type']
-    //if(channel['type'] == 'program'):
-    //    self.program_speed_offset = channel.get('speed_offset', fixturedef.get('strobe_offset', None))
-    //    for label, conf in channel.get('macros', {}).items():
-    //        if(isinstance(conf, int)):
-    //            self.setMacro(label, conf, None)
-    //            else:
-    //                self.setMacro(label, conf['value'], conf['speed'])
+    self.macroType = channel[@"type"];
+    if([self.macroType isEqualToString:@"program"]){
+        id o = [channel objectForKey:@"speed_offset"];
+        if(o == nil){
+            self.speedOffset = [[channel objectForKey:@"strobe_offset"] intValue];
+        }
+        else{
+            self.speedOffset = [o intValue];
+        }
+        for(NSString* label in channel[@"macros"]){
+            id conf = channel[@"macros"][label];
+            if([conf class] == [NSNumber class]){
+                [self setMacro:label withValue:[conf integerValue] andSpeed:nil];
+            }
+            else{
+                [self setMacro:label withValue:[conf[@"value"] integerValue] andSpeed:[conf[@"speed"] integerValue]];
+            }
+        }
+    }
     
     return self;
 }
@@ -166,6 +176,10 @@
           @[@(self.offset), @(self.value)],
           @[@(self.speedOffset), @(self.speedValue)]
           ];
+}
+
+-(void) setMacro: (NSString*) macroName withValue: (int) aValue andSpeed: (int) aSpeed {
+    self.macros[macroName] = @[@(aValue), @(aSpeed)];
 }
 
 @end

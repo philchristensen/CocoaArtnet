@@ -58,9 +58,10 @@
     @property int speedOffset;
     @property int value;
     @property int speedValue;
-    @property NSString* currentMacro;
+    @property NSString* macroType;
     @property NSMutableDictionary* macros;
 
     -(ProgramControl*) initWith: (NSDictionary*) fixturedef andChannel: (NSDictionary*) aChannel;
     -(NSArray*) getState;
+    -(void) setMacro: (NSString*) macroName withValue: (int) aValue andSpeed: (int) aSpeed;
 @end
