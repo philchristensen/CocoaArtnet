@@ -61,6 +61,6 @@
     @property NSString* currentMacro;
     @property NSMutableDictionary* macros;
 
-    -(ProgramControl*) initWith: (NSDictionary*) fixturedef;
+    -(ProgramControl*) initWith: (NSDictionary*) fixturedef andChannel: (NSDictionary*) aChannel;
     -(NSArray*) getState;
 @end

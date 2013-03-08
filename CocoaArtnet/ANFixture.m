@@ -8,6 +8,7 @@
 
 #import "ANFixture.h"
 #import <YACYAML/YACYAML.h>
+#import <UIKit/UIColor.h>
 
 @implementation ANFixture
 @synthesize address;
@@ -48,7 +49,12 @@
 
 -(RGBControl*) initWith: (NSDictionary*) fixturedef {
 	self = [super init];
-
+    self.r_offset = [fixturedef[@"rgb_offsets"][@"red"] integerValue];
+    self.g_offset = [fixturedef[@"rgb_offsets"][@"green"] integerValue];
+    self.b_offset = [fixturedef[@"rgb_offsets"][@"blue"] integerValue];
+    self.r_value = 0;
+    self.g_value = 0;
+    self.b_value = 0;
     return self;
 }
 
@@ -61,11 +67,16 @@
 }
 
 -(void) setColor:(NSString*) hexcolor {
-	
+    const char *cStr = [hexcolor cStringUsingEncoding:NSASCIIStringEncoding];
+    long col = strtol(cStr+1, NULL, 16);
+    self.b_value = col & 0xFF;
+    self.g_value = (col >> 8) & 0xFF;
+    self.r_value = (col >> 16) & 0xFF;
 }
 
 -(NSString*) getColor {
-	return @"#ffffff";
+	return [NSString stringWithFormat:@"#%02x%02x%02x",
+            self.r_value, self.g_value, self.b_value];
 }
 
 @end
@@ -76,7 +87,8 @@
 
 -(StrobeControl*) initWith: (NSDictionary*) fixturedef {
 	self = [super init];
-    
+    self.offset = [fixturedef[@"strobe_offset"] integerValue];
+    self.value = 0;
     return self;
 }
 
@@ -103,7 +115,8 @@
 
 -(IntensityControl*) initWith: (NSDictionary*) fixturedef {
 	self = [super init];
-    
+    self.offset = [fixturedef[@"intensity_offset"] integerValue];
+    self.value = 0;
     return self;
 }
 
@@ -131,8 +144,19 @@
 @synthesize currentMacro;
 @synthesize macros;
 
--(ProgramControl*) initWith: (NSDictionary*) fixturedef {
+-(ProgramControl*) initWith: (NSDictionary*) fixturedef andChannel: (NSDictionary*) channel {
 	self = [super init];
+
+    //self.program_offset = channel['offset']
+    self.offset = [channel[@"offset"] integerValue];
+    //self.macro_type = channel['type']
+    //if(channel['type'] == 'program'):
+    //    self.program_speed_offset = channel.get('speed_offset', fixturedef.get('strobe_offset', None))
+    //    for label, conf in channel.get('macros', {}).items():
+    //        if(isinstance(conf, int)):
+    //            self.setMacro(label, conf, None)
+    //            else:
+    //                self.setMacro(label, conf['value'], conf['speed'])
     
     return self;
 }
