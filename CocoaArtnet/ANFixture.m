@@ -153,7 +153,7 @@
 
 -(ProgramControl*) initWith: (NSDictionary*) fixturedef andChannel: (NSDictionary*) channel {
 	self = [super init];
-
+    
     self.offset = [channel[@"offset"] integerValue];
     self.macroType = channel[@"type"];
     if([self.macroType isEqualToString:@"program"]){
@@ -167,7 +167,7 @@
         for(NSString* label in channel[@"macros"]){
             id conf = channel[@"macros"][label];
             if([conf class] == [NSNumber class]){
-                [self setMacro:label withValue:[conf integerValue] andSpeed:nil];
+                [self setMacro:label withValue:[conf integerValue]];
             }
             else{
                 [self setMacro:label withValue:[conf[@"value"] integerValue] andSpeed:[conf[@"speed"] integerValue]];
@@ -187,6 +187,10 @@
 
 -(void) setMacro: (NSString*) macroName withValue: (int) aValue andSpeed: (int) aSpeed {
     self.macros[macroName] = @[@(aValue), @(aSpeed)];
+}
+
+-(void) setMacro: (NSString*) macroName withValue: (int) aValue {
+    self.macros[macroName] = @[@(aValue), nil];
 }
 
 @end

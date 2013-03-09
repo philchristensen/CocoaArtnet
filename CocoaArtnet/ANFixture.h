@@ -64,4 +64,5 @@
     -(ProgramControl*) initWith: (NSDictionary*) fixturedef andChannel: (NSDictionary*) aChannel;
     -(NSArray*) getState;
     -(void) setMacro: (NSString*) macroName withValue: (int) aValue andSpeed: (int) aSpeed;
+    -(void) setMacro: (NSString*) macroName withValue: (int) aValue;
 @end
