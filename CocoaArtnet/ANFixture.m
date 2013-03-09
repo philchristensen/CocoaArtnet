@@ -45,6 +45,38 @@
     }
 }
 
+-(void) forwardInvocation:(NSInvocation *)anInvocation {
+    SEL aSelector = [anInvocation selector];
+    
+    for (NSString* key in self.controls) {
+        id ctl = self.controls[key];
+        if([ctl respondsToSelector:aSelector]){
+            [anInvocation invokeWithTarget:ctl];
+            return;
+        }
+    }
+    [super forwardInvocation:anInvocation];
+}
+
+-(NSMethodSignature *) methodSignatureForSelector:(SEL)aSelector {
+    NSMethodSignature* signature = [super methodSignatureForSelector:aSelector];
+    if(signature) {
+        return signature;
+    }
+    
+    for (NSString* key in self.controls) {
+        id ctl = self.controls[key];
+        if([ctl respondsToSelector:aSelector]){
+            return [[ctl class] instanceMethodSignatureForSelector:aSelector];
+        }
+    }
+    return nil;
+}
+
+-(NSArray*) getState {
+    return @[];
+}
+
 @end
 
 @implementation RGBControl

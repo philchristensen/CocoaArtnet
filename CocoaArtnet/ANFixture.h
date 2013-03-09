@@ -16,6 +16,13 @@
     -(ANFixture*) initWithAddress: (int) anAddress;
     +(ANFixture*) createWithAddress: (int) anAddress andFixturePath: (NSString*) aPath;
     -(void) loadFixtureDefinition: (NSString*) aPath;
+    -(NSArray*) getState;
+    -(void) setColor:(NSString*) hexcolor;
+    -(NSString*) getColor;
+    -(void) setStrobe:(int) level;
+    -(int) getStrobe;
+    -(void) setIntensity:(int) level;
+    -(int) getIntensity;
 @end
 
 @interface RGBControl : NSObject

@@ -33,6 +33,9 @@
 //    [ctl start];
     NSString* path = @"/Users/phil/Workspace/CocoaArtnet/FixtureDefinitions/chauvet/slimpar-64.yaml";
     ANFixture* fixture = [ANFixture createWithAddress:420 andFixturePath:path];
+    [fixture setColor:@"#ffffff"];
+    [fixture setIntensity:255];
+    NSLog(@"done");
 }
 
 - (NSMutableArray*) red {
