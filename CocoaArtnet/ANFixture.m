@@ -17,6 +17,7 @@
 -(ANFixture*) initWithAddress: (int) anAddress {
     self = [super init];
     self.address = anAddress;
+    self.controls = [[NSMutableDictionary alloc] init];
     return self;
 }
 
@@ -190,7 +191,7 @@
 }
 
 -(void) setMacro: (NSString*) macroName withValue: (int) aValue {
-    self.macros[macroName] = @[@(aValue), nil];
+    self.macros[macroName] = @[@(aValue), [NSNull null]];
 }
 
 @end
