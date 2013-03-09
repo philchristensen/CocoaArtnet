@@ -74,7 +74,14 @@
 }
 
 -(NSArray*) getState {
-    return @[];
+    NSMutableArray* state = [[NSMutableArray alloc] init];
+    for(NSString* key in [[self.controls allKeys] sortedArrayUsingComparator: ^(id a, id b){
+        return ([a hasPrefix:@"program-"] ? (NSComparisonResult)NSOrderedDescending : (NSComparisonResult)NSOrderedAscending);
+    }]){
+        id ctl = self.controls[key];
+        [state addObjectsFromArray:[ctl getState]];
+    }
+    return state;
 }
 
 @end
@@ -192,7 +199,7 @@
     if([self.macroType isEqualToString:@"program"]){
         id o = [channel objectForKey:@"speed_offset"];
         if(o == nil){
-            self.speedOffset = [[channel objectForKey:@"strobe_offset"] intValue];
+            self.speedOffset = [[fixturedef objectForKey:@"strobe_offset"] intValue];
         }
         else{
             self.speedOffset = [o intValue];
