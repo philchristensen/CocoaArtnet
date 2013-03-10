@@ -35,7 +35,7 @@
     ANFixture* fixture = [ANFixture createWithAddress:420 andFixturePath:path];
     [fixture setColor:@"#ffffff"];
     [fixture setIntensity:255];
-    NSArray* state = [fixture getState];
+    NSArray* frame = [fixture getFrame];
     NSLog(@"done");
 }
 

@@ -17,6 +17,7 @@
     +(ANFixture*) createWithAddress: (int) anAddress andFixturePath: (NSString*) aPath;
     -(void) loadFixtureDefinition: (NSString*) aPath;
     -(NSArray*) getState;
+    -(NSArray*) getFrame;
     -(void) setColor:(NSString*) hexcolor;
     -(NSString*) getColor;
     -(void) setStrobe:(int) level;

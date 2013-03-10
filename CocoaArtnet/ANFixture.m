@@ -84,6 +84,17 @@
     return state;
 }
 
+-(NSArray*) getFrame {
+    NSMutableArray* frame = [[NSMutableArray alloc] init];
+    for(int i = 0; i < 512; i++){
+        frame[i] = @0;
+    }
+    for(NSArray* channelSet in [self getState]){
+        frame[[channelSet[0] integerValue]] = channelSet[1];
+    }
+    return frame;
+}
+
 @end
 
 @implementation RGBControl
