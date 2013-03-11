@@ -64,23 +64,10 @@
     return frame;
 }
 
--(NSDictionary*) getClock{
-    return @{
-         @"beatClock": @(self.beatClock),
-         @"barLength": @(self.barLength),
-         @"secondFrameClock": @(self.secondFrameClock),
-         @"framesPerSecond": @(self.framesPerSecond),
-         @"beatFrameClock": @(self.beatFrameClock),
-         @"framesPerBeat": @(self.framesPerBeat),
-         @"latestFrame": self.latestFrame,
-         @"running": @YES,
-    };
-}
-
 -(void) start {
     self.thread = [[NSThread alloc] initWithTarget:self
-                                     selector:@selector(run:)
-                                       object:nil];
+                                          selector:@selector(run:)
+                                            object:nil];
     [self.thread start];
 }
 
@@ -94,7 +81,7 @@
     while(self.running){
         NSTimeInterval drift = now - [[NSDate date] timeIntervalSince1970];
         [self iterate];
-        [self sendFrame:self.latestFrame];
+        [self send:self.latestFrame];
         
         NSTimeInterval elapsed = [[NSDate date] timeIntervalSince1970] - now;
         NSTimeInterval excess = (1.0 / self.framesPerSecond) - elapsed;
@@ -120,7 +107,7 @@
     NSMutableArray* mergedFrame = [self createFrame];
     for(NSArray* pair in self.generators){
         @try{
-            NSMutableArray* layerFrame = [pair[0] performSelector:NSSelectorFromString(pair[1])];
+            NSMutableArray* layerFrame = [pair[0] performSelector:NSSelectorFromString(pair[1]) withObject:self];
             for(int i = 0; i < 512; i++){
                 int value = -1;
                 int layerValue = [layerFrame[i] intValue];
@@ -150,14 +137,14 @@
     }
 }
 
--(void) addGenerator: (NSString*) selector onTarget: (id) target {
+-(void) add: (NSString*) selector onTarget: (id) target {
     [self.generators addObject:@[target, selector]];
 }
 
--(void) sendFrame: (NSArray*) frame {
+-(void) send: (NSArray*) frame {
     ANDmxPacket* packet = [[ANDmxPacket alloc] initWithFrame:frame];
     NSData* data = [packet encode];
-
+    
     GCDAsyncUdpSocket* socket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
     
     [socket bindToPort:6454 error:nil ];

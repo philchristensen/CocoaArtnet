@@ -10,8 +10,6 @@
 
 #import "CocoaArtnet.h"
 
-@interface CocoaArtnetTests : SenTestCase {
-    ANController* ctl;
-}
+@interface CocoaArtnetTests : SenTestCase
 
 @end

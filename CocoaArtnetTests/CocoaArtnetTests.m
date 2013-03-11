@@ -17,29 +17,30 @@
 
 - (void)setUp {
     [super setUp];
-    ctl = [[ANController alloc] initWithAddress:@"255.255.255.255" andBPM:120.0];
 }
 
 - (void)tearDown {
     [super tearDown];
-    [ctl stop];
-    [ctl wait];
-    ctl = nil;
 }
 
 - (void)testExample {
-//    [ctl addGenerator:@"red" onTarget:self];
-//    [ctl addGenerator:@"randomWhite" onTarget:self];
-//    [ctl start];
-    NSString* path = @"/Users/phil/Workspace/CocoaArtnet/FixtureDefinitions/chauvet/slimpar-64.yaml";
-    ANFixture* fixture = [ANFixture createWithAddress:420 andFixturePath:path];
-    [fixture setColor:@"#ffffff"];
-    [fixture setIntensity:255];
-    NSArray* frame = [fixture getFrame];
-    NSLog(@"done");
+    ANController* ctl = [[ANController alloc] initWithAddress:@"255.255.255.255" andBPM:120.0];
+    [ctl add:@"fixturesWithController:" onTarget:self];
+    [ctl start];
+    [ctl stop];
+    [ctl wait];
 }
 
-- (NSMutableArray*) red {
+- (NSArray*) fixturesWithController: (ANController*) ctl {
+    NSString* path = @"/Users/phil/Workspace/CocoaArtnet/FixtureDefinitions/chauvet/slimpar-64.yaml";
+    ANFixture* fixture = [ANFixture createWithAddress:420 andFixturePath:path];
+
+    [fixture setColor:@"#ff0000"];
+    [fixture setIntensity:255];
+    return [fixture getFrame];
+}
+
+- (NSMutableArray*) redWithController: (ANController*) ctl {
     NSMutableArray* frame = [ctl createFrame];
     NSArray* addresses = @[@419, @426, @433, @440];
     for(id num in addresses){
@@ -51,7 +52,7 @@
     return frame;
 }
 
-- (NSMutableArray*) randomWhite {
+- (NSMutableArray*) randomWhiteWithController: (ANController*) ctl {
     NSMutableArray* frame = [ctl createFrame];
     NSArray* addresses = @[@419, @426, @433, @440];
     int num = [addresses[arc4random_uniform(4)] intValue];

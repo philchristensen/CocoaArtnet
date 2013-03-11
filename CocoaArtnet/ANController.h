@@ -29,12 +29,11 @@
 	-(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm;
 
 	-(NSMutableArray*) createFrame;
-	-(NSDictionary*) getClock;
 	-(void) start;
 	-(void) run:arg;
 	-(void) wait;
 	-(void) stop;
 	-(void) iterate;
-	-(void) addGenerator: (NSString*) selector onTarget: (id) target;
-	-(void) sendFrame: (NSArray*) frame;
+	-(void) add: (NSString*) selector onTarget: (id) target;
+	-(void) send: (NSArray*) frame;
 @end
