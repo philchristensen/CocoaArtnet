@@ -125,11 +125,16 @@
 }
 
 -(void) setColor:(NSString*) hexcolor {
-    const char *cStr = [hexcolor cStringUsingEncoding:NSASCIIStringEncoding];
-    long col = strtol(cStr+1, NULL, 16);
-    self.b_value = col & 0xFF;
-    self.g_value = (col >> 8) & 0xFF;
-    self.r_value = (col >> 16) & 0xFF;
+    NSScanner* scanner = [NSScanner scannerWithString:hexcolor];
+    unsigned int hex;
+    if ([scanner scanHexInt:&hex]) {
+        // Parsing successful. We have a big int representing the 0xBD8F60 value
+        self.r_value = (hex >> 16) & 0xFF; // get the first byte
+        self.g_value = (hex >>  8) & 0xFF; // get the middle byte
+        self.b_value = (hex      ) & 0xFF; // get the last byte
+    } else {
+        NSLog(@"Parsing error: no hex value found in string");
+    }
 }
 
 -(NSString*) getColor {
@@ -215,14 +220,16 @@
         else{
             self.speedOffset = [o intValue];
         }
-        for(NSString* label in channel[@"macros"]){
-            id conf = channel[@"macros"][label];
-            if([conf class] == [NSNumber class]){
-                [self setMacro:label withValue:[conf integerValue]];
-            }
-            else{
-                [self setMacro:label withValue:[conf[@"value"] integerValue] andSpeed:[conf[@"speed"] integerValue]];
-            }
+    }
+    
+    
+    for(NSString* label in channel[@"macros"]){
+        id conf = channel[@"macros"][label];
+        if([conf isKindOfClass:[NSNumber class]]){
+            [self setMacro:label withValue:[conf integerValue]];
+        }
+        else{
+            [self setMacro:label withValue:[conf[@"value"] integerValue] andSpeed:[conf[@"speed"] integerValue]];
         }
     }
     
@@ -230,10 +237,17 @@
 }
 
 -(NSArray*) getState {
-	return @[
-          @[@(self.offset), @(self.value)],
-          @[@(self.speedOffset), @(self.speedValue)]
-          ];
+    if(self.speedOffset){
+        return @[
+                 @[@(self.offset), @(self.value)],
+                 @[@(self.speedOffset), @(self.speedValue)]
+                 ];
+    }
+    else{
+        return @[
+              @[@(self.offset), @(self.value)],
+              ];
+    }
 }
 
 -(void) setMacro: (NSString*) macroName withValue: (int) aValue andSpeed: (int) aSpeed {
