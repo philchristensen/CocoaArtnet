@@ -90,7 +90,7 @@
         frame[i] = @0;
     }
     for(NSArray* channelSet in [self getState]){
-        frame[[channelSet[0] integerValue] + self.address] = channelSet[1];
+        frame[[channelSet[0] integerValue] + self.address - 1] = channelSet[1];
     }
     return frame;
 }
