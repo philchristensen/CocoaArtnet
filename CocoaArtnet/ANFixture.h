@@ -18,12 +18,6 @@
     -(void) loadFixtureDefinition: (NSString*) aPath;
     -(NSArray*) getState;
     -(NSArray*) getFrame;
-    -(void) setColor:(NSString*) hexcolor;
-    -(NSString*) getColor;
-    -(void) setStrobe:(int) level;
-    -(int) getStrobe;
-    -(void) setIntensity:(int) level;
-    -(int) getIntensity;
 @end
 
 @interface RGBControl : NSObject
@@ -40,12 +34,22 @@
     -(NSString*) getColor;
 @end
 
+@interface ANFixture (RGBFixture)
+    -(void) setColor:(NSString*) hexcolor;
+    -(NSString*) getColor;
+@end
+
 @interface StrobeControl : NSObject
     @property int offset;
     @property int value;
 
     -(StrobeControl*) initWith: (NSDictionary*) fixturedef;
     -(NSArray*) getState;
+    -(void) setStrobe:(int) level;
+    -(int) getStrobe;
+@end
+
+@interface ANFixture (StrobeFixture)
     -(void) setStrobe:(int) level;
     -(int) getStrobe;
 @end
@@ -57,6 +61,11 @@
 
     -(IntensityControl*) initWith: (NSDictionary*) fixturedef;
     -(NSArray*) getState;
+    -(void) setIntensity:(int) level;
+    -(int) getIntensity;
+@end
+
+@interface ANFixture (IntensityFixture)
     -(void) setIntensity:(int) level;
     -(int) getIntensity;
 @end
@@ -73,4 +82,8 @@
     -(NSArray*) getState;
     -(void) setMacro: (NSString*) macroName withValue: (int) aValue andSpeed: (int) aSpeed;
     -(void) setMacro: (NSString*) macroName withValue: (int) aValue;
+@end
+
+@interface ANFixture (ProgramFixture)
+
 @end
