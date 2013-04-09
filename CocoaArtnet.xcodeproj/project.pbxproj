@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A3D431017139F9900558A80 /* ANFixture.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AE4371216DC47F1003B792D /* ANFixture.h */; };
+		4A3D431117139F9900558A80 /* ANController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A8729B416D6FC7C00750B6C /* ANController.h */; };
+		4A3D431217139F9900558A80 /* ANDmxPacket.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A5683AE16CDAE0500970FC3 /* ANDmxPacket.h */; };
+		4A3D431317139F9900558A80 /* ANPacket.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AC2700C16CDA8F100648C5F /* ANPacket.h */; };
 		4A5683B016CDAE0500970FC3 /* ANDmxPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5683AF16CDAE0500970FC3 /* ANDmxPacket.m */; };
 		4A8729B616D6FC7C00750B6C /* ANController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8729B516D6FC7C00750B6C /* ANController.m */; };
 		4A8729B716D6FC7C00750B6C /* ANController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8729B516D6FC7C00750B6C /* ANController.m */; };
@@ -107,6 +111,10 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				4A3D431017139F9900558A80 /* ANFixture.h in CopyFiles */,
+				4A3D431117139F9900558A80 /* ANController.h in CopyFiles */,
+				4A3D431217139F9900558A80 /* ANDmxPacket.h in CopyFiles */,
+				4A3D431317139F9900558A80 /* ANPacket.h in CopyFiles */,
 				4AC26FEA16CDA89900648C5F /* CocoaArtnet.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
