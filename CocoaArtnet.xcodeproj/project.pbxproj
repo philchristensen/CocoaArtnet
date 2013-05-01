@@ -61,8 +61,6 @@
 		4AE4371416DC47F1003B792D /* ANFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE4371316DC47F1003B792D /* ANFixture.m */; };
 		4AE4381E16DC4DD0003B792D /* libYACYAML.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE4381716DC4D9E003B792D /* libYACYAML.a */; };
 		4AE4382016DC4DEA003B792D /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE4381F16DC4DEA003B792D /* libresolv.dylib */; };
-		4AE4382F16DC547F003B792D /* megabar-rgb-50.py in Resources */ = {isa = PBXBuildFile; fileRef = 4AE4382C16DC547F003B792D /* megabar-rgb-50.py */; };
-		4AE4383016DC547F003B792D /* slimpar-64.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 4AE4382E16DC547F003B792D /* slimpar-64.yaml */; };
 		4AE4383116DC5AD2003B792D /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE4381F16DC4DEA003B792D /* libresolv.dylib */; };
 /* End PBXBuildFile section */
 
@@ -176,8 +174,6 @@
 		4AE4371316DC47F1003B792D /* ANFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFixture.m; sourceTree = "<group>"; };
 		4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = YACYAML.xcodeproj; path = YACYAML/YACYAML.xcodeproj; sourceTree = "<group>"; };
 		4AE4381F16DC4DEA003B792D /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
-		4AE4382C16DC547F003B792D /* megabar-rgb-50.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = "megabar-rgb-50.py"; sourceTree = "<group>"; };
-		4AE4382E16DC547F003B792D /* slimpar-64.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "slimpar-64.yaml"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,7 +290,6 @@
 				4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */,
 				4AC26FE616CDA89900648C5F /* CocoaArtnet */,
 				4AC26FFB16CDA89900648C5F /* CocoaArtnetTests */,
-				4AE4382A16DC547F003B792D /* FixtureDefinitions */,
 				4AACDCCD16CDE07C0091968F /* CocoaAsyncSocket */,
 				4AC26FE316CDA89900648C5F /* Frameworks */,
 				4AC26FE216CDA89900648C5F /* Products */,
@@ -378,31 +373,6 @@
 				4AE4381B16DC4D9E003B792D /* libYAML.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		4AE4382A16DC547F003B792D /* FixtureDefinitions */ = {
-			isa = PBXGroup;
-			children = (
-				4AE4382B16DC547F003B792D /* american-dj */,
-				4AE4382D16DC547F003B792D /* chauvet */,
-			);
-			path = FixtureDefinitions;
-			sourceTree = "<group>";
-		};
-		4AE4382B16DC547F003B792D /* american-dj */ = {
-			isa = PBXGroup;
-			children = (
-				4AE4382C16DC547F003B792D /* megabar-rgb-50.py */,
-			);
-			path = "american-dj";
-			sourceTree = "<group>";
-		};
-		4AE4382D16DC547F003B792D /* chauvet */ = {
-			isa = PBXGroup;
-			children = (
-				4AE4382E16DC547F003B792D /* slimpar-64.yaml */,
-			);
-			path = chauvet;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -514,8 +484,6 @@
 				4AACDE0A16CDE07D0091968F /* Documentation.html in Resources */,
 				4AACDE8316CDE07D0091968F /* README.markdown in Resources */,
 				4AACDEB916CDE07D0091968F /* README.txt in Resources */,
-				4AE4382F16DC547F003B792D /* megabar-rgb-50.py in Resources */,
-				4AE4383016DC547F003B792D /* slimpar-64.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
