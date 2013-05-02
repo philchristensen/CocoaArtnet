@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <inttypes.h>
 
-@interface ANFixture : NSObject
+@interface ANFixture : NSObject <NSCoding>
     @property int address;
     @property NSMutableDictionary* controls;
+    @property NSString* fixtureConfigPath;
 
     -(ANFixture*) initWithAddress: (int) anAddress;
     +(ANFixture*) createWithAddress: (int) anAddress andFixturePath: (NSString*) aPath;

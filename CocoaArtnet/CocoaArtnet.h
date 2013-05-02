@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "ANFixture.h"
+#import "ANRig.h"
 #import "ANController.h"
 #import "ANPacket.h"
 #import "ANDmxPacket.h"

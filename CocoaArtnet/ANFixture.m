@@ -13,6 +13,7 @@
 @implementation ANFixture
 @synthesize address;
 @synthesize controls;
+@synthesize fixtureConfigPath;
 
 -(ANFixture*) initWithAddress: (int) anAddress {
     self = [super init];
@@ -24,12 +25,15 @@
 +(ANFixture*) createWithAddress: (int) anAddress andFixturePath: (NSString*) aPath {
     ANFixture* fixture = [[ANFixture alloc] initWithAddress:anAddress];
     [fixture loadFixtureDefinition:aPath];
+    fixture.fixtureConfigPath = aPath;
     return fixture;
 }
 
 -(void) loadFixtureDefinition: (NSString*) fixturePath {
     
-    NSString* yaml = [[NSString alloc] initWithContentsOfFile:fixturePath
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"FixtureDefinitions/%@", fixturePath]
+                                                           ofType:@"yaml"];
+    NSString* yaml = [[NSString alloc] initWithContentsOfFile:bundlePath
                                                      encoding:NSUTF8StringEncoding
                                                         error:nil];
     NSDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
@@ -44,6 +48,7 @@
          ];
     }
 }
+
 
 -(void) forwardInvocation:(NSInvocation *)anInvocation {
     SEL aSelector = [anInvocation selector];
@@ -93,6 +98,24 @@
         frame[[channelSet[0] integerValue] + self.address - 1] = channelSet[1];
     }
     return frame;
+}
+
+#pragma mark NSCoding
+
+#define kAddressKey  @"address"
+#define kConfigKey   @"config"
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    int anAddress = [decoder decodeIntegerForKey:kAddressKey];
+    NSString* configPath = [decoder decodeObjectForKey:kConfigKey];
+    ANFixture* fixture = [[ANFixture alloc] initWithAddress:anAddress];
+    [fixture loadFixtureDefinition:configPath];
+    return fixture;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeInteger:self.address forKey:kAddressKey];
+    [encoder encodeObject:self.fixtureConfigPath forKey:kConfigKey];
 }
 
 @end
