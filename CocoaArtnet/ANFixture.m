@@ -25,11 +25,11 @@
 +(ANFixture*) createWithAddress: (int) anAddress andFixturePath: (NSString*) aPath {
     ANFixture* fixture = [[ANFixture alloc] initWithAddress:anAddress];
     [fixture loadFixtureDefinition:aPath];
-    fixture.fixtureConfigPath = aPath;
     return fixture;
 }
 
 -(void) loadFixtureDefinition: (NSString*) fixturePath {
+    self.fixtureConfigPath = fixturePath;
     
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"FixtureDefinitions/%@", fixturePath]
                                                            ofType:@"yaml"];
