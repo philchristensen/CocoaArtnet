@@ -165,6 +165,19 @@
             self.r_value, self.g_value, self.b_value];
 }
 
+-(void) setUIColor:(UIColor*) color {
+    CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha =0.0;
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    self.r_value = roundf(255 * red);
+    self.g_value = roundf(255 * green);
+    self.b_value = roundf(255 * blue);
+}
+
+-(UIColor*) getUIColor {
+    return [UIColor colorWithRed:(self.r_value/255.0) green:(self.g_value/255.0) blue:(self.b_value/255.0) alpha:1.0];
+}
+
+
 @end
 
 @implementation StrobeControl

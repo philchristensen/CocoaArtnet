@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <inttypes.h>
+#import <UIKit/UIColor.h>
 
 @interface ANFixture : NSObject <NSCoding>
     @property int address;
@@ -33,11 +34,15 @@
     -(NSArray*) getState;
     -(void) setColor:(NSString*) hexcolor;
     -(NSString*) getColor;
+    -(void) setUIColor:(UIColor*) color;
+    -(UIColor*) getUIColor;
 @end
 
 @interface ANFixture (RGBFixture)
     -(void) setColor:(NSString*) hexcolor;
     -(NSString*) getColor;
+    -(void) setUIColor:(UIColor*) color;
+    -(UIColor*) getUIColor;
 @end
 
 @interface StrobeControl : NSObject

@@ -27,8 +27,7 @@
     NSString* yaml = [[NSString alloc] initWithContentsOfFile:bundlePath
                                                      encoding:NSUTF8StringEncoding
                                                         error:nil];
-    ANRig* rig = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
-    return rig;
+    return [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
 }
 
 #pragma mark NSCoding
