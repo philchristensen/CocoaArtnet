@@ -14,5 +14,7 @@
 @property NSMutableDictionary* fixtures;
 
 +(ANRig*) loadRigDefinition: (NSString*) rigName;
+-(NSArray*) getState;
+-(NSArray*) getFrame;
 
 @end

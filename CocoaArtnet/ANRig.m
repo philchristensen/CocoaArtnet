@@ -7,6 +7,7 @@
 //
 
 #import "ANRig.h"
+#import "ANFixture.h"
 #import <YACYAML/YACYAML.h>
 
 @implementation ANRig
@@ -28,6 +29,39 @@
                                                      encoding:NSUTF8StringEncoding
                                                         error:nil];
     return [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
+}
+
+-(NSArray*) getState {
+    return @[];
+}
+
+-(NSArray*) getFrame {
+    NSMutableArray* mergedFrame = [[NSMutableArray alloc] initWithCapacity:512];
+    for(int i = 0; i < 512; i++){
+        mergedFrame[i] = @-1;
+    }
+    for (NSString* fixtureName in [self.fixtures allKeys]) {
+        ANFixture* fixture = self.fixtures[fixtureName];
+        
+        NSArray* fixtureFrame = [fixture getFrame];
+        @try{
+            for(int i = 0; i < 512; i++){
+                int value = -1;
+                int layerValue = [fixtureFrame[i] intValue];
+                if(layerValue == -1){
+                    value = [mergedFrame[i] intValue];
+                }
+                else{
+                    value = [fixtureFrame[i] intValue];
+                }
+                mergedFrame[i] = @(value);
+            }
+        }
+        @catch(NSException *e){
+            NSLog(@"Error %@", e);
+        }
+    }
+    return mergedFrame;
 }
 
 #pragma mark NSCoding
