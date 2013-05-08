@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GCDAsyncUdpSocket.h"
 
 @interface ANController : NSObject
 	@property NSString* interfaceAddress;
@@ -15,6 +16,7 @@
 	@property float framesPerSecond;
 	@property float framesPerBeat;
 
+    @property GCDAsyncUdpSocket* socket;
 	@property NSMutableArray* latestFrame;
 	@property NSMutableArray* generators;
 	@property NSThread* thread;
@@ -30,7 +32,7 @@
 
 	-(NSMutableArray*) createFrame;
 	-(void) start;
-	-(void) run:arg;
+	-(void) run;
 	-(void) wait;
 	-(void) stop;
 	-(void) iterate;

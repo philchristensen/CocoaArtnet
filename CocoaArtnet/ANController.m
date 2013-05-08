@@ -8,8 +8,6 @@
 
 #import "CocoaArtnet.h"
 
-#import "GCDAsyncUdpSocket.h"
-
 @implementation ANController
 @synthesize interfaceAddress;
 @synthesize beatsPerMinute;
@@ -18,6 +16,7 @@
 @synthesize framesPerBeat;
 @synthesize latestFrame;
 @synthesize generators;
+@synthesize socket;
 @synthesize thread;
 @synthesize beatClock;
 @synthesize secondFrameClock;
@@ -27,7 +26,7 @@
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps {
     self = [super init];
     [self setupWithAddress:address andBPM:bpm andBarLength:beats andFPS:fps];
-    self.latestFrame = nil;
+    self.latestFrame = [self createFrame];
     self.generators = [[NSMutableArray alloc] init];
     return self;
 }
@@ -35,7 +34,7 @@
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats {
     self = [super init];
     [self setupWithAddress:address andBPM:bpm andBarLength:beats andFPS:40.0];
-    self.latestFrame = nil;
+    self.latestFrame = [self createFrame];
     self.generators = [[NSMutableArray alloc] init];
     return self;
 }
@@ -43,7 +42,7 @@
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm {
     self = [super init];
     [self setupWithAddress:address andBPM:bpm andBarLength:4 andFPS:40.0];
-    self.latestFrame = nil;
+    self.latestFrame = [self createFrame];
     self.generators = [[NSMutableArray alloc] init];
     return self;
 }
@@ -54,6 +53,11 @@
     self.barLength = beats;
     self.framesPerSecond = fps;
     self.framesPerBeat = (fps * 60) / bpm;
+    
+    self.socket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [self.socket bindToPort:6454 error:nil ];
+    [self.socket enableBroadcast:YES error:nil];
+    
 }
 
 -(NSMutableArray*) createFrame {
@@ -66,7 +70,7 @@
 
 -(void) start {
     self.thread = [[NSThread alloc] initWithTarget:self
-                                          selector:@selector(run:)
+                                          selector:@selector(run)
                                             object:nil];
     [self.thread start];
 }
@@ -75,7 +79,7 @@
     self.running = NO;
 }
 
--(void) run: (id) arg {
+-(void) run {
     self.running = YES;
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     while(self.running){
@@ -108,16 +112,21 @@
     for(NSArray* pair in self.generators){
         @try{
             NSMutableArray* layerFrame = [pair[0] performSelector:NSSelectorFromString(pair[1]) withObject:self];
-            for(int i = 0; i < 512; i++){
-                int value = -1;
-                int layerValue = [layerFrame[i] intValue];
-                if(layerValue == -1){
-                    value = [mergedFrame[i] intValue];
+            if(layerFrame == nil){
+                mergedFrame = self.latestFrame;
+            }
+            else{
+                for(int i = 0; i < 512; i++){
+                    int value = -1;
+                    int layerValue = [layerFrame[i] intValue];
+                    if(layerValue == -1){
+                        value = [mergedFrame[i] intValue];
+                    }
+                    else{
+                        value = [layerFrame[i] intValue];
+                    }
+                    mergedFrame[i] = @(value);
                 }
-                else{
-                    value = [layerFrame[i] intValue];
-                }
-                mergedFrame[i] = @(value);
             }
         }
         @catch(NSException *e){
@@ -145,12 +154,7 @@
     ANDmxPacket* packet = [[ANDmxPacket alloc] initWithFrame:frame];
     NSData* data = [packet encode];
     
-    GCDAsyncUdpSocket* socket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-    
-    [socket bindToPort:6454 error:nil ];
-    [socket enableBroadcast:YES error:nil];
-    
-    [socket sendData:data toHost:self.interfaceAddress port:AN_PORT withTimeout:-1 tag:0];
+    [self.socket sendData:data toHost:self.interfaceAddress port:AN_PORT withTimeout:-1 tag:0];
 }
 
 @end
