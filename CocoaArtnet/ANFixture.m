@@ -79,25 +79,29 @@
 }
 
 -(NSArray*) getState {
-    NSMutableArray* state = [[NSMutableArray alloc] init];
-    for(NSString* key in [[self.controls allKeys] sortedArrayUsingComparator: ^(id a, id b){
-        return ([a hasPrefix:@"program-"] ? (NSComparisonResult)NSOrderedDescending : (NSComparisonResult)NSOrderedAscending);
-    }]){
-        id ctl = self.controls[key];
-        [state addObjectsFromArray:[ctl getState]];
+    @autoreleasepool {
+        NSMutableArray* state = [[NSMutableArray alloc] init];
+        for(NSString* key in [[self.controls allKeys] sortedArrayUsingComparator: ^(id a, id b){
+            return ([a hasPrefix:@"program-"] ? (NSComparisonResult)NSOrderedDescending : (NSComparisonResult)NSOrderedAscending);
+        }]){
+            id ctl = self.controls[key];
+            [state addObjectsFromArray:[ctl getState]];
+        }
+        return state;
     }
-    return state;
 }
 
 -(NSArray*) getFrame {
-    NSMutableArray* frame = [[NSMutableArray alloc] init];
-    for(int i = 0; i < 512; i++){
-        frame[i] = @-1;
+    @autoreleasepool {
+        NSMutableArray* frame = [[NSMutableArray alloc] init];
+        for(int i = 0; i < 512; i++){
+            frame[i] = @-1;
+        }
+        for(NSArray* channelSet in [self getState]){
+            frame[[channelSet[0] integerValue] + self.address - 1] = channelSet[1];
+        }
+        return frame;
     }
-    for(NSArray* channelSet in [self getState]){
-        frame[[channelSet[0] integerValue] + self.address - 1] = channelSet[1];
-    }
-    return frame;
 }
 
 #pragma mark NSCoding

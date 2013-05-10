@@ -83,21 +83,23 @@
     self.running = YES;
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     while(self.running){
-        NSTimeInterval drift = now - [[NSDate date] timeIntervalSince1970];
-        [self iterate];
-        [self send:self.latestFrame];
-        
-        NSTimeInterval elapsed = [[NSDate date] timeIntervalSince1970] - now;
-        NSTimeInterval excess = (1.0 / self.framesPerSecond) - elapsed;
-        if(excess > 0){
-            if(self.running){
-                [NSThread sleepForTimeInterval:(excess - drift)];
+        @autoreleasepool {
+            NSTimeInterval drift = now - [[NSDate date] timeIntervalSince1970];
+            [self iterate];
+            [self send:self.latestFrame];
+            
+            NSTimeInterval elapsed = [[NSDate date] timeIntervalSince1970] - now;
+            NSTimeInterval excess = (1.0 / self.framesPerSecond) - elapsed;
+            if(excess > 0){
+                if(self.running){
+                    [NSThread sleepForTimeInterval:(excess - drift)];
+                }
             }
+            else{
+                NSLog(@"Frame rate loss; generators took too long");
+            }
+            now = [[NSDate date] timeIntervalSince1970];
         }
-        else{
-            NSLog(@"Frame rate loss; generators took too long");
-        }
-        now = [[NSDate date] timeIntervalSince1970];
     }
 }
 
@@ -108,41 +110,43 @@
 }
 
 -(void) iterate {
-    NSMutableArray* mergedFrame = [self createFrame];
-    for(NSArray* pair in self.generators){
-        @try{
-            NSMutableArray* layerFrame = [pair[0] performSelector:NSSelectorFromString(pair[1]) withObject:self];
-            if(layerFrame == nil){
-                mergedFrame = self.latestFrame;
-            }
-            else{
-                for(int i = 0; i < 512; i++){
-                    int value = -1;
-                    int layerValue = [layerFrame[i] intValue];
-                    if(layerValue == -1){
-                        value = [mergedFrame[i] intValue];
+    @autoreleasepool {
+        NSMutableArray* mergedFrame = [self createFrame];
+        for(NSArray* pair in self.generators){
+            @try{
+                NSMutableArray* layerFrame = [pair[0] performSelector:NSSelectorFromString(pair[1]) withObject:self];
+                if(layerFrame == nil){
+                    mergedFrame = self.latestFrame;
+                }
+                else{
+                    for(int i = 0; i < 512; i++){
+                        int value = -1;
+                        int layerValue = [layerFrame[i] intValue];
+                        if(layerValue == -1){
+                            value = [mergedFrame[i] intValue];
+                        }
+                        else{
+                            value = [layerFrame[i] intValue];
+                        }
+                        mergedFrame[i] = @(value);
                     }
-                    else{
-                        value = [layerFrame[i] intValue];
-                    }
-                    mergedFrame[i] = @(value);
                 }
             }
+            @catch(NSException *e){
+                NSLog(@"Error %@", e);
+            }
         }
-        @catch(NSException *e){
-            NSLog(@"Error %@", e);
+        self.latestFrame = mergedFrame;
+
+        self.secondFrameClock = self.secondFrameClock < self.framesPerSecond - 1 ? self.secondFrameClock + 1 : 0;
+        self.beatFrameClock = self.beatFrameClock < self.framesPerBeat - 1 ? self.beatFrameClock + 1 : 0;
+        if(self.beatFrameClock < self.framesPerBeat - 1){
+            self.beatFrameClock += 1;
         }
-    }
-    self.latestFrame = mergedFrame;
-    
-    self.secondFrameClock = self.secondFrameClock < self.framesPerSecond - 1 ? self.secondFrameClock + 1 : 0;
-    self.beatFrameClock = self.beatFrameClock < self.framesPerBeat - 1 ? self.beatFrameClock + 1 : 0;
-    if(self.beatFrameClock < self.framesPerBeat - 1){
-        self.beatFrameClock += 1;
-    }
-    else{
-        self.beatFrameClock = 0;
-        self.beatClock = self.beatClock < self.barLength - 1 ? self.beatClock + 1 : 0;
+        else{
+            self.beatFrameClock = 0;
+            self.beatClock = self.beatClock < self.barLength - 1 ? self.beatClock + 1 : 0;
+        }
     }
 }
 
@@ -151,10 +155,11 @@
 }
 
 -(void) send: (NSArray*) frame {
-    ANDmxPacket* packet = [[ANDmxPacket alloc] initWithFrame:frame];
-    NSData* data = [packet encode];
-    
-    [self.socket sendData:data toHost:self.interfaceAddress port:AN_PORT withTimeout:-1 tag:0];
+    @autoreleasepool {
+        ANDmxPacket* packet = [[ANDmxPacket alloc] initWithFrame:frame];
+        NSData* data = [packet encode];
+        [self.socket sendData:data toHost:self.interfaceAddress port:AN_PORT withTimeout:-1 tag:0];
+    }
 }
 
 @end
