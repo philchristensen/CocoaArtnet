@@ -29,23 +29,25 @@
 }
 
 -(void) loadFixtureDefinition: (NSString*) fixturePath {
-    self.fixtureConfigPath = fixturePath;
-    
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"FixtureDefinitions/%@", fixturePath]
-                                                           ofType:@"yaml"];
-    NSString* yaml = [[NSString alloc] initWithContentsOfFile:bundlePath
-                                                     encoding:NSUTF8StringEncoding
-                                                        error:nil];
-    NSDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
-    [controls setValue: [[RGBControl alloc] initWith: fixturedef] forKey:@"rgb"];
-    [controls setValue: [[StrobeControl alloc] initWith: fixturedef] forKey:@"strobe"];
-    [controls setValue: [[IntensityControl alloc] initWith: fixturedef] forKey:@"intensity"];
-    for(NSDictionary* channel in fixturedef[@"program_channels"]){
-        [controls setValue: [[ProgramControl alloc] initWith:fixturedef andChannel:channel]
-                    forKey: [NSString stringWithFormat:@"program-%d",
-                             [channel[@"offset"] integerValue]
-                             ]
-         ];
+    @autoreleasepool {
+        self.fixtureConfigPath = fixturePath;
+        
+        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"FixtureDefinitions/%@", fixturePath]
+                                                               ofType:@"yaml"];
+        NSString* yaml = [[NSString alloc] initWithContentsOfFile:bundlePath
+                                                         encoding:NSUTF8StringEncoding
+                                                            error:nil];
+        NSDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
+        [controls setValue: [[RGBControl alloc] initWith: fixturedef] forKey:@"rgb"];
+        [controls setValue: [[StrobeControl alloc] initWith: fixturedef] forKey:@"strobe"];
+        [controls setValue: [[IntensityControl alloc] initWith: fixturedef] forKey:@"intensity"];
+        for(NSDictionary* channel in fixturedef[@"program_channels"]){
+            [controls setValue: [[ProgramControl alloc] initWith:fixturedef andChannel:channel]
+                        forKey: [NSString stringWithFormat:@"program-%d",
+                                 [channel[@"offset"] integerValue]
+                                 ]
+             ];
+        }
     }
 }
 

@@ -23,12 +23,14 @@
 }
 
 +(ANRig*)loadRigDefinition: (NSString*) rigName {
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"RigDefinitions/%@", rigName]
-                                                           ofType:@"yaml"];
-    NSString* yaml = [[NSString alloc] initWithContentsOfFile:bundlePath
-                                                     encoding:NSUTF8StringEncoding
-                                                        error:nil];
-    return [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
+    @autoreleasepool {
+        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"RigDefinitions/%@", rigName]
+                                                               ofType:@"yaml"];
+        NSString* yaml = [[NSString alloc] initWithContentsOfFile:bundlePath
+                                                         encoding:NSUTF8StringEncoding
+                                                            error:nil];
+        return [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
+    }
 }
 
 -(NSArray*) getState {
