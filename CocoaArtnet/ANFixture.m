@@ -38,9 +38,19 @@
                                                          encoding:NSUTF8StringEncoding
                                                             error:nil];
         NSDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
-        [controls setValue: [[RGBControl alloc] initWith: fixturedef] forKey:@"rgb"];
-        [controls setValue: [[StrobeControl alloc] initWith: fixturedef] forKey:@"strobe"];
-        [controls setValue: [[IntensityControl alloc] initWith: fixturedef] forKey:@"intensity"];
+        
+        RGBControl* rgb = [[RGBControl alloc] initWith: fixturedef];
+        [rgb setColor:self.state[@"color"]];
+        [controls setValue: rgb forKey:@"rgb"];
+
+        StrobeControl* strobe = [[StrobeControl alloc] initWith: fixturedef];
+        [strobe setStrobe:[self.state[@"strobe"] intValue]];
+        [controls setValue: strobe forKey:@"strobe"];
+        
+        IntensityControl* intensity = [[IntensityControl alloc] initWith: fixturedef];
+        [intensity setIntensity:[self.state[@"intensity"] intValue]];
+        [controls setValue: intensity forKey:@"intensity"];
+        
         for(NSDictionary* channel in fixturedef[@"program_channels"]){
             [controls setValue: [[ProgramControl alloc] initWith:fixturedef andChannel:channel]
                         forKey: [NSString stringWithFormat:@"program-%d",
@@ -110,24 +120,37 @@
 
 #define kAddressKey  @"address"
 #define kConfigKey   @"config"
-#define kExtrasKey   @"extras"
+#define kStateKey   @"state"
 
 - (id)initWithCoder:(NSCoder *)decoder {
     int anAddress = [decoder decodeIntegerForKey:kAddressKey];
     NSString* configPath = [decoder decodeObjectForKey:kConfigKey];
     ANFixture* fixture = [[ANFixture alloc] initWithAddress:anAddress];
-    NSDictionary* extras = [decoder decodeObjectForKey:kExtrasKey];
-    if(extras){
-        fixture.extras = [[NSMutableDictionary alloc] initWithDictionary:extras];
+    NSDictionary* state = [decoder decodeObjectForKey:kStateKey];
+    if(state){
+        fixture.state = [[NSMutableDictionary alloc] initWithDictionary:state];
     }
     [fixture loadFixtureDefinition:configPath];
+    
+    for(NSString* key in [fixture.state allKeys]){
+        if([key isEqualToString:@"color"]){
+            [fixture setColor:fixture.state[key]];
+        }
+        else if([key isEqualToString:@"strobe"]){
+            [fixture setStrobe:[fixture.state[key] intValue]];
+        }
+        else if([key isEqualToString:@"intensity"]){
+            [fixture setIntensity:[fixture.state[key] intValue]];
+        }
+    }
+    
     return fixture;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeInteger:self.address forKey:kAddressKey];
     [encoder encodeObject:self.fixtureConfigPath forKey:kConfigKey];
-    [encoder encodeObject:self.extras forKey:kExtrasKey];
+    [encoder encodeObject:self.state forKey:kStateKey];
 }
 
 @end
