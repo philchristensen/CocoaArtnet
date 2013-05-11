@@ -22,19 +22,55 @@
     return self;
 }
 
-+(ANRig*)loadRigDefinition: (NSString*) rigName {
++(ANRig*)loadRigDefinition: (NSString*) rigPath {
     @autoreleasepool {
-        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"RigDefinitions/%@", rigName]
-                                                               ofType:@"yaml"];
-        NSString* yaml = [[NSString alloc] initWithContentsOfFile:bundlePath
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        
+        NSString* resourcePath = [NSString stringWithFormat:@"RigDefinitions/%@", rigPath];
+        NSString* savedPath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.yaml", resourcePath]];
+        NSString* rigPath;
+        if([[NSFileManager defaultManager] fileExistsAtPath:savedPath]){
+            rigPath = savedPath;
+        }
+        else {
+            rigPath = [[NSBundle mainBundle] pathForResource:resourcePath ofType:@"yaml"];
+        }
+        NSString* yaml = [[NSString alloc] initWithContentsOfFile:rigPath
                                                          encoding:NSUTF8StringEncoding
                                                             error:nil];
-        return [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
+        ANRig* result = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
+        result.rigPath = resourcePath;
+        return result;
     }
 }
 
--(NSArray*) getState {
-    return @[];
+- (BOOL) saveRigDefinition {
+    @autoreleasepool {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        
+        NSError *error;
+        BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory
+                                                 withIntermediateDirectories:YES
+                                                                  attributes:nil
+                                                                       error:&error];
+
+        if (!success) {
+            NSLog(@"Error creating rig directory: %@", [error localizedDescription]);
+            return success;
+        }
+        
+        NSString* basePath = [NSString stringWithFormat:@"%@.yaml", self.rigPath];
+        NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:basePath];
+        NSMutableData *data = [[NSMutableData alloc] init];
+        YACYAMLKeyedArchiver *archiver = [[YACYAMLKeyedArchiver alloc] initForWritingWithMutableData:data];
+        [archiver encodeObject:self];
+        [archiver finishEncoding];
+        [data writeToFile:dataPath atomically:YES];
+        
+        return success;
+    }
 }
 
 -(NSArray*) getFrame {

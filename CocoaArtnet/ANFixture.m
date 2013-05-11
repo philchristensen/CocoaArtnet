@@ -110,11 +110,16 @@
 
 #define kAddressKey  @"address"
 #define kConfigKey   @"config"
+#define kExtrasKey   @"extras"
 
 - (id)initWithCoder:(NSCoder *)decoder {
     int anAddress = [decoder decodeIntegerForKey:kAddressKey];
     NSString* configPath = [decoder decodeObjectForKey:kConfigKey];
     ANFixture* fixture = [[ANFixture alloc] initWithAddress:anAddress];
+    NSDictionary* extras = [decoder decodeObjectForKey:kExtrasKey];
+    if(extras){
+        fixture.extras = [[NSMutableDictionary alloc] initWithDictionary:extras];
+    }
     [fixture loadFixtureDefinition:configPath];
     return fixture;
 }
@@ -122,6 +127,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeInteger:self.address forKey:kAddressKey];
     [encoder encodeObject:self.fixtureConfigPath forKey:kConfigKey];
+    [encoder encodeObject:self.extras forKey:kExtrasKey];
 }
 
 @end

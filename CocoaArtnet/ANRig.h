@@ -11,10 +11,11 @@
 @interface ANRig : NSObject <NSCoding>
 
 @property NSString* name;
+@property NSString* rigPath;
 @property NSMutableDictionary* fixtures;
 
-+(ANRig*) loadRigDefinition: (NSString*) rigName;
--(NSArray*) getState;
++(ANRig*) loadRigDefinition: (NSString*) rigPath;
+-(BOOL) saveRigDefinition;
 -(NSArray*) getFrame;
 
 @end
