@@ -13,7 +13,7 @@
 @interface ANFixture : NSObject <NSCoding>
     @property int address;
     @property NSMutableDictionary* controls;
-    @property NSMutableDictionary* state;
+    @property NSMutableDictionary* config;
     @property NSString* fixtureConfigPath;
 
     -(ANFixture*) initWithAddress: (int) anAddress;

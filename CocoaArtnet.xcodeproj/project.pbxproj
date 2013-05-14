@@ -179,8 +179,8 @@
 		4AC2700216CDA89900648C5F /* CocoaArtnetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaArtnetTests.m; sourceTree = "<group>"; };
 		4AC2700C16CDA8F100648C5F /* ANPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPacket.h; sourceTree = "<group>"; };
 		4AC2700D16CDA8F100648C5F /* ANPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPacket.m; sourceTree = "<group>"; };
-		4AE4371216DC47F1003B792D /* ANFixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFixture.h; sourceTree = "<group>"; };
-		4AE4371316DC47F1003B792D /* ANFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFixture.m; sourceTree = "<group>"; };
+		4AE4371216DC47F1003B792D /* ANFixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ANFixture.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		4AE4371316DC47F1003B792D /* ANFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ANFixture.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4AE4381016DC4D9E003B792D /* YACYAML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = YACYAML.xcodeproj; path = YACYAML/YACYAML.xcodeproj; sourceTree = "<group>"; };
 		4AE4381F16DC4DEA003B792D /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */

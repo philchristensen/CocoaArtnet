@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Phil Christensen. All rights reserved.
 //
 
+#import <stdlib.h>
 #import "ANFixture.h"
 #import <YACYAML/YACYAML.h>
 #import <UIKit/UIColor.h>
@@ -14,10 +15,12 @@
 @synthesize address;
 @synthesize controls;
 @synthesize fixtureConfigPath;
+@synthesize config;
 
 -(ANFixture*) initWithAddress: (int) anAddress {
     self = [super init];
     self.address = anAddress;
+    self.config = [[NSMutableDictionary alloc] init];
     self.controls = [[NSMutableDictionary alloc] init];
     return self;
 }
@@ -40,15 +43,15 @@
         NSDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
         
         RGBControl* rgb = [[RGBControl alloc] initWith: fixturedef];
-        [rgb setColor:self.state[@"color"]];
+        [rgb setColor:self.config[@"color"]];
         [controls setValue: rgb forKey:@"rgb"];
 
         StrobeControl* strobe = [[StrobeControl alloc] initWith: fixturedef];
-        [strobe setStrobe:[self.state[@"strobe"] intValue]];
+        [strobe setStrobe:[self.config[@"strobe"] intValue]];
         [controls setValue: strobe forKey:@"strobe"];
         
         IntensityControl* intensity = [[IntensityControl alloc] initWith: fixturedef];
-        [intensity setIntensity:[self.state[@"intensity"] intValue]];
+        [intensity setIntensity:[self.config[@"intensity"] intValue]];
         [controls setValue: intensity forKey:@"intensity"];
         
         for(NSDictionary* channel in fixturedef[@"program_channels"]){
@@ -64,7 +67,6 @@
 
 -(void) forwardInvocation:(NSInvocation *)anInvocation {
     SEL aSelector = [anInvocation selector];
-    
     for (NSString* key in self.controls) {
         id ctl = self.controls[key];
         if([ctl respondsToSelector:aSelector]){
@@ -92,14 +94,14 @@
 
 -(NSArray*) getState {
     @autoreleasepool {
-        NSMutableArray* state = [[NSMutableArray alloc] init];
+        NSMutableArray* result = [[NSMutableArray alloc] init];
         for(NSString* key in [[self.controls allKeys] sortedArrayUsingComparator: ^(id a, id b){
             return ([a hasPrefix:@"program-"] ? (NSComparisonResult)NSOrderedDescending : (NSComparisonResult)NSOrderedAscending);
         }]){
             id ctl = self.controls[key];
-            [state addObjectsFromArray:[ctl getState]];
+            [result addObjectsFromArray:[ctl getState]];
         }
-        return state;
+        return result;
     }
 }
 
@@ -126,21 +128,18 @@
     int anAddress = [decoder decodeIntegerForKey:kAddressKey];
     NSString* configPath = [decoder decodeObjectForKey:kConfigKey];
     ANFixture* fixture = [[ANFixture alloc] initWithAddress:anAddress];
-    NSDictionary* state = [decoder decodeObjectForKey:kStateKey];
-    if(state){
-        fixture.state = [[NSMutableDictionary alloc] initWithDictionary:state];
-    }
+    fixture.config = [[NSMutableDictionary alloc] initWithDictionary:[decoder decodeObjectForKey:kStateKey]];
     [fixture loadFixtureDefinition:configPath];
     
-    for(NSString* key in [fixture.state allKeys]){
+    for(NSString* key in [fixture.config allKeys]){
         if([key isEqualToString:@"color"]){
-            [fixture setColor:fixture.state[key]];
+            [fixture setColor:fixture.config[key]];
         }
         else if([key isEqualToString:@"strobe"]){
-            [fixture setStrobe:[fixture.state[key] intValue]];
+            [fixture setStrobe:[fixture.config[key] intValue]];
         }
         else if([key isEqualToString:@"intensity"]){
-            [fixture setIntensity:[fixture.state[key] intValue]];
+            [fixture setIntensity:[fixture.config[key] intValue]];
         }
     }
     
@@ -150,7 +149,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeInteger:self.address forKey:kAddressKey];
     [encoder encodeObject:self.fixtureConfigPath forKey:kConfigKey];
-    [encoder encodeObject:self.state forKey:kStateKey];
+    [encoder encodeObject:self.config forKey:kStateKey];
 }
 
 @end
@@ -196,7 +195,7 @@
 }
 
 -(NSString*) getColor {
-	return [NSString stringWithFormat:@"#%02x%02x%02x",
+	return [NSString stringWithFormat:@"%02x%02x%02x",
             self.r_value, self.g_value, self.b_value];
 }
 
