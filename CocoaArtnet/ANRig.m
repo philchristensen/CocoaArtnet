@@ -84,13 +84,16 @@
         NSString* colorHex = cue.config[fixtureName][@"color"];
         if(colorHex) {
             [fixture setColor:colorHex];
+            fixture.config[@"color"] = colorHex;
         }
     
         int intensityLevel = [cue.config[fixtureName][@"intensity"] intValue];
         [fixture setIntensity:intensityLevel];
+        fixture.config[@"intensity"] = @(intensityLevel);
         
         int strobeLevel = [cue.config[fixtureName][@"strobe"] intValue];
         [fixture setStrobe:strobeLevel];
+        fixture.config[@"strobe"] = @(strobeLevel);
     }
 }
 
