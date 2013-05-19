@@ -18,6 +18,8 @@
 		4A5683B016CDAE0500970FC3 /* ANDmxPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5683AF16CDAE0500970FC3 /* ANDmxPacket.m */; };
 		4A8729B616D6FC7C00750B6C /* ANController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8729B516D6FC7C00750B6C /* ANController.m */; };
 		4A8729B716D6FC7C00750B6C /* ANController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8729B516D6FC7C00750B6C /* ANController.m */; };
+		4A8CFC7517492C1F00D7870B /* ANCue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8CFC7417492C1F00D7870B /* ANCue.m */; };
+		4A8CFC7817492C3300D7870B /* ANCue.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A8CFC7317492C1F00D7870B /* ANCue.h */; };
 		4A99048016CF240A00EA49BB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99047F16CF240A00EA49BB /* CFNetwork.framework */; };
 		4A99048116CF241400EA49BB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99047F16CF240A00EA49BB /* CFNetwork.framework */; };
 		4A99048316CF245700EA49BB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A99048216CF245700EA49BB /* Security.framework */; };
@@ -116,6 +118,7 @@
 				4A1096E4173AD2CA009745D3 /* GCDAsyncSocket.h in CopyFiles */,
 				4A1096E5173AD2CA009745D3 /* GCDAsyncUdpSocket.h in CopyFiles */,
 				4A3D431017139F9900558A80 /* ANFixture.h in CopyFiles */,
+				4A8CFC7817492C3300D7870B /* ANCue.h in CopyFiles */,
 				4A3D431117139F9900558A80 /* ANController.h in CopyFiles */,
 				4A3D431217139F9900558A80 /* ANDmxPacket.h in CopyFiles */,
 				4A46FA2B17320D59009BE905 /* ANRig.h in CopyFiles */,
@@ -133,6 +136,8 @@
 		4A5683AF16CDAE0500970FC3 /* ANDmxPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDmxPacket.m; sourceTree = "<group>"; };
 		4A8729B416D6FC7C00750B6C /* ANController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANController.h; sourceTree = "<group>"; };
 		4A8729B516D6FC7C00750B6C /* ANController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANController.m; sourceTree = "<group>"; };
+		4A8CFC7317492C1F00D7870B /* ANCue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCue.h; sourceTree = "<group>"; };
+		4A8CFC7417492C1F00D7870B /* ANCue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANCue.m; sourceTree = "<group>"; };
 		4A99047F16CF240A00EA49BB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		4A99048216CF245700EA49BB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4A99048516CF24CB00EA49BB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -339,6 +344,8 @@
 				4AE4371316DC47F1003B792D /* ANFixture.m */,
 				4A46FA281732059A009BE905 /* ANRig.h */,
 				4A46FA291732059A009BE905 /* ANRig.m */,
+				4A8CFC7317492C1F00D7870B /* ANCue.h */,
+				4A8CFC7417492C1F00D7870B /* ANCue.m */,
 				4A8729B416D6FC7C00750B6C /* ANController.h */,
 				4A8729B516D6FC7C00750B6C /* ANController.m */,
 				4A5683AE16CDAE0500970FC3 /* ANDmxPacket.h */,
@@ -538,6 +545,7 @@
 				4A8729B616D6FC7C00750B6C /* ANController.m in Sources */,
 				4AE4371416DC47F1003B792D /* ANFixture.m in Sources */,
 				4A46FA2A1732059A009BE905 /* ANRig.m in Sources */,
+				4A8CFC7517492C1F00D7870B /* ANCue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@
 @property NSString* name;
 @property NSString* rigPath;
 @property NSMutableDictionary* fixtures;
+@property NSMutableArray* cues;
 
 +(ANRig*) loadRigDefinition: (NSString*) rigPath;
 -(BOOL) saveRigDefinition;

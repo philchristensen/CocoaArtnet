@@ -14,6 +14,7 @@
 
 @synthesize name;
 @synthesize fixtures;
+@synthesize cues;
 
 - (id)initWithName:(NSString*)aName {
     self = [super init];
@@ -51,7 +52,7 @@
         NSString *documentsDirectory = [paths objectAtIndex:0];
         
         NSError *error;
-        BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory
+        BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/RigDefinitions", documentsDirectory]
                                                  withIntermediateDirectories:YES
                                                                   attributes:nil
                                                                        error:&error];
@@ -108,17 +109,20 @@
 
 #define kNameKey       @"name"
 #define kFixturesKey   @"fixtures"
+#define kCuesKey       @"cues"
 
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     self.name = [decoder decodeObjectForKey:kNameKey];
     self.fixtures = [decoder decodeObjectForKey:kFixturesKey];
+    self.cues = [[NSMutableArray alloc] initWithArray:[decoder decodeObjectForKey:kCuesKey]];
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.name forKey:kNameKey];
     [encoder encodeObject:self.fixtures forKey:kFixturesKey];
+    [encoder encodeObject:self.cues forKey:kCuesKey];
 }
 
 @end

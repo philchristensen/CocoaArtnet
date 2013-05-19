@@ -10,6 +10,7 @@
 
 #import "ANFixture.h"
 #import "ANRig.h"
+#import "ANCue.h"
 #import "ANController.h"
 #import "ANPacket.h"
 #import "ANDmxPacket.h"
