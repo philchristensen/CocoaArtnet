@@ -40,22 +40,24 @@
         NSString* yaml = [[NSString alloc] initWithContentsOfFile:bundlePath
                                                          encoding:NSUTF8StringEncoding
                                                             error:nil];
-        NSDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
+        NSMutableDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
         
-        RGBControl* rgb = [[RGBControl alloc] initWith: fixturedef];
+        RGBControl* rgb = [[RGBControl alloc] initWithFixture:self andDefinition:fixturedef];
         [rgb setColor:self.config[@"color"]];
-        [controls setValue: rgb forKey:@"rgb"];
+        [self.controls setValue: rgb forKey:@"rgb"];
 
-        StrobeControl* strobe = [[StrobeControl alloc] initWith: fixturedef];
+        StrobeControl* strobe = [[StrobeControl alloc] initWithFixture:self andDefinition:fixturedef];
         [strobe setStrobe:[self.config[@"strobe"] intValue]];
-        [controls setValue: strobe forKey:@"strobe"];
+        [self.controls setValue: strobe forKey:@"strobe"];
         
-        IntensityControl* intensity = [[IntensityControl alloc] initWith: fixturedef];
+        IntensityControl* intensity = [[IntensityControl alloc] initWithFixture:self andDefinition:fixturedef];
         [intensity setIntensity:[self.config[@"intensity"] intValue]];
-        [controls setValue: intensity forKey:@"intensity"];
+        [self.controls setValue: intensity forKey:@"intensity"];
         
         for(NSDictionary* channel in fixturedef[@"program_channels"]){
-            [controls setValue: [[ProgramControl alloc] initWith:fixturedef andChannel:channel]
+            [controls setValue: [[ProgramControl alloc] initWithFixture:self
+                                                          andDefinition:fixturedef
+                                                             andChannel:channel]
                         forKey: [NSString stringWithFormat:@"program-%d",
                                  [channel[@"offset"] integerValue]
                                  ]
@@ -155,6 +157,7 @@
 @end
 
 @implementation RGBControl
+@synthesize fixture;
 @synthesize r_value;
 @synthesize g_value;
 @synthesize b_value;
@@ -162,7 +165,7 @@
 @synthesize g_offset;
 @synthesize b_offset;
 
--(RGBControl*) initWith: (NSDictionary*) fixturedef {
+-(RGBControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef {
 	self = [super init];
     self.r_offset = [fixturedef[@"rgb_offsets"][@"red"] integerValue];
     self.g_offset = [fixturedef[@"rgb_offsets"][@"green"] integerValue];
@@ -189,6 +192,8 @@
         self.r_value = (hex >> 16) & 0xFF; // get the first byte
         self.g_value = (hex >>  8) & 0xFF; // get the middle byte
         self.b_value = (hex      ) & 0xFF; // get the last byte
+        
+        self.fixture.config[@"color"] = hexcolor;
     } else {
         NSLog(@"Parsing error: no hex value found in string");
     }
@@ -205,6 +210,8 @@
     self.r_value = roundf(255 * red);
     self.g_value = roundf(255 * green);
     self.b_value = roundf(255 * blue);
+    
+    self.fixture.config[@"color"] = [self getColor];
 }
 
 -(UIColor*) getUIColor {
@@ -215,10 +222,11 @@
 @end
 
 @implementation StrobeControl
+@synthesize fixture;
 @synthesize offset;
 @synthesize value;
 
--(StrobeControl*) initWith: (NSDictionary*) fixturedef {
+-(StrobeControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef {
 	self = [super init];
     self.offset = [fixturedef[@"strobe_offset"] integerValue];
     self.value = 0;
@@ -233,6 +241,7 @@
 
 -(void) setStrobe:(int) level {
 	self.value = level;
+    self.fixture.config[@"strobe"] = @(level);
 }
 
 -(int) getStrobe {
@@ -242,11 +251,12 @@
 @end
 
 @implementation IntensityControl
+@synthesize fixture;
 @synthesize offset;
 @synthesize offset_fine;
 @synthesize value;
 
--(IntensityControl*) initWith: (NSDictionary*) fixturedef {
+-(IntensityControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef {
 	self = [super init];
     self.offset = [fixturedef[@"intensity_offset"] integerValue];
     self.value = 0;
@@ -261,6 +271,7 @@
 
 -(void) setIntensity:(int) level {
 	self.value = level;
+    self.fixture.config[@"intensity"] = @(level);
 }
 
 -(int) getIntensity {
@@ -270,6 +281,7 @@
 @end
 
 @implementation ProgramControl
+@synthesize fixture;
 @synthesize offset;
 @synthesize speedOffset;
 @synthesize value;
@@ -277,7 +289,7 @@
 @synthesize macroType;
 @synthesize macros;
 
--(ProgramControl*) initWith: (NSDictionary*) fixturedef andChannel: (NSDictionary*) channel {
+-(ProgramControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef andChannel: (NSDictionary*) channel {
 	self = [super init];
     
     self.offset = [channel[@"offset"] integerValue];
