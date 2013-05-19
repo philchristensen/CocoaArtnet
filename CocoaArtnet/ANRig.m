@@ -74,6 +74,26 @@
     }
 }
 
+-(void) applyCue:(ANCue *)cue{
+    for(NSString* fixtureName in cue.config){
+        ANFixture* fixture = self.fixtures[fixtureName];
+        if(fixture == nil){
+            continue;
+        }
+        
+        NSString* colorHex = cue.config[fixtureName][@"color"];
+        if(colorHex) {
+            [fixture setColor:colorHex];
+        }
+    
+        int intensityLevel = [cue.config[fixtureName][@"intensity"] intValue];
+        [fixture setIntensity:intensityLevel];
+        
+        int strobeLevel = [cue.config[fixtureName][@"strobe"] intValue];
+        [fixture setStrobe:strobeLevel];
+    }
+}
+
 -(NSArray*) getFrame {
     @autoreleasepool {
         NSMutableArray* mergedFrame = [[NSMutableArray alloc] initWithCapacity:512];

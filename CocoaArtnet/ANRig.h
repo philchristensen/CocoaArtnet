@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ANCue.h"
 
 @interface ANRig : NSObject <NSCoding>
 
@@ -18,5 +19,6 @@
 +(ANRig*) loadRigDefinition: (NSString*) rigPath;
 -(BOOL) saveRigDefinition;
 -(NSArray*) getFrame;
+-(void) applyCue:(ANCue*) cue;
 
 @end
