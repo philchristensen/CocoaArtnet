@@ -16,9 +16,11 @@
 @property NSMutableDictionary* fixtures;
 @property NSMutableArray* cues;
 
-+(ANRig*) loadRigDefinition: (NSString*) rigPath;
--(BOOL) saveRigDefinition;
--(NSArray*) getFrame;
--(void) applyCue:(ANCue*) cue;
++ (ANRig*)loadRigDefinition: (NSString*) rigPath;
+- (BOOL)saveRigDefinition;
+- (NSArray*)getFrame;
+
+- (void)applyCue:(ANCue*) cue;
+- (NSArray*)generateFadeToCue:(ANCue*)cue forSeconds:(int)secs atFPS:(int)fps;
 
 @end

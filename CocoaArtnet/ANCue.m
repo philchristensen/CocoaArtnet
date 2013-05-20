@@ -13,6 +13,13 @@
 @synthesize name;
 @synthesize config;
 
+- (ANCue*)init {
+    self = [super init];
+    self.name = @"";
+    self.config = [[NSMutableDictionary alloc] init];
+    return self;
+}
+
 #pragma mark NSCoding
 
 #define kNameKey  @"name"

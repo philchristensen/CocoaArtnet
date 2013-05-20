@@ -46,7 +46,7 @@
     }
 }
 
-- (BOOL) saveRigDefinition {
+- (BOOL)saveRigDefinition {
     @autoreleasepool {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -74,7 +74,7 @@
     }
 }
 
--(void) applyCue:(ANCue *)cue{
+- (void)applyCue:(ANCue *)cue{
     for(NSString* fixtureName in cue.config){
         ANFixture* fixture = self.fixtures[fixtureName];
         if(fixture == nil){
@@ -97,7 +97,32 @@
     }
 }
 
--(NSArray*) getFrame {
+- (NSArray*)generateFadeToCue:(ANCue*)cue forSeconds:(int)secs atFPS:(int)fps {
+    NSMutableArray* result = [[NSMutableArray alloc] init];
+    int totalFrames = secs * fps;
+    for(int i = 0; i < totalFrames; i++){
+        ANCue* newCue = [[ANCue alloc] init];
+        for(NSString* fixtureName in cue.config){
+            ANFixture* fixture = self.fixtures[fixtureName];
+            
+            NSString* startColor = fixture.config[@"color"];
+            NSString* endColor = cue.config[fixtureName][@"color"];
+            newCue.config[fixtureName] = [[NSMutableDictionary alloc] initWithDictionary:@{@"color" : getHexColorInFade(startColor, endColor, i, totalFrames)}];
+            
+            int startStrobe = [fixture.config[@"strobe"] intValue];
+            int endStrobe = [cue.config[fixtureName][@"strobe"] intValue];
+            newCue.config[fixtureName][@"strobe"] = @(getIntInFade(startStrobe, endStrobe, i, totalFrames));
+            
+            int startIntensity = [fixture.config[@"intensity"] intValue];
+            int endIntensity = [cue.config[fixtureName][@"intensity"] intValue];
+            newCue.config[fixtureName][@"intensity"] = @(getIntInFade(startIntensity, endIntensity, i, totalFrames));
+        }
+        [result addObject:newCue];
+    }
+    return result;
+}
+
+- (NSArray*)getFrame {
     @autoreleasepool {
         NSMutableArray* mergedFrame = [[NSMutableArray alloc] initWithCapacity:512];
         for(int i = 0; i < 512; i++){

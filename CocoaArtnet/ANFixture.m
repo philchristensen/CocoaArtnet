@@ -11,6 +11,39 @@
 #import <YACYAML/YACYAML.h>
 #import <UIKit/UIColor.h>
 
+NSArray* hex2RGBArray(NSString* hexcolor){
+    NSScanner* scanner = [NSScanner scannerWithString:hexcolor];
+    unsigned int hex;
+    int r = 0, g = 0, b = 0;
+    if ([scanner scanHexInt:&hex]) {
+        // Parsing successful. We have a big int representing the 0xBD8F60 value
+        r = (hex >> 16) & 0xFF; // get the first byte
+        g = (hex >>  8) & 0xFF; // get the middle byte
+        b = (hex      ) & 0xFF; // get the last byte
+    } else {
+        NSLog(@"Parsing error: no hex value found in string");
+    }
+    return @[@(r), @(g), @(b)];
+}
+
+NSString* RGB2Hex(int red, int green, int blue){
+    return [NSString stringWithFormat:@"%02x%02x%02x", red, green, blue];
+}
+
+int getIntInFade(int start, int end, int frameIndex, int totalFrames) {
+    return start + (((end - start) / totalFrames) * frameIndex);
+}
+
+NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int totalFrames){
+    NSArray* startRGB = hex2RGBArray(start);
+    NSArray* endRGB = hex2RGBArray(end);
+    return RGB2Hex(
+       getIntInFade([startRGB[0] intValue], [endRGB[0] intValue], frameIndex, totalFrames),
+       getIntInFade([startRGB[1] intValue], [endRGB[1] intValue], frameIndex, totalFrames),
+       getIntInFade([startRGB[2] intValue], [endRGB[2] intValue], frameIndex, totalFrames)
+    );
+}
+
 @implementation ANFixture
 @synthesize address;
 @synthesize controls;
@@ -94,14 +127,14 @@
     return nil;
 }
 
--(NSArray*) getState {
+-(NSArray*) getChannels {
     @autoreleasepool {
         NSMutableArray* result = [[NSMutableArray alloc] init];
         for(NSString* key in [[self.controls allKeys] sortedArrayUsingComparator: ^(id a, id b){
             return ([a hasPrefix:@"program-"] ? (NSComparisonResult)NSOrderedDescending : (NSComparisonResult)NSOrderedAscending);
         }]){
             id ctl = self.controls[key];
-            [result addObjectsFromArray:[ctl getState]];
+            [result addObjectsFromArray:[ctl getChannels]];
         }
         return result;
     }
@@ -113,7 +146,7 @@
         for(int i = 0; i < 512; i++){
             frame[i] = @-1;
         }
-        for(NSArray* channelSet in [self getState]){
+        for(NSArray* channelSet in [self getChannels]){
             frame[[channelSet[0] integerValue] + self.address - 1] = channelSet[1];
         }
         return frame;
@@ -176,7 +209,7 @@
     return self;
 }
 
--(NSArray*) getState {
+-(NSArray*) getChannels {
 	return @[
           @[@(self.r_offset), @(self.r_value)],
           @[@(self.g_offset), @(self.g_value)],
@@ -185,23 +218,15 @@
 }
 
 -(void) setColor:(NSString*) hexcolor {
-    NSScanner* scanner = [NSScanner scannerWithString:hexcolor];
-    unsigned int hex;
-    if ([scanner scanHexInt:&hex]) {
-        // Parsing successful. We have a big int representing the 0xBD8F60 value
-        self.r_value = (hex >> 16) & 0xFF; // get the first byte
-        self.g_value = (hex >>  8) & 0xFF; // get the middle byte
-        self.b_value = (hex      ) & 0xFF; // get the last byte
-        
-        self.fixture.config[@"color"] = hexcolor;
-    } else {
-        NSLog(@"Parsing error: no hex value found in string");
-    }
+    NSArray* result = hex2RGBArray(hexcolor);
+    self.r_value = [result[0] intValue];
+    self.g_value = [result[1] intValue];
+    self.b_value = [result[2] intValue];
+    self.fixture.config[@"color"] = hexcolor;
 }
 
 -(NSString*) getColor {
-	return [NSString stringWithFormat:@"%02x%02x%02x",
-            self.r_value, self.g_value, self.b_value];
+	return RGB2Hex(self.r_value, self.g_value, self.b_value);
 }
 
 -(void) setUIColor:(UIColor*) color {
@@ -233,7 +258,7 @@
     return self;
 }
 
--(NSArray*) getState {
+-(NSArray*) getChannels {
 	return @[
           @[@(self.offset), @(self.value)]
           ];
@@ -263,7 +288,7 @@
     return self;
 }
 
--(NSArray*) getState {
+-(NSArray*) getChannels {
 	return @[
           @[@(self.offset), @(self.value)]
           ];
@@ -318,7 +343,7 @@
     return self;
 }
 
--(NSArray*) getState {
+-(NSArray*) getChannels {
     if(self.speedOffset){
         return @[
                  @[@(self.offset), @(self.value)],

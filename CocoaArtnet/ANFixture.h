@@ -10,6 +10,11 @@
 #import <inttypes.h>
 #import <UIKit/UIColor.h>
 
+NSArray* hex2RGBArray(NSString* hexcolor);
+NSString* RGB2Hex(int red, int green, int blue);
+NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int totalFrames);
+int getIntInFade(int start, int end, int frameIndex, int totalFrames);
+
 @interface ANFixture : NSObject <NSCoding>
     @property int address;
     @property NSMutableDictionary* controls;
@@ -20,7 +25,7 @@
     -(ANFixture*) initWithAddress: (int) anAddress;
     +(ANFixture*) createWithAddress: (int) anAddress andFixturePath: (NSString*) aPath;
     -(void) loadFixtureDefinition: (NSString*) aPath;
-    -(NSArray*) getState;
+    -(NSArray*) getChannels;
     -(NSArray*) getFrame;
 @end
 
@@ -34,7 +39,7 @@
     @property int b_offset;
 
     -(RGBControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef;
-    -(NSArray*) getState;
+    -(NSArray*) getChannels;
     -(void) setColor:(NSString*) hexcolor;
     -(NSString*) getColor;
     -(void) setUIColor:(UIColor*) color;
@@ -54,7 +59,7 @@
     @property int value;
 
     -(StrobeControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef;
-    -(NSArray*) getState;
+    -(NSArray*) getChannels;
     -(void) setStrobe:(int) level;
     -(int) getStrobe;
 @end
@@ -71,7 +76,7 @@
     @property int value;
 
     -(IntensityControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef;
-    -(NSArray*) getState;
+    -(NSArray*) getChannels;
     -(void) setIntensity:(int) level;
     -(int) getIntensity;
 @end
@@ -91,7 +96,7 @@
     @property NSMutableDictionary* macros;
 
     -(ProgramControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef andChannel: (NSDictionary*) aChannel;
-    -(NSArray*) getState;
+    -(NSArray*) getChannels;
     -(void) setMacro: (NSString*) macroName withValue: (int) aValue andSpeed: (int) aSpeed;
     -(void) setMacro: (NSString*) macroName withValue: (int) aValue;
 @end
