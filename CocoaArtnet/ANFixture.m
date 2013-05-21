@@ -30,11 +30,14 @@ NSString* RGB2Hex(int red, int green, int blue){
     return [NSString stringWithFormat:@"%02x%02x%02x", red, green, blue];
 }
 
-int getIntInFade(int start, int end, int frameIndex, int totalFrames) {
-    return start + (((end - start) / totalFrames) * frameIndex);
+int getIntInFade(double start, double end, double frameIndex, double totalFrames) {
+    return (int)(start + (((end - start) / totalFrames) * frameIndex));
 }
 
 NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int totalFrames){
+    if(frameIndex == 0) return start;
+    if(frameIndex == totalFrames - 1) return end;
+    
     NSArray* startRGB = hex2RGBArray(start);
     NSArray* endRGB = hex2RGBArray(end);
     return RGB2Hex(

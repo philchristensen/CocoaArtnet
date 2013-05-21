@@ -13,7 +13,7 @@
 NSArray* hex2RGBArray(NSString* hexcolor);
 NSString* RGB2Hex(int red, int green, int blue);
 NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int totalFrames);
-int getIntInFade(int start, int end, int frameIndex, int totalFrames);
+int getIntInFade(double start, double end, double frameIndex, double totalFrames);
 
 @interface ANFixture : NSObject <NSCoding>
     @property int address;

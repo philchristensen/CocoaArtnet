@@ -33,7 +33,7 @@
 
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats {
     self = [super init];
-    [self setupWithAddress:address andBPM:bpm andBarLength:beats andFPS:40.0];
+    [self setupWithAddress:address andBPM:bpm andBarLength:beats andFPS:44.0];
     self.latestFrame = [self createFrame];
     self.generators = [[NSMutableArray alloc] init];
     return self;
@@ -41,7 +41,7 @@
 
 -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm {
     self = [super init];
-    [self setupWithAddress:address andBPM:bpm andBarLength:4 andFPS:40.0];
+    [self setupWithAddress:address andBPM:bpm andBarLength:4 andFPS:44.0];
     self.latestFrame = [self createFrame];
     self.generators = [[NSMutableArray alloc] init];
     return self;
