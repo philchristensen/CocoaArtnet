@@ -74,6 +74,24 @@
     }
 }
 
+- (ANCue*)createCue {
+    ANRig* __weak weakSelf = self;
+    return [self createCue:^NSDictionary* (NSString* fixtureName){
+        return [weakSelf.fixtures[fixtureName] getCueState];
+    }];
+}
+
+- (ANCue*)createCue:(NSDictionary* (^)(NSString*))filter {
+    ANCue* cue = [[ANCue alloc] init];
+    for(NSString* fixtureName in self.fixtures){
+        NSDictionary* cueState = filter(fixtureName);
+        if(cueState != nil){
+            cue.config[fixtureName] = cueState;
+        }
+    }
+    return cue;
+}
+
 - (void)applyCue:(ANCue *)cue{
     for(NSString* fixtureName in cue.config){
         ANFixture* fixture = self.fixtures[fixtureName];

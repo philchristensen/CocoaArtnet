@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ANCue.h"
+#import "ANFixture.h"
 
 @interface ANRig : NSObject <NSCoding>
 
@@ -19,6 +20,8 @@
 + (ANRig*)loadRigDefinition: (NSString*) rigPath;
 - (BOOL)saveRigDefinition;
 - (NSArray*)getFrame;
+- (ANCue*)createCue;
+- (ANCue*)createCue:(NSDictionary* (^)(NSString*))filter;
 
 - (void)applyCue:(ANCue*) cue;
 - (NSArray*)generateFadeToCue:(ANCue*)cue forSeconds:(int)secs atFPS:(int)fps;

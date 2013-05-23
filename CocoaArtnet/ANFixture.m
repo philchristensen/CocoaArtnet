@@ -143,6 +143,14 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
     }
 }
 
+-(NSDictionary*) getCueState {
+    NSMutableDictionary* cueState = [[NSMutableDictionary alloc] init];
+    cueState[@"color"] = [self getColor];
+    cueState[@"intensity"] = @([self getIntensity]);
+    cueState[@"strobe"] = @([self getStrobe]);
+    return cueState;
+}
+
 -(NSArray*) getFrame {
     @autoreleasepool {
         NSMutableArray* frame = [[NSMutableArray alloc] init];
