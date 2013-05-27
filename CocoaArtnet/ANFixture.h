@@ -10,6 +10,7 @@
 #import <inttypes.h>
 #import <UIKit/UIColor.h>
 
+UIColor* hex2UIColor(NSString* hexcolor, CGFloat alpha);
 NSArray* hex2RGBArray(NSString* hexcolor);
 NSString* RGB2Hex(int red, int green, int blue);
 NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int totalFrames);

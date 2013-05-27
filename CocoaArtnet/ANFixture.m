@@ -26,6 +26,15 @@ NSArray* hex2RGBArray(NSString* hexcolor){
     return @[@(r), @(g), @(b)];
 }
 
+UIColor* hex2UIColor(NSString* hexcolor, CGFloat alpha) {
+    NSArray* rgb = hex2RGBArray(hexcolor);
+    return [UIColor colorWithRed: [rgb[0] floatValue] / 255
+                           green: [rgb[1] floatValue] / 255
+                            blue: [rgb[2] floatValue] / 255
+                           alpha: alpha];
+}
+
+
 NSString* RGB2Hex(int red, int green, int blue){
     return [NSString stringWithFormat:@"%02x%02x%02x", red, green, blue];
 }
