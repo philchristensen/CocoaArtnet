@@ -22,8 +22,9 @@
 - (NSArray*)getFrame;
 - (ANCue*)createCue;
 - (ANCue*)createCue:(NSDictionary* (^)(NSString*))filter;
+- (void)updateCue:(ANCue*)cue;
 
-- (void)applyCue:(ANCue*) cue;
+- (void)applyCue:(ANCue*)cue;
 - (NSArray*)generateFadeToCue:(ANCue*)cue forSeconds:(int)secs atFPS:(int)fps;
 
 @end

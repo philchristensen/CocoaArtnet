@@ -92,6 +92,13 @@
     return cue;
 }
 
+- (void)updateCue:(ANCue*)cue {
+    for(NSString* fixtureName in [cue.config allKeys]){
+        NSDictionary* cueState = [self.fixtures[fixtureName] getCueState];
+        cue.config[fixtureName] = cueState;
+    }
+}
+
 - (void)applyCue:(ANCue *)cue{
     for(NSString* fixtureName in cue.config){
         ANFixture* fixture = self.fixtures[fixtureName];
