@@ -25,6 +25,7 @@ int getIntInFade(double start, double end, double frameIndex, double totalFrames
 
     -(ANFixture*) initWithAddress: (int) anAddress;
     +(ANFixture*) createWithAddress: (int) anAddress andFixturePath: (NSString*) aPath;
+    +(NSArray*) getAvailableFixtureDefinitions;
     -(void) loadFixtureDefinition: (NSString*) aPath;
     -(NSArray*) getChannels;
     -(NSDictionary*) getCueState;
