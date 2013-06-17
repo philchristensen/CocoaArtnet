@@ -134,6 +134,7 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
         //                                                    error:nil];
         
         NSMutableDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
+        self.fixtureDefinition = fixturedef;
         
         RGBControl* rgb = [[RGBControl alloc] initWithFixture:self andDefinition:fixturedef];
         [rgb setColor:self.config[@"color"]];
