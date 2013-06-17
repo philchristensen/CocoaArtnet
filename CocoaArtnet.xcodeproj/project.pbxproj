@@ -55,6 +55,7 @@
 		4AACDEB716CDE07D0091968F /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0616CDE07D0091968F /* DispatchQueueLogFormatter.m */; };
 		4AACDEB816CDE07D0091968F /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AACDE0616CDE07D0091968F /* DispatchQueueLogFormatter.m */; };
 		4AACDEB916CDE07D0091968F /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4AACDE0716CDE07D0091968F /* README.txt */; };
+		4AB4A04E176E9FF200701D3E /* ANFixtureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB4A04D176E9FF200701D3E /* ANFixtureTests.m */; };
 		4AC26FE516CDA89900648C5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC26FE416CDA89900648C5F /* Foundation.framework */; };
 		4AC26FEA16CDA89900648C5F /* CocoaArtnet.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AC26FE916CDA89900648C5F /* CocoaArtnet.h */; };
 		4AC26FEC16CDA89900648C5F /* CocoaArtnet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC26FEB16CDA89900648C5F /* CocoaArtnet.m */; };
@@ -171,6 +172,8 @@
 		4AACDE0516CDE07D0091968F /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		4AACDE0616CDE07D0091968F /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		4AACDE0716CDE07D0091968F /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		4AB4A04C176E9FF200701D3E /* ANFixtureTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFixtureTests.h; sourceTree = "<group>"; };
+		4AB4A04D176E9FF200701D3E /* ANFixtureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFixtureTests.m; sourceTree = "<group>"; };
 		4AC26FE116CDA89900648C5F /* libCocoaArtnet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaArtnet.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC26FE416CDA89900648C5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4AC26FE816CDA89900648C5F /* CocoaArtnet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaArtnet-Prefix.pch"; sourceTree = "<group>"; };
@@ -370,6 +373,8 @@
 				4AC26FFC16CDA89900648C5F /* Supporting Files */,
 				4AC2700116CDA89900648C5F /* CocoaArtnetTests.h */,
 				4AC2700216CDA89900648C5F /* CocoaArtnetTests.m */,
+				4AB4A04C176E9FF200701D3E /* ANFixtureTests.h */,
+				4AB4A04D176E9FF200701D3E /* ANFixtureTests.m */,
 			);
 			path = CocoaArtnetTests;
 			sourceTree = "<group>";
@@ -566,6 +571,7 @@
 				4AACDEB616CDE07D0091968F /* ContextFilterLogFormatter.m in Sources */,
 				4AACDEB816CDE07D0091968F /* DispatchQueueLogFormatter.m in Sources */,
 				4A8729B716D6FC7C00750B6C /* ANController.m in Sources */,
+				4AB4A04E176E9FF200701D3E /* ANFixtureTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
