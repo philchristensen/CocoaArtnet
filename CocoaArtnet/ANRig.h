@@ -16,6 +16,7 @@
 @property NSString* rigPath;
 @property NSMutableDictionary* fixtures;
 @property NSMutableArray* cues;
+@property NSMutableArray* colors;
 
 + (ANRig*)loadRigDefinition: (NSString*) rigPath;
 - (BOOL)saveRigDefinition;

@@ -15,6 +15,7 @@
 @synthesize name;
 @synthesize fixtures;
 @synthesize cues;
+@synthesize colors;
 
 - (id)initWithName:(NSString*)aName {
     self = [super init];
@@ -183,12 +184,14 @@
 #define kNameKey       @"name"
 #define kFixturesKey   @"fixtures"
 #define kCuesKey       @"cues"
+#define kColorsKey     @"colors"
 
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     self.name = [decoder decodeObjectForKey:kNameKey];
     self.fixtures = [decoder decodeObjectForKey:kFixturesKey];
     self.cues = [[NSMutableArray alloc] initWithArray:[decoder decodeObjectForKey:kCuesKey]];
+    self.colors = [[NSMutableArray alloc] initWithArray:[decoder decodeObjectForKey:kColorsKey]];
     return self;
 }
 
@@ -196,6 +199,7 @@
     [encoder encodeObject:self.name forKey:kNameKey];
     [encoder encodeObject:self.fixtures forKey:kFixturesKey];
     [encoder encodeObject:self.cues forKey:kCuesKey];
+    [encoder encodeObject:self.colors forKey:kColorsKey];
 }
 
 @end
