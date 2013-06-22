@@ -103,35 +103,27 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
     @autoreleasepool {
         self.fixtureConfigPath = fixturePath;
         
-        NSString *bundlePath;
+        NSString* realPath;
         if([fixturePath hasPrefix:@"/"]){
-            bundlePath = fixturePath;
+            realPath = fixturePath;
         }
         else{
-            bundlePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"FixtureDefinitions/%@", fixturePath]
-                                                               ofType:@"yaml"];
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+
+            NSString* resourcePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", fixturePath];
+            NSString* savedPath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.yaml", resourcePath]];
+            if([[NSFileManager defaultManager] fileExistsAtPath:savedPath]){
+                realPath = savedPath;
+            }
+            else {
+                realPath = [[NSBundle mainBundle] pathForResource:resourcePath ofType:@"yaml"];
+            }
         }
         
-        NSString* yaml = [[NSString alloc] initWithContentsOfFile:bundlePath
+        NSString* yaml = [[NSString alloc] initWithContentsOfFile:realPath
                                                          encoding:NSUTF8StringEncoding
                                                             error:nil];
-        // TODO: test this, and use it
-        
-        //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-        //NSString *documentsDirectory = [paths objectAtIndex:0];
-        //
-        //NSString* resourcePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", fixturePath];
-        //NSString* savedPath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.yaml", resourcePath]];
-        //NSString* realPath;
-        //if([[NSFileManager defaultManager] fileExistsAtPath:savedPath]){
-        //    realPath = savedPath;
-        //}
-        //else {
-        //    realPath = [[NSBundle mainBundle] pathForResource:resourcePath ofType:@"yaml"];
-        //}
-        //NSString* yaml = [[NSString alloc] initWithContentsOfFile:realPath
-        //                                                 encoding:NSUTF8StringEncoding
-        //                                                    error:nil];
         
         NSDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
         [self installFixtureDefinition:fixturedef];
