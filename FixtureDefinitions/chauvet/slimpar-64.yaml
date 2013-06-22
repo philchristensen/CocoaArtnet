@@ -1,16 +1,11 @@
 {
     "manufacturer": "Chauvet",
     "name": "SlimPAR 64",
-    "rgb_offsets" : {
-        "red": 0,
-        "blue": 2,
-        "green": 1,
-    },
-    "program_channels": [
-        {
-            "offset": 3,
-            "type": "color",
-            "macros": {
+    "channels": [
+        {"type": "rgb", "subtype": "red"},
+        {"type": "rgb", "subtype": "green"},
+        {"type": "rgb", "subtype": "blue"},
+        {"type": "program", "subtype": "color", "macros": {
                 "white": 255,
                 "teal": 16,
                 "violet": 32,
@@ -19,12 +14,9 @@
                 "blue": 112,
                 "aqua": 127,
                 "magenta": 180
-            }
-        },
-        {
-            "offset": 5,
-            "type": "program",
-            "macros": {
+            }},
+        {"type": "strobe"},
+        {"type": "program", "subtype": "program", "speed_offset": 4, "macros": {
                 "pulse-up": {
                     "value": 32,
                     "speed": 255,
@@ -53,9 +45,7 @@
                     "value": 224,
                     "speed": 0,
                 }
-            }
-        }
-    ],
-    "strobe_offset": 4,
-    "intensity_offset": 6
+            }},
+        {"type": "intensity"}
+    ]
 }

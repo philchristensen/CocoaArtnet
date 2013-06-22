@@ -89,4 +89,30 @@
     STAssertEqualObjects(result, expected, @"Did not generate intermediate color properly.");
 }
 
+-(ANFixture*) getTestFixture {
+    ANFixture* fixture = [[ANFixture alloc] initWithAddress:1];
+    [fixture installFixtureDefinition:@{
+        @"manufacturer": @"American DJ",
+        @"name": @"RGB Megabar 50",
+        @"channels": @[
+             @{@"type": @"rgb", @"subtype": @"red"},
+             @{@"type": @"rgb", @"subtype": @"green"},
+             @{@"type": @"rgb", @"subtype": @"blue"},
+             @{@"type": @"program", @"subtype": @"color"},
+             @{@"type": @"strobe"},
+             @{@"type": @"program", @"subtype": @"program", @"speed_offset": @4},
+             @{@"type": @"intensity"}
+         ]
+    }];
+    return fixture;
+}
+
+-(void) test_setColor {
+    ANFixture* fixture = [self getTestFixture];
+    UIColor* expected = [UIColor redColor];
+    [fixture setUIColor:expected];
+    UIColor* result = [fixture getUIColor];
+    STAssertEqualObjects(result, expected, @"Did not persist color properly.");
+}
+
 @end

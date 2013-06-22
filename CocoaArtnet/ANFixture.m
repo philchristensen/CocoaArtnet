@@ -58,15 +58,17 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 
 @implementation ANFixture
 @synthesize address;
-@synthesize controls;
-@synthesize fixtureConfigPath;
+@synthesize channels;
+@synthesize values;
 @synthesize config;
+@synthesize definition;
+@synthesize path;
 
 -(ANFixture*) initWithAddress: (int) anAddress {
     self = [super init];
     self.address = anAddress;
     self.config = [[NSMutableDictionary alloc] init];
-    self.controls = [[NSMutableDictionary alloc] init];
+    self.channels = [[NSMutableArray alloc] init];
     return self;
 }
 
@@ -99,19 +101,19 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
     return result;
 }
 
--(void) loadFixtureDefinition: (NSString*) fixturePath {
+-(void) loadFixtureDefinition: (NSString*) aPath {
     @autoreleasepool {
-        self.fixtureConfigPath = fixturePath;
+        self.path = aPath;
         
         NSString* realPath;
-        if([fixturePath hasPrefix:@"/"]){
-            realPath = fixturePath;
+        if([aPath hasPrefix:@"/"]){
+            realPath = aPath;
         }
         else{
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
             NSString *documentsDirectory = [paths objectAtIndex:0];
 
-            NSString* resourcePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", fixturePath];
+            NSString* resourcePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", aPath];
             NSString* savedPath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.yaml", resourcePath]];
             if([[NSFileManager defaultManager] fileExistsAtPath:savedPath]){
                 realPath = savedPath;
@@ -132,69 +134,12 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 
 -(void) installFixtureDefinition:(NSDictionary*) fixturedef {
     @autoreleasepool {
-        self.fixtureDefinition = [[NSMutableDictionary alloc] initWithDictionary:fixturedef];
-        
-        RGBControl* rgb = [[RGBControl alloc] initWithFixture:self andDefinition:fixturedef];
-        [rgb setColor:self.config[@"color"]];
-        [self.controls setValue: rgb forKey:@"rgb"];
-        
-        StrobeControl* strobe = [[StrobeControl alloc] initWithFixture:self andDefinition:fixturedef];
-        [strobe setStrobe:[self.config[@"strobe"] intValue]];
-        [self.controls setValue: strobe forKey:@"strobe"];
-        
-        IntensityControl* intensity = [[IntensityControl alloc] initWithFixture:self andDefinition:fixturedef];
-        [intensity setIntensity:[self.config[@"intensity"] intValue]];
-        [self.controls setValue: intensity forKey:@"intensity"];
-        
-        for(NSDictionary* channel in fixturedef[@"program_channels"]){
-            [controls setValue: [[ProgramControl alloc] initWithFixture:self
-                                                          andDefinition:fixturedef
-                                                             andChannel:channel]
-                        forKey: [NSString stringWithFormat:@"program-%d",
-                                 [channel[@"offset"] integerValue]
-                                 ]
-             ];
+        self.definition = [[NSMutableDictionary alloc] initWithDictionary:fixturedef];
+        self.channels = [[NSMutableArray alloc] initWithArray:fixturedef[@"channels"]];
+        self.values = [[NSMutableArray alloc] initWithCapacity:[fixturedef[@"channels"] count]];
+        for(int i = 0; i < [fixturedef[@"channels"] count]; i++){
+            self.values[i] = @-1;
         }
-    }
-}
-
--(void) forwardInvocation:(NSInvocation *)anInvocation {
-    SEL aSelector = [anInvocation selector];
-    for (NSString* key in self.controls) {
-        id ctl = self.controls[key];
-        if([ctl respondsToSelector:aSelector]){
-            [anInvocation invokeWithTarget:ctl];
-            return;
-        }
-    }
-    [super forwardInvocation:anInvocation];
-}
-
--(NSMethodSignature *) methodSignatureForSelector:(SEL)aSelector {
-    NSMethodSignature* signature = [super methodSignatureForSelector:aSelector];
-    if(signature) {
-        return signature;
-    }
-    
-    for (NSString* key in self.controls) {
-        id ctl = self.controls[key];
-        if([ctl respondsToSelector:aSelector]){
-            return [[ctl class] instanceMethodSignatureForSelector:aSelector];
-        }
-    }
-    return nil;
-}
-
--(NSArray*) getChannels {
-    @autoreleasepool {
-        NSMutableArray* result = [[NSMutableArray alloc] init];
-        for(NSString* key in [[self.controls allKeys] sortedArrayUsingComparator: ^(id a, id b){
-            return ([a hasPrefix:@"program-"] ? (NSComparisonResult)NSOrderedDescending : (NSComparisonResult)NSOrderedAscending);
-        }]){
-            id ctl = self.controls[key];
-            [result addObjectsFromArray:[ctl getChannels]];
-        }
-        return result;
     }
 }
 
@@ -212,8 +157,8 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
         for(int i = 0; i < 512; i++){
             frame[i] = @-1;
         }
-        for(NSArray* channelSet in [self getChannels]){
-            frame[[channelSet[0] integerValue] + self.address - 1] = channelSet[1];
+        for(int j = 0; j < [self.values count]; j++){
+            frame[j + self.address - 1] = self.values[j];
         }
         return frame;
     }
@@ -225,7 +170,7 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 #define kConfigKey   @"config"
 #define kStateKey   @"state"
 
-- (id)initWithCoder:(NSCoder *)decoder {
+-(id) initWithCoder:(NSCoder *)decoder {
     int anAddress = [decoder decodeIntegerForKey:kAddressKey];
     NSString* configPath = [decoder decodeObjectForKey:kConfigKey];
     ANFixture* fixture = [[ANFixture alloc] initWithAddress:anAddress];
@@ -247,188 +192,126 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
     return fixture;
 }
 
-- (void)encodeWithCoder:(NSCoder *)encoder {
+-(void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeInteger:self.address forKey:kAddressKey];
-    [encoder encodeObject:self.fixtureConfigPath forKey:kConfigKey];
+    [encoder encodeObject:self.path forKey:kConfigKey];
     [encoder encodeObject:self.config forKey:kStateKey];
 }
 
-@end
-
-@implementation RGBControl
-@synthesize fixture;
-@synthesize r_value;
-@synthesize g_value;
-@synthesize b_value;
-@synthesize r_offset;
-@synthesize g_offset;
-@synthesize b_offset;
-
--(RGBControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef {
-	self = [super init];
-    self.r_offset = [fixturedef[@"rgb_offsets"][@"red"] integerValue];
-    self.g_offset = [fixturedef[@"rgb_offsets"][@"green"] integerValue];
-    self.b_offset = [fixturedef[@"rgb_offsets"][@"blue"] integerValue];
-    self.r_value = 0;
-    self.g_value = 0;
-    self.b_value = 0;
-    return self;
+-(int) getValueOfType:(NSString*)type {
+    for(int i = 0; i < [self.channels count]; i++){
+        if([self.channels[i][@"type"] isEqualToString:type]){
+            return [self.values[i] intValue];
+        }
+    }
+    return -1;
 }
 
--(NSArray*) getChannels {
-	return @[
-          @[@(self.r_offset), @(self.r_value)],
-          @[@(self.g_offset), @(self.g_value)],
-          @[@(self.b_offset), @(self.b_value)]
-          ];
+-(int) getValueOfType:(NSString*)type andSubtype:(NSString*)subtype {
+    for(int i = 0; i < [self.channels count]; i++){
+        if([self.channels[i][@"type"] isEqualToString:type] &&
+            [self.channels[i][@"subtype"] isEqualToString:subtype]){
+            return [self.values[i] intValue];
+        }
+    }
+    return -1;
+}
+
+-(void) setValue:(int)value ofType:(NSString*)type {
+    for(int i = 0; i < [self.channels count]; i++){
+        if([self.channels[i][@"type"] isEqualToString:type]){
+            self.values[i] = @(value);
+            return;
+        }
+    }
+}
+
+-(void) setValue:(int)value ofType:(NSString*)type andSubtype:(NSString*)subtype {
+    for(int i = 0; i < [self.channels count]; i++){
+        if([self.channels[i][@"type"] isEqualToString:type] &&
+            [self.channels[i][@"subtype"] isEqualToString:subtype]){
+            self.values[i] = @(value);
+            return;
+        }
+    }
+}
+
+-(BOOL) hasColor {
+    for(int i = 0; i < [self.channels count]; i++){
+        if([self.channels[i][@"type"] isEqualToString:@"rgb"]){
+            return YES;
+        }
+    }
+    return NO;
 }
 
 -(void) setColor:(NSString*) hexcolor {
     NSArray* result = hex2RGBArray(hexcolor);
-    self.r_value = [result[0] intValue];
-    self.g_value = [result[1] intValue];
-    self.b_value = [result[2] intValue];
-    self.fixture.config[@"color"] = hexcolor;
+    [self setValue:[result[0] intValue] ofType:@"rgb" andSubtype:@"red"];
+    [self setValue:[result[1] intValue] ofType:@"rgb" andSubtype:@"green"];
+    [self setValue:[result[2] intValue] ofType:@"rgb" andSubtype:@"blue"];
 }
 
 -(NSString*) getColor {
-	return RGB2Hex(self.r_value, self.g_value, self.b_value);
+	return RGB2Hex(
+       [self getValueOfType:@"rgb" andSubtype:@"red"],
+       [self getValueOfType:@"rgb" andSubtype:@"green"],
+       [self getValueOfType:@"rgb" andSubtype:@"blue"]
+    );
 }
 
 -(void) setUIColor:(UIColor*) color {
     CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha =0.0;
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
-    self.r_value = roundf(255 * red);
-    self.g_value = roundf(255 * green);
-    self.b_value = roundf(255 * blue);
+    [self setValue:roundf(255 * red) ofType:@"rgb" andSubtype:@"red"];
+    [self setValue:roundf(255 * green) ofType:@"rgb" andSubtype:@"green"];
+    [self setValue:roundf(255 * blue) ofType:@"rgb" andSubtype:@"blue"];
     
-    self.fixture.config[@"color"] = [self getColor];
+    self.config[@"color"] = [self getColor];
 }
 
 -(UIColor*) getUIColor {
-    return [UIColor colorWithRed:(self.r_value/255.0) green:(self.g_value/255.0) blue:(self.b_value/255.0) alpha:1.0];
+    return [UIColor colorWithRed:([self getValueOfType:@"rgb" andSubtype:@"red"]/255.0)
+                           green:([self getValueOfType:@"rgb" andSubtype:@"green"]/255.0)
+                            blue:([self getValueOfType:@"rgb" andSubtype:@"blue"]/255.0)
+                           alpha:1.0];
 }
 
 
-@end
-
-@implementation StrobeControl
-@synthesize fixture;
-@synthesize offset;
-@synthesize value;
-
--(StrobeControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef {
-	self = [super init];
-    self.offset = [fixturedef[@"strobe_offset"] integerValue];
-    self.value = 0;
-    return self;
-}
-
--(NSArray*) getChannels {
-	return @[
-          @[@(self.offset), @(self.value)]
-          ];
+-(BOOL) hasStrobe {
+    for(int i = 0; i < [self.channels count]; i++){
+        if([self.channels[i][@"type"] isEqualToString:@"strobe"]){
+            return YES;
+        }
+    }
+    return NO;
 }
 
 -(void) setStrobe:(int) level {
-	self.value = level;
-    self.fixture.config[@"strobe"] = @(level);
+    [self setValue:level ofType:@"strobe"];
+    self.config[@"strobe"] = @(level);
 }
 
 -(int) getStrobe {
-	return self.value;
+	return [self getValueOfType:@"strobe"];
 }
 
-@end
-
-@implementation IntensityControl
-@synthesize fixture;
-@synthesize offset;
-@synthesize offset_fine;
-@synthesize value;
-
--(IntensityControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef {
-	self = [super init];
-    self.offset = [fixturedef[@"intensity_offset"] integerValue];
-    self.value = 0;
-    return self;
-}
-
--(NSArray*) getChannels {
-	return @[
-          @[@(self.offset), @(self.value)]
-          ];
+-(BOOL) hasIntensity {
+    for(int i = 0; i < [self.channels count]; i++){
+        if([self.channels[i][@"type"] isEqualToString:@"intensity"]){
+            return YES;
+        }
+    }
+    return NO;
 }
 
 -(void) setIntensity:(int) level {
-	self.value = level;
-    self.fixture.config[@"intensity"] = @(level);
+    [self setValue:level ofType:@"intensity"];
+    self.config[@"intensity"] = @(level);
 }
 
 -(int) getIntensity {
-	return self.value;
-}
-
-@end
-
-@implementation ProgramControl
-@synthesize fixture;
-@synthesize offset;
-@synthesize speedOffset;
-@synthesize value;
-@synthesize speedValue;
-@synthesize macroType;
-@synthesize macros;
-
--(ProgramControl*) initWithFixture:(ANFixture*)aFixture andDefinition:(NSDictionary*) fixturedef andChannel: (NSDictionary*) channel {
-	self = [super init];
-    
-    self.offset = [channel[@"offset"] integerValue];
-    self.macroType = channel[@"type"];
-    if([self.macroType isEqualToString:@"program"]){
-        id o = [channel objectForKey:@"speed_offset"];
-        if(o == nil){
-            self.speedOffset = [[fixturedef objectForKey:@"strobe_offset"] intValue];
-        }
-        else{
-            self.speedOffset = [o intValue];
-        }
-    }
-    
-    
-    for(NSString* label in channel[@"macros"]){
-        id conf = channel[@"macros"][label];
-        if([conf isKindOfClass:[NSNumber class]]){
-            [self setMacro:label withValue:[conf integerValue]];
-        }
-        else{
-            [self setMacro:label withValue:[conf[@"value"] integerValue] andSpeed:[conf[@"speed"] integerValue]];
-        }
-    }
-    
-    return self;
-}
-
--(NSArray*) getChannels {
-    if(self.speedOffset){
-        return @[
-                 @[@(self.offset), @(self.value)],
-                 @[@(self.speedOffset), @(self.speedValue)]
-                 ];
-    }
-    else{
-        return @[
-              @[@(self.offset), @(self.value)],
-              ];
-    }
-}
-
--(void) setMacro: (NSString*) macroName withValue: (int) aValue andSpeed: (int) aSpeed {
-    self.macros[macroName] = @[@(aValue), @(aSpeed)];
-}
-
--(void) setMacro: (NSString*) macroName withValue: (int) aValue {
-    self.macros[macroName] = @[@(aValue), [NSNull null]];
+	return [self getValueOfType:@"intensity"];
 }
 
 @end

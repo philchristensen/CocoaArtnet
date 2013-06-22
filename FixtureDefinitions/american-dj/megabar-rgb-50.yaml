@@ -1,21 +1,13 @@
 {
 	"manufacturer": "American DJ",
     "name": "RGB Megabar 50",
-    "rgb_offsets" : {
-        "red": 0,
-        "blue": 1,
-        "green": 2
-    },
-    "program_channels": [
-        {
-            "offset": 3,
-            "type": "color"
-        },
-        {
-            "offset": 5,
-            "type": "program"
-        }
-    ],
-    "strobe_offset": 4,
-    "intensity_offset": 6
+    "channels": [
+        {"type": "rgb", "subtype": "red"},
+        {"type": "rgb", "subtype": "green"},
+        {"type": "rgb", "subtype": "blue"},
+        {"type": "program", "subtype": "color"},
+        {"type": "strobe"},
+        {"type": "program", "subtype": "program", "speed_offset": 4},
+        {"type": "intensity"}
+    ]
 }
