@@ -40,7 +40,7 @@ NSString* RGB2Hex(int red, int green, int blue){
 }
 
 int getIntInFade(double start, double end, double frameIndex, double totalFrames) {
-    return (int)(start + (((end - start) / totalFrames) * frameIndex));
+    return (int)(start + (((end - start) / (totalFrames - 1)) * frameIndex));
 }
 
 NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int totalFrames){
