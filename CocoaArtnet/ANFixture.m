@@ -133,13 +133,19 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
         //                                                 encoding:NSUTF8StringEncoding
         //                                                    error:nil];
         
-        NSMutableDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
-        self.fixtureDefinition = fixturedef;
+        NSDictionary* fixturedef = [YACYAMLKeyedUnarchiver unarchiveObjectWithString:yaml];
+        [self installFixtureDefinition:fixturedef];
+    }
+}
+
+-(void) installFixtureDefinition:(NSDictionary*) fixturedef {
+    @autoreleasepool {
+        self.fixtureDefinition = [[NSMutableDictionary alloc] initWithDictionary:fixturedef];
         
         RGBControl* rgb = [[RGBControl alloc] initWithFixture:self andDefinition:fixturedef];
         [rgb setColor:self.config[@"color"]];
         [self.controls setValue: rgb forKey:@"rgb"];
-
+        
         StrobeControl* strobe = [[StrobeControl alloc] initWithFixture:self andDefinition:fixturedef];
         [strobe setStrobe:[self.config[@"strobe"] intValue]];
         [self.controls setValue: strobe forKey:@"strobe"];
@@ -159,7 +165,6 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
         }
     }
 }
-
 
 -(void) forwardInvocation:(NSInvocation *)anInvocation {
     SEL aSelector = [anInvocation selector];

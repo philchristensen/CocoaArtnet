@@ -114,7 +114,11 @@
         NSMutableArray* mergedFrame = [self createFrame];
         for(NSArray* pair in self.generators){
             @try{
+                #pragma clang diagnostic push
+                #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                 NSMutableArray* layerFrame = [pair[0] performSelector:NSSelectorFromString(pair[1]) withObject:self];
+                #pragma clang diagnostic pop
+
                 if(layerFrame == nil){
                     mergedFrame = self.latestFrame;
                 }
