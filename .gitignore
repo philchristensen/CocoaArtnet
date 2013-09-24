@@ -1,4 +1,3 @@
 .DS_Store
-CocoaArtnet.xcodeproj/project.xcworkspace/
-CocoaArtnet.xcodeproj/xcuserdata/
-
+Pods
+xcuserdata

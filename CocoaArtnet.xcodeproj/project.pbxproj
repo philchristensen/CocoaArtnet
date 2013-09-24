@@ -487,6 +487,7 @@
 		};
 		4AC2700A16CDA89900648C5F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2003DB2B9ABD448F83207C52 /* Pods.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -503,6 +504,7 @@
 		};
 		4AC2700B16CDA89900648C5F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2003DB2B9ABD448F83207C52 /* Pods.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
