@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GCDAsyncUdpSocket.h"
+#import <CocoaAsyncSocket/GCDAsyncUdpSocket.h>
 
 #define SuppressPerformSelectorLeakWarning(Stuff) \
 do { \

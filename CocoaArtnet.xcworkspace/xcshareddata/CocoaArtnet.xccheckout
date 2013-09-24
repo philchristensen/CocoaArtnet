@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>19F22612-5059-4930-ACE0-93AAD603BD82</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CocoaArtnet</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C08173B9-D6A0-444A-8A71-094C9421C292</key>
+		<string>ssh://github.com/philchristensen/CocoaArtnet.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CocoaArtnet.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C08173B9-D6A0-444A-8A71-094C9421C292</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/philchristensen/CocoaArtnet.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C08173B9-D6A0-444A-8A71-094C9421C292</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C08173B9-D6A0-444A-8A71-094C9421C292</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CocoaArtnet</string>
+		</dict>
+	</array>
+</dict>
+</plist>

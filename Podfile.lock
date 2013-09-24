@@ -1,0 +1,20 @@
+PODS:
+  - CocoaAsyncSocket (7.3.1)
+  - LibYAML (0.1.4)
+  - YACYAML (0.0.1):
+    - LibYAML (~> 0.1.4)
+
+DEPENDENCIES:
+  - CocoaAsyncSocket
+  - YACYAML (from `https://raw.github.com/collections/Podspecs/master/YACYAML/0.0.1/YACYAML.podspec`)
+
+EXTERNAL SOURCES:
+  YACYAML:
+    :podspec: https://raw.github.com/collections/Podspecs/master/YACYAML/0.0.1/YACYAML.podspec
+
+SPEC CHECKSUMS:
+  CocoaAsyncSocket: 6e59036ecae1e93d6c78f5766149983ceac558ba
+  LibYAML: 49b77e5b3f4417fa512a8f1f4675a78480bf6b3d
+  YACYAML: a3b543883a71e5f3728c9182407c240ebe5f6488
+
+COCOAPODS: 0.23.0
