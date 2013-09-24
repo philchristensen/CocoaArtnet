@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "GCDAsyncUdpSocket.h"
 
+#define SuppressPerformSelectorLeakWarning(Stuff) \
+do { \
+    _Pragma("clang diagnostic push") \
+    _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+    Stuff; \
+    _Pragma("clang diagnostic pop") \
+} while (0)
+
 @interface ANController : NSObject
 	@property NSString* interfaceAddress;
 	@property float beatsPerMinute;
