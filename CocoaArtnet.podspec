@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   
   s.requires_arc = true
   
-  s.dependency 'CocoaAsyncSocket', '~> 0.0.1'
+  s.dependency 'CocoaAsyncSocket', '~> 7.3.2'
   # unfortunately this will only work if you have added the Pod repo, like this:
   # pod repo add Collections https://github.com/collections/Podspecs
   s.dependency 'YACYAML', '~> 0.0.1'
