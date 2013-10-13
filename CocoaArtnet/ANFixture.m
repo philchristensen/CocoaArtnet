@@ -132,6 +132,36 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
     }
 }
 
+-(BOOL) saveFixtureDefinition {
+    @autoreleasepool {
+        if(! self.path){ NSLog(@"No fixture path set."); }
+
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        
+        NSError *error;
+        BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/FixtureDefinitions", documentsDirectory]
+                                                 withIntermediateDirectories:YES
+                                                                  attributes:nil
+                                                                       error:&error];
+        
+        if (!success) {
+            NSLog(@"Error creating rig directory: %@", [error localizedDescription]);
+            return success;
+        }
+        
+        NSString* basePath = [NSString stringWithFormat:@"%@.yaml", self.path];
+        NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:basePath];
+        NSMutableData *data = [[NSMutableData alloc] init];
+        YACYAMLKeyedArchiver *archiver = [[YACYAMLKeyedArchiver alloc] initForWritingWithMutableData:data];
+        [archiver encodeObject:self];
+        [archiver finishEncoding];
+        [data writeToFile:dataPath atomically:YES];
+        
+        return success;
+    }
+}
+
 -(void) installFixtureDefinition:(NSDictionary*) fixturedef {
     @autoreleasepool {
         self.definition = [[NSMutableDictionary alloc] initWithDictionary:fixturedef];
