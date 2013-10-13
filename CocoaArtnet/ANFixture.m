@@ -136,7 +136,7 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
     @autoreleasepool {
         if(! self.path){ NSLog(@"No fixture path set."); }
 
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         
         NSError *error;
