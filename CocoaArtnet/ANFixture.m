@@ -150,7 +150,7 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
             return success;
         }
         
-        NSString* basePath = [NSString stringWithFormat:@"FixtureDefinitions/%@.yaml", self.path];
+        NSString* basePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", self.path];
         NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:basePath];
         NSLog(@"Data path: %@", dataPath);
         NSMutableData *data = [[NSMutableData alloc] init];
