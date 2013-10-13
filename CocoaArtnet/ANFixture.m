@@ -138,9 +138,11 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString* basePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", self.path];
+        NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:basePath];
         
         NSError *error;
-        BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/FixtureDefinitions", documentsDirectory]
+        BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:[dataPath stringByDeletingLastPathComponent]
                                                  withIntermediateDirectories:YES
                                                                   attributes:nil
                                                                        error:&error];
@@ -150,8 +152,6 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
             return success;
         }
         
-        NSString* basePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", self.path];
-        NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:basePath];
         NSLog(@"Data path: %@", dataPath);
         NSMutableData *data = [[NSMutableData alloc] init];
         YACYAMLKeyedArchiver *archiver = [[YACYAMLKeyedArchiver alloc] initForWritingWithMutableData:data];
