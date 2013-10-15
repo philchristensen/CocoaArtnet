@@ -157,7 +157,7 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
         NSLog(@"Data path: %@", dataPath);
         NSMutableData *data = [[NSMutableData alloc] init];
         YACYAMLKeyedArchiver *archiver = [[YACYAMLKeyedArchiver alloc] initForWritingWithMutableData:data];
-        [archiver encodeObject:self];
+        [archiver encodeObject:self.definition];
         [archiver finishEncoding];
         [data writeToFile:dataPath atomically:YES];
         
