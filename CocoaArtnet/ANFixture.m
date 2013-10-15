@@ -91,9 +91,11 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
             NSString* savedPath = [NSString stringWithFormat:@"%@/FixtureDefinitions/%@/%@", documentsDirectory, baseDirectory, fixtureFile];
             if([[NSFileManager defaultManager] fileExistsAtPath:savedPath]){
                 [result addObject:savedPath];
+                NSLog(@"Found fixture: %@", savedPath);
             }
             else{
                 [result addObject:[subdir stringByAppendingPathComponent:fixtureFile]];
+                NSLog(@"Found fixture: %@", [subdir stringByAppendingPathComponent:fixtureFile]);
             }
         }
     }
