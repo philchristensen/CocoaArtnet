@@ -79,7 +79,7 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 }
 
 +(NSArray*) getAvailableFixtureDefinitions {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSMutableArray* result = [[NSMutableArray alloc] init];
     
