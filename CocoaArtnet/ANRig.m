@@ -26,7 +26,7 @@
 
 +(ANRig*)loadRigDefinition: (NSString*) rigPath {
     @autoreleasepool {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         
         NSString* resourcePath = [NSString stringWithFormat:@"RigDefinitions/%@", rigPath];
@@ -49,7 +49,7 @@
 
 - (BOOL)saveRigDefinition {
     @autoreleasepool {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         
         NSError *error;
