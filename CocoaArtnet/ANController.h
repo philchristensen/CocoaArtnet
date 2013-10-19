@@ -32,7 +32,8 @@ do { \
 	@property int beatClock;
 	@property int secondFrameClock;
 	@property int beatFrameClock;
-	@property BOOL running;
+    @property BOOL running;
+    @property BOOL paused;
 
 	-(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps;
 	-(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats;
@@ -42,7 +43,9 @@ do { \
 	-(void) start;
 	-(void) run;
 	-(void) wait;
-	-(void) stop;
+    -(void) stop;
+    -(void) pause;
+    -(void) resume;
 	-(void) iterate;
 	-(void) add: (NSString*) selector onTarget: (id) target;
 	-(void) send: (NSArray*) frame;

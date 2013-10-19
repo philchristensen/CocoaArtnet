@@ -79,14 +79,24 @@
     self.running = NO;
 }
 
+-(void) pause {
+    self.paused = YES;
+}
+
+-(void) resume {
+    self.paused = NO;
+}
+
 -(void) run {
     self.running = YES;
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     while(self.running){
         @autoreleasepool {
             NSTimeInterval drift = now - [[NSDate date] timeIntervalSince1970];
-            [self iterate];
-            [self send:self.latestFrame];
+            if(! self.paused){
+                [self iterate];
+                [self send:self.latestFrame];
+            }
             
             NSTimeInterval elapsed = [[NSDate date] timeIntervalSince1970] - now;
             NSTimeInterval excess = (1.0 / self.framesPerSecond) - elapsed;
