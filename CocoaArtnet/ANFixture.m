@@ -134,23 +134,74 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
     }
 }
 
+- (NSString*) makeSlug:(NSString*)value {
+    NSRegularExpression *forbidden = [NSRegularExpression regularExpressionWithPattern:@"[^\\w\\s-]"
+                                                                               options:NSRegularExpressionCaseInsensitive
+                                                                                 error:nil];
+    NSRegularExpression *whitespace = [NSRegularExpression regularExpressionWithPattern:@"[-\\s]+"
+                                                                                options:NSRegularExpressionCaseInsensitive
+                                                                                  error:nil];
+    NSString* slug = [forbidden stringByReplacingMatchesInString:value
+                                                             options:0
+                                                               range:NSMakeRange(0, value.length)
+                                                        withTemplate:@""];
+    return [whitespace stringByReplacingMatchesInString:slug
+                                                    options:0
+                                                      range:NSMakeRange(0, slug.length)
+                                               withTemplate:@"-"];
+}
+
 -(BOOL) saveFixtureDefinition {
     @autoreleasepool {
-        if(! self.path){ NSLog(@"No fixture path set."); }
+/*
+ 
+ """
+ Converts to lowercase, removes non-word characters (alphanumerics and
+ underscores) and converts spaces to hyphens. Also strips leading and
+ trailing whitespace.
+ """
+ value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
+ value = re.sub('[^\w\s-]', '', value).strip().lower()
+ return mark_safe(re.sub('[-\s]+', '-', value))
 
+ 
+ */
+        
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
+        
+        NSString* nameSlug = [self makeSlug:self.definition[@"name"]];
+        NSString* manufacturerSlug = [self makeSlug:self.definition[@"manufacturer"]];
+        NSString* newPath = [NSString stringWithFormat:@"%@/%@", manufacturerSlug, nameSlug];
         NSString* basePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", self.path];
-        NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:basePath];
+        NSString* dataPath = [documentsDirectory stringByAppendingPathComponent:basePath];
+
+        NSFileManager* mgr = [NSFileManager defaultManager];
+        
+        // If the fixture has a path, the path has changed, and the old path was a user-created file, remove it
+        if(self.path && ![self.path isEqualToString:newPath] && [mgr fileExistsAtPath:dataPath]){
+            NSError *error;
+            BOOL success = [mgr removeItemAtPath:self.path error:nil];
+            
+            if (!success) {
+                NSLog(@"Error removing old fixturedef: %@", [error localizedDescription]);
+                return success;
+            }
+            
+            // update the paths
+            self.path = newPath;
+            basePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", self.path];
+            dataPath = [documentsDirectory stringByAppendingPathComponent:basePath];
+        }
         
         NSError *error;
-        BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:[dataPath stringByDeletingLastPathComponent]
+        BOOL success = [mgr createDirectoryAtPath:[dataPath stringByDeletingLastPathComponent]
                                                  withIntermediateDirectories:YES
                                                                   attributes:nil
                                                                        error:&error];
         
         if (!success) {
-            NSLog(@"Error creating rig directory: %@", [error localizedDescription]);
+            NSLog(@"Error creating fixturedef directory: %@", [error localizedDescription]);
             return success;
         }
         
