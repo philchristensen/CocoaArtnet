@@ -153,20 +153,6 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 
 -(BOOL) saveFixtureDefinition {
     @autoreleasepool {
-/*
- 
- """
- Converts to lowercase, removes non-word characters (alphanumerics and
- underscores) and converts spaces to hyphens. Also strips leading and
- trailing whitespace.
- """
- value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
- value = re.sub('[^\w\s-]', '', value).strip().lower()
- return mark_safe(re.sub('[-\s]+', '-', value))
-
- 
- */
-        
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         
