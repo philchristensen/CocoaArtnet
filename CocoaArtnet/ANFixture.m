@@ -250,14 +250,17 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 
 #pragma mark NSCoding
 
+#define kNameKey  @"name"
 #define kAddressKey  @"address"
 #define kConfigKey   @"config"
 #define kStateKey   @"state"
 
 -(id) initWithCoder:(NSCoder *)decoder {
     int anAddress = [decoder decodeIntegerForKey:kAddressKey];
+    NSString* aName = [decoder decodeObjectForKey:kNameKey];
     NSString* configPath = [decoder decodeObjectForKey:kConfigKey];
     ANFixture* fixture = [[ANFixture alloc] initWithAddress:anAddress];
+    fixture.name = aName;
     fixture.config = [[NSMutableDictionary alloc] initWithDictionary:[decoder decodeObjectForKey:kStateKey]];
     [fixture loadFixtureDefinition:configPath];
     
@@ -277,6 +280,7 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 }
 
 -(void) encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.name forKey:kNameKey];
     [encoder encodeInteger:self.address forKey:kAddressKey];
     [encoder encodeObject:self.path forKey:kConfigKey];
     [encoder encodeObject:self.config forKey:kStateKey];
