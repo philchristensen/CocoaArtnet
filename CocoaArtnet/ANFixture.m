@@ -110,6 +110,9 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
         NSString* realPath;
         if([aPath hasPrefix:@"/"]){
             realPath = aPath;
+            NSArray* pieces = [realPath pathComponents];
+            int index = [pieces indexOfObject:@"FixtureDefinitions"] + 1;
+            self.path = [[[pieces subarrayWithRange:NSMakeRange(index, [pieces count]-index)] componentsJoinedByString:@"/"] stringByDeletingPathExtension];
         }
         else{
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -124,6 +127,7 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
                 realPath = [[NSBundle mainBundle] pathForResource:resourcePath ofType:@"yaml"];
             }
         }
+        NSLog(@"%@", self.path);
         
         NSString* yaml = [[NSString alloc] initWithContentsOfFile:realPath
                                                          encoding:NSUTF8StringEncoding
@@ -135,6 +139,11 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 }
 
 - (NSString*) makeSlug:(NSString*)value {
+    /*
+     Converts to lowercase, removes non-word characters (alphanumerics and
+     underscores) and converts spaces to hyphens.
+     */
+    
     NSRegularExpression *forbidden = [NSRegularExpression regularExpressionWithPattern:@"[^\\w\\s-]"
                                                                                options:NSRegularExpressionCaseInsensitive
                                                                                  error:nil];
@@ -153,20 +162,6 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 
 -(BOOL) saveFixtureDefinition {
     @autoreleasepool {
-/*
- 
- """
- Converts to lowercase, removes non-word characters (alphanumerics and
- underscores) and converts spaces to hyphens. Also strips leading and
- trailing whitespace.
- """
- value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
- value = re.sub('[^\w\s-]', '', value).strip().lower()
- return mark_safe(re.sub('[-\s]+', '-', value))
-
- 
- */
-        
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         
@@ -250,14 +245,17 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 
 #pragma mark NSCoding
 
+#define kNameKey  @"name"
 #define kAddressKey  @"address"
 #define kConfigKey   @"config"
 #define kStateKey   @"state"
 
 -(id) initWithCoder:(NSCoder *)decoder {
     int anAddress = [decoder decodeIntegerForKey:kAddressKey];
+    NSString* aName = [decoder decodeObjectForKey:kNameKey];
     NSString* configPath = [decoder decodeObjectForKey:kConfigKey];
     ANFixture* fixture = [[ANFixture alloc] initWithAddress:anAddress];
+    fixture.name = aName;
     fixture.config = [[NSMutableDictionary alloc] initWithDictionary:[decoder decodeObjectForKey:kStateKey]];
     [fixture loadFixtureDefinition:configPath];
     
@@ -277,6 +275,7 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 }
 
 -(void) encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.name forKey:kNameKey];
     [encoder encodeInteger:self.address forKey:kAddressKey];
     [encoder encodeObject:self.path forKey:kConfigKey];
     [encoder encodeObject:self.config forKey:kStateKey];

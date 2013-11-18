@@ -21,6 +21,7 @@ int getIntInFade(double start, double end, double frameIndex, double totalFrames
     @property NSMutableArray* values;
     @property NSMutableDictionary* config;
     @property NSMutableDictionary* definition;
+    @property NSString* name;
     @property NSString* path;
 
     -(ANFixture*) initWithAddress: (int) anAddress;
