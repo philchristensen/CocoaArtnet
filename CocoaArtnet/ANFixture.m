@@ -79,21 +79,30 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
 }
 
 +(NSArray*) getAvailableFixtureDefinitions {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSFileManager* mgr = [NSFileManager defaultManager];
+    
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentsDirectory = [paths objectAtIndex:0];
+    NSString* userFixturedefDirectory = [documentsDirectory stringByAppendingPathComponent:@"FixtureDefinitions"];
+    
+    NSDirectoryEnumerator *userEnum = [mgr enumeratorAtPath:userFixturedefDirectory];
     NSMutableArray* result = [[NSMutableArray alloc] init];
+    NSString* userFixtureFile;
+    while(userFixtureFile = [userEnum nextObject]){
+        if([userEnum level] > 1){
+            NSString* savedPath = [userFixturedefDirectory stringByAppendingPathComponent:userFixtureFile];
+            [result addObject:savedPath];
+            NSLog(@"Found fixturedef: %@", savedPath);
+        }
+    }
     
     for(NSString* subdir in [[NSBundle mainBundle] pathsForResourcesOfType:nil inDirectory:@"FixtureDefinitions"]){
-        NSDirectoryEnumerator* dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:subdir];
+        NSDirectoryEnumerator* dirEnum = [mgr enumeratorAtPath:subdir];
         NSString* baseDirectory = [[subdir pathComponents] lastObject];
         NSString* fixtureFile;
         while(fixtureFile = [dirEnum nextObject]){
             NSString* savedPath = [NSString stringWithFormat:@"%@/FixtureDefinitions/%@/%@", documentsDirectory, baseDirectory, fixtureFile];
-            if([[NSFileManager defaultManager] fileExistsAtPath:savedPath]){
-                [result addObject:savedPath];
-                NSLog(@"Found fixturedef: %@", savedPath);
-            }
-            else{
+            if(! [mgr fileExistsAtPath:savedPath]){
                 [result addObject:[subdir stringByAppendingPathComponent:fixtureFile]];
                 NSLog(@"Found preset fixturedef: %@", [subdir stringByAppendingPathComponent:fixtureFile]);
             }
@@ -154,10 +163,10 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
                                                              options:0
                                                                range:NSMakeRange(0, value.length)
                                                         withTemplate:@""];
-    return [whitespace stringByReplacingMatchesInString:slug
+    return [[whitespace stringByReplacingMatchesInString:slug
                                                     options:0
                                                       range:NSMakeRange(0, slug.length)
-                                               withTemplate:@"-"];
+                                               withTemplate:@"-"] lowercaseString];
 }
 
 -(BOOL) saveFixtureDefinition {
@@ -167,7 +176,7 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
         
         NSString* nameSlug = [self makeSlug:self.definition[@"name"]];
         NSString* manufacturerSlug = [self makeSlug:self.definition[@"manufacturer"]];
-        NSString* newPath = [NSString stringWithFormat:@"%@/%@", manufacturerSlug, nameSlug];
+        NSString* newPath = [NSString stringWithFormat:@"%@/%@.yaml", manufacturerSlug, nameSlug];
         NSString* basePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", self.path];
         NSString* dataPath = [documentsDirectory stringByAppendingPathComponent:basePath];
 
@@ -176,7 +185,7 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
         // If the fixture has a path, the path has changed, and the old path was a user-created file, remove it
         if(self.path && ![self.path isEqualToString:newPath] && [mgr fileExistsAtPath:dataPath]){
             NSError *error;
-            BOOL success = [mgr removeItemAtPath:self.path error:nil];
+            BOOL success = [mgr removeItemAtPath:dataPath error:&error];
             
             if (!success) {
                 NSLog(@"Error removing old fixturedef: %@", [error localizedDescription]);
@@ -185,9 +194,12 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
             
             // update the paths
             self.path = newPath;
-            basePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", self.path];
-            dataPath = [documentsDirectory stringByAppendingPathComponent:basePath];
         }
+        else if(! self.path){
+            self.path = newPath;
+        }
+        basePath = [NSString stringWithFormat:@"FixtureDefinitions/%@", self.path];
+        dataPath = [documentsDirectory stringByAppendingPathComponent:basePath];
         
         NSError *error;
         BOOL success = [mgr createDirectoryAtPath:[dataPath stringByDeletingLastPathComponent]
