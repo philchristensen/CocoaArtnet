@@ -266,10 +266,16 @@ NSString* getHexColorInFade(NSString* start, NSString* end, int frameIndex, int 
     int anAddress = [decoder decodeIntegerForKey:kAddressKey];
     NSString* aName = [decoder decodeObjectForKey:kNameKey];
     NSString* configPath = [decoder decodeObjectForKey:kConfigKey];
+    
+    id stateInfo = [decoder decodeObjectForKey:kStateKey];
+    if(stateInfo == [NSNull null]){
+        stateInfo = @{};
+    }
+    
     ANFixture* fixture = [[ANFixture alloc] initWithAddress:anAddress];
-    fixture.name = aName;
-    fixture.config = [[NSMutableDictionary alloc] initWithDictionary:[decoder decodeObjectForKey:kStateKey]];
     [fixture loadFixtureDefinition:configPath];
+    fixture.name = aName;
+    fixture.config = [[NSMutableDictionary alloc] initWithDictionary:stateInfo];
     
     for(NSString* key in [fixture.config allKeys]){
         if([key isEqualToString:@"color"]){
