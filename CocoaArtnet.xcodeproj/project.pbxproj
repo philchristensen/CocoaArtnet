@@ -14,6 +14,7 @@
 		4A46FA2A1732059A009BE905 /* ANRig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A46FA291732059A009BE905 /* ANRig.m */; };
 		4A46FA2B17320D59009BE905 /* ANRig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A46FA281732059A009BE905 /* ANRig.h */; };
 		4A5683B016CDAE0500970FC3 /* ANDmxPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5683AF16CDAE0500970FC3 /* ANDmxPacket.m */; };
+		4A619ADC190DAFFB004396E9 /* ArtNetPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A619ADB190DAFFB004396E9 /* ArtNetPacket.m */; };
 		4A8729B616D6FC7C00750B6C /* ANController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8729B516D6FC7C00750B6C /* ANController.m */; };
 		4A8729B716D6FC7C00750B6C /* ANController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8729B516D6FC7C00750B6C /* ANController.m */; };
 		4A8CFC7517492C1F00D7870B /* ANCue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8CFC7417492C1F00D7870B /* ANCue.m */; };
@@ -77,6 +78,8 @@
 		4A46FA291732059A009BE905 /* ANRig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANRig.m; sourceTree = "<group>"; };
 		4A5683AE16CDAE0500970FC3 /* ANDmxPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDmxPacket.h; sourceTree = "<group>"; };
 		4A5683AF16CDAE0500970FC3 /* ANDmxPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDmxPacket.m; sourceTree = "<group>"; };
+		4A619ADA190DAFFB004396E9 /* ArtNetPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtNetPacket.h; sourceTree = "<group>"; };
+		4A619ADB190DAFFB004396E9 /* ArtNetPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtNetPacket.m; sourceTree = "<group>"; };
 		4A8729B416D6FC7C00750B6C /* ANController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANController.h; sourceTree = "<group>"; };
 		4A8729B516D6FC7C00750B6C /* ANController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANController.m; sourceTree = "<group>"; };
 		4A8CFC7317492C1F00D7870B /* ANCue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCue.h; sourceTree = "<group>"; };
@@ -194,6 +197,8 @@
 				4A5683AF16CDAE0500970FC3 /* ANDmxPacket.m */,
 				4AC2700C16CDA8F100648C5F /* ANPacket.h */,
 				4AC2700D16CDA8F100648C5F /* ANPacket.m */,
+				4A619ADA190DAFFB004396E9 /* ArtNetPacket.h */,
+				4A619ADB190DAFFB004396E9 /* ArtNetPacket.m */,
 			);
 			path = CocoaArtnet;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				4AE4371416DC47F1003B792D /* ANFixture.m in Sources */,
 				4A46FA2A1732059A009BE905 /* ANRig.m in Sources */,
 				4A8CFC7517492C1F00D7870B /* ANCue.m in Sources */,
+				4A619ADC190DAFFB004396E9 /* ArtNetPacket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
