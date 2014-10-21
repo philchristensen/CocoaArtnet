@@ -18,35 +18,36 @@ do { \
 } while (0)
 
 @interface ANController : NSObject
-	@property NSString* interfaceAddress;
-	@property float beatsPerMinute;
-	@property int barLength;
-	@property float framesPerSecond;
-	@property float framesPerBeat;
+    @property NSString* interfaceAddress;
+    @property float beatsPerMinute;
+    @property int barLength;
+    @property float framesPerSecond;
+    @property float framesPerBeat;
 
     @property GCDAsyncUdpSocket* socket;
-	@property NSMutableArray* latestFrame;
-	@property NSMutableArray* generators;
-	@property NSThread* thread;
+    @property NSMutableArray* latestFrame;
+    @property NSMutableArray* generators;
+    @property NSThread* thread;
 
-	@property int beatClock;
-	@property int secondFrameClock;
-	@property int beatFrameClock;
+    @property int beatClock;
+    @property int secondFrameClock;
+    @property int beatFrameClock;
     @property BOOL running;
     @property BOOL paused;
 
-	-(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps;
-	-(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats;
-	-(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm;
+    -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats andFPS: (float) fps;
+    -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm andBarLength:(int) beats;
+    -(ANController*) initWithAddress: (NSString*) address andBPM:(float) bpm;
 
-	-(NSMutableArray*) createFrame;
-	-(void) start;
-	-(void) run;
-	-(void) wait;
+    -(NSMutableArray*) createFrame;
+    -(void) start;
+    -(void) run;
+    -(void) wait;
     -(void) stop;
     -(void) pause;
     -(void) resume;
-	-(void) iterate;
-	-(void) add: (NSString*) selector onTarget: (id) target;
-	-(void) send: (NSArray*) frame;
+    -(void) iterate;
+    -(void) add: (NSString*) selector onTarget: (id) target;
+    -(void) send: (NSArray*) frame;
+    -(void) handleArtnetPolling;
 @end
